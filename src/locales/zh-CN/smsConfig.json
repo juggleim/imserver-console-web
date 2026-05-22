@@ -1,0 +1,37 @@
+{
+  "dialog": {
+    "title": "短信设置",
+    "channel": "短信通道"
+  },
+  "feedback": {
+    "createFailed": "添加失败: {code}",
+    "updateFailed": "修改失败: {code}",
+    "fetchFailed": "获取配置失败: {code}",
+    "success": "操作成功"
+  },
+  "status": {
+    "enabled": "【已启用】",
+    "unset": "未设置"
+  },
+  "action": {
+    "settings": "设置"
+  },
+  "provider": {
+    "baidu": "百度",
+    "smsbao": "短信宝"
+  },
+  "field": {
+    "api_key": "APIKey",
+    "secret_key": "SecretKey",
+    "endpoint": "Endpoint",
+    "template": "模版",
+    "signature_id": "签名 ID",
+    "is_used": "是否启用",
+    "username": "名称",
+    "password": "密码"
+  },
+  "option": {
+    "enable": "启用",
+    "disable": "禁用"
+  }
+}

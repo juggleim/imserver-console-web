@@ -1,0 +1,12 @@
+{
+  "api": {
+    "SUCCESS": "Success",
+    "SUCCESS_0": "Success",
+    "USER_LOGIN_FAILED": "Account or password is incorrect",
+    "USER_BLOCKED": "This user is disabled. Please contact an administrator",
+    "USER_EXISTS": "The user already exists",
+    "USER_OLDPWD_WRONG": "The current password is incorrect",
+    "APP_EXISTS": "The app already exists",
+    "USER_TOKEN_EXPIRE": "The login session has expired"
+  }
+}

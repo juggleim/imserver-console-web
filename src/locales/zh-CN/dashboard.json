@@ -1,0 +1,11 @@
+{
+  "title": "我的应用",
+  "field": {
+    "appStatus": "应用状态"
+  },
+  "status": {
+    "normal": "未上线",
+    "online": "已上线",
+    "blocked": "已禁用"
+  }
+}

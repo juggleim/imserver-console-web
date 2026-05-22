@@ -1,0 +1,165 @@
+{
+  "connection": {
+    "tab": {
+      "manager": "Connections"
+    },
+    "page": {
+      "eyebrow": "Connection Inspector",
+      "managerHint": "Search connection records by time and user ID, then open a record to inspect its full signaling timeline.",
+      "detailHint": "You are viewing a connection detail tab. Click the time chip to copy the exact timestamp for log inspection.",
+      "openTabs": "Open Details",
+      "loadedItems": "Loaded Items"
+    },
+    "field": {
+      "userId": "User ID"
+    },
+    "table": {
+      "connectTime": "Connected At",
+      "sessionId": "Session ID",
+      "platform": "Platform",
+      "clientIp": "Client IP",
+      "operation": "Actions"
+    },
+    "action": {
+      "search": "Search",
+      "viewDetails": "View Details",
+      "next": "Next",
+      "copyTime": "Time copied"
+    },
+    "status": {
+      "success": "Success",
+      "failed": "Failed"
+    },
+    "empty": {
+      "connections": "No connection data",
+      "signals": "No signaling data"
+    },
+    "feedback": {
+      "requestFailed": "Error: {code} {msg}"
+    }
+  },
+  "api": {
+    "title": "API Debug",
+    "request": "Request",
+    "response": "Response",
+    "send": "Send",
+    "catalog": {
+      "category": {
+        "消息相关": "Messages",
+        "敏感词相关": "Sensitive Words",
+        "用户相关": "Users",
+        "历史消息": "History",
+        "会话相关": "Conversations",
+        "标签推送相关": "Tag Push",
+        "群组相关": "Groups",
+        "聊天室相关": "Chatrooms",
+        "聊天室属性": "Chatroom Attributes",
+        "聊天室禁言": "Chatroom Mute",
+        "聊天室封禁": "Chatroom Ban",
+        "聊天室白名单": "Chatroom Allowlist"
+      },
+      "name": {
+        "发送单聊消息": "Send Private Message",
+        "发送群聊消息": "Send Group Message",
+        "发送系统消息": "Send System Message",
+        "发送群发消息": "Send Groupcast Message",
+        "发送广播消息": "Send Broadcast Message",
+        "标记消息已读": "Mark Messages as Read",
+        "添加敏感词": "Add Sensitive Word",
+        "删除敏感词": "Delete Sensitive Word",
+        "查询敏感词": "Query Sensitive Words",
+        "用户注册": "Register User",
+        "封禁用户": "Ban User",
+        "解禁用户": "Unban User",
+        "查询封禁列表": "Query Ban List",
+        "查询在线状态": "Query Online Status",
+        "设置单聊禁言": "Mute Private Chat",
+        "解除单聊禁言": "Unmute Private Chat",
+        "单聊禁言列表": "Private Chat Mute List",
+        "更新用户信息": "Update User Info",
+        "查询用户信息": "Query User Info",
+        "踢用户下线": "Kick User Offline",
+        "删除消息": "Delete Messages",
+        "撤回消息": "Recall Message",
+        "清空历史消息": "Clear History Messages",
+        "查询历史消息": "Query History Messages",
+        "设置免打扰": "Set Do Not Disturb",
+        "删除会话": "Delete Conversation",
+        "添加会话": "Add Conversation",
+        "查询全局会话列表": "Query Global Conversations",
+        "添加用户标签": "Add User Tags",
+        "删除用户标签": "Delete User Tags",
+        "清除用户标签": "Clear User Tags",
+        "查询用户标签": "Query User Tags",
+        "全员/标签推送": "Broadcast or Tag Push",
+        "创建群组": "Create Group",
+        "解散群组": "Dissolve Group",
+        "更新群信息": "Update Group Info",
+        "查询群信息": "Query Group Info",
+        "设置群禁言": "Set Group Mute",
+        "更新群设置": "Update Group Settings",
+        "添加群成员": "Add Group Members",
+        "移除群成员": "Remove Group Members",
+        "查询群成员": "Query Group Members",
+        "设置群成员禁言": "Mute Group Members",
+        "设置群成员白名单": "Set Group Member Allowlist",
+        "按成员 ID 查询信息": "Query Members by ID",
+        "创建聊天室": "Create Chatroom",
+        "销毁聊天室": "Destroy Chatroom",
+        "查询聊天室信息": "Query Chatroom Info",
+        "设置聊天室属性": "Set Chatroom Attributes",
+        "删除聊天室属性": "Delete Chatroom Attributes",
+        "查询聊天室属性": "Query Chatroom Attributes",
+        "查询聊天室全量属性": "Query All Chatroom Attributes",
+        "添加聊天室成员禁言": "Mute Chatroom Members",
+        "移除聊天室成员禁言": "Unmute Chatroom Members",
+        "查询禁言聊天室成员": "Query Muted Chatroom Members",
+        "添加聊天室成员封禁": "Ban Chatroom Members",
+        "移除聊天室成员封禁": "Unban Chatroom Members",
+        "查询封禁的聊天室成员": "Query Banned Chatroom Members",
+        "添加聊天室成员白名单": "Add Chatroom Allowlist Members",
+        "移除聊天室成员白名单": "Remove Chatroom Allowlist Members"
+      },
+      "prompt": {
+        "请修改上方 URL 参数进行调试": "Update the URL parameters above for debugging"
+      }
+    }
+  },
+  "role": {
+    "title": "Role Management",
+    "action": {
+      "addUser": "Add User"
+    },
+    "table": {
+      "name": "User Name",
+      "account": "Account",
+      "status": "Enabled",
+      "createdTime": "Created At",
+      "operation": "Actions"
+    },
+    "field": {
+      "name": "User Name",
+      "password": "Password",
+      "status": "Enabled"
+    }
+  },
+  "notice": {
+    "title": "User Notifications"
+  },
+  "enterprise": {
+    "title": "Verification Info",
+    "field": {
+      "companyName": "Company Name",
+      "address": "Registered Address",
+      "socialCode": "Unified Social Credit Code",
+      "legalPerson": "Legal Representative",
+      "phone": "Company Phone",
+      "website": "Company Website",
+      "businessLicense": "Business License"
+    },
+    "sample": {
+      "companyName": "SnailChat Technology Co., Ltd.",
+      "address": "Yanqing District, Beijing"
+    }
+  }
+}

@@ -1,4 +1,6 @@
 import utils from "./utils";
+import { User } from '../services';
+import { RESPONSE } from './enum'
 
 function getRangeDate(num){
   let dayMs = num * 24 * 60 * 60 * 1000;
@@ -65,17 +67,60 @@ function formatDauChat(result){
  
   return { dates, daus };
 }
-function isValidateUrl(url) {
-  if (typeof url !== 'string'){
-    return false;
-  };
-  let strictUrlRegex = /^https?:\/\/(?:www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b(?:[-a-zA-Z0-9()@:%_\+.~#?&\/=]*)$/;
-  return strictUrlRegex.test(url);
+function getAvatarNum(content){
+  let num = 0;
+  if(content.length > 0){
+    num = content.charCodeAt(0) % 6;
+  }
+  return num;
 }
+function uploadImage(appkey, file, callback){
+  User.getFileToken({ app_key: appkey, file_type: 1, ext: 'png' }).then(({ code, data }) => {
+    if(!utils.isEqual(code, RESPONSE.SUCCESS)){
+      return callback(code);
+    }
+    compress(file, (thumbnail) => {
+      let { pre_sign_resp: { url } } = data;
+      let xhr = new XMLHttpRequest();
+      xhr.onreadystatechange=function(){
+        if (utils.isEqual(xhr.readyState, 4)){
+          url = url.split('?')[0]
+          callback(RESPONSE.SUCCESS, url);
+        }
+      }
+      xhr.open('PUT', url, true);
+      xhr.setRequestHeader('Content-Type', '');
+      xhr.send(thumbnail);
+    });
+  });
+}
+let compress = (file, callback, option = {}) => {
+    let { scale = 0.2, fileCompressLimit = 500 } = option;
+    let size = file.size / 1000;
+    
+    let img = new Image();
+    img.src = URL.createObjectURL(file);
+    img.onload = function () {
+      compressImage();
+    };
+    var compressImage = function () {
+      var canvas = document.createElement("canvas");
+      let height = img.height;
+      let width = img.width;
+      canvas.width = width * scale;
+      canvas.height = height * scale;
+      canvas.getContext('2d').drawImage(img, 0, 0, canvas.width, canvas.height);
+      canvas.toBlob((blob) => {
+        var thumbnail = new File([blob], 'tb.png', { type: 'image/png' });
+        callback(thumbnail, { height, width, type: 'image/png' });
+      });
+    };
+  };
 export default {
   getRangeDate,
   calcYesterday,
   formatDauChat,
   formatChatData,
-  isValidateUrl,
+  getAvatarNum,
+  uploadImage,
 }

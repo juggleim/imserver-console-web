@@ -2,6 +2,7 @@
 import Dialog from './dialog.vue';
 import { reactive, getCurrentInstance, watch } from 'vue';
 import utils from '../common/utils';
+import { t } from '@/i18n';
 
 const context = getCurrentInstance();
 const props = defineProps(['domains']);
@@ -25,7 +26,7 @@ function onSave(){
     let domain = domains[i];
     
     if(!utils.isURL(domain)){
-      return context.proxy.$toast({ icon: 'error', text: `${domain} 格式不正确` });
+      return context.proxy.$toast({ icon: 'error', text: t('switchConfig.domainDialog.invalid', { domain }) });
     }
   }
   emit('save', { domains });
@@ -42,16 +43,16 @@ watch(() => props.domains, () => {
 </script>
 
 <template>
- <Dialog :title="'安全域名'" :btn-title="'保存'" :class="['cim-security-dialog']" @hide="onHide" @save="onSave" >
+ <Dialog :title="t('switchConfig.domainDialog.title')" :btn-title="t('common.dialog.save')" :class="['cim-security-dialog']" @hide="onHide" @save="onSave" >
     <div class="form-floating">
       <textarea class="form-control" style="width: 36rem;height: 10rem;resize: none;" placeholder=" " v-model="state.text"></textarea>
-      <label>请输入安全域名, 多个域名请用【英文分号】分割，取消设置安全域名，清空保存即可</label>
+      <label>{{ t('switchConfig.domainDialog.hint') }}</label>
     </div>
     <div class="form-example">
-      <div class="title">域名示例：</div>
+      <div class="title">{{ t('switchConfig.domainDialog.exampleTitle') }}</div>
       <ul>
         <li>https://example.com;http://im.fake.com;http://127.0.0.1:8305</li>
-        <li class="warn">配置安全域名后，Web 只能在已设置的域名下连接 IM Server，生产环境请谨慎使用</li>
+        <li class="warn">{{ t('switchConfig.domainDialog.warning') }}</li>
       </ul>
     </div>
  </Dialog>

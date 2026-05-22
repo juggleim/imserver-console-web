@@ -1,0 +1,39 @@
+{
+  "status": {
+    "enabled": "[Enabled]",
+    "disabled": "[Disabled]",
+    "unset": "Not set"
+  },
+  "action": {
+    "settings": "Settings",
+    "disable": "Disable",
+    "enable": "Enable"
+  },
+  "dialog": {
+    "title": "Translation Settings",
+    "channel": "Translation Channel"
+  },
+  "feedback": {
+    "createFailed": "Create failed: {code}",
+    "updateFailed": "Update failed: {code}",
+    "fetchFailed": "Failed to load config: {code}",
+    "success": "Operation succeeded"
+  },
+  "provider": {
+    "baidu": "Baidu Translate",
+    "deepl": "DeepL"
+  },
+  "field": {
+    "api_key": "APIKey",
+    "secret_key": "SecretKey",
+    "auth_key": "AuthKey",
+    "is_used": "Enabled"
+  },
+  "option": {
+    "enable": "Enable",
+    "disable": "Disable"
+  },
+  "validation": {
+    "required": "{name} is required"
+  }
+}

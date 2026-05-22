@@ -1,0 +1,74 @@
+{
+  "title": "用户管理",
+  "action": {
+    "addUser": "添加用户",
+    "bindApp": "绑定应用",
+    "delete": "删除",
+    "enable": "启用",
+    "disable": "禁用"
+  },
+  "table": {
+    "account": "用户账号",
+    "role": "账户类型",
+    "password": "用户密码",
+    "status": "是否启用",
+    "createdTime": "创建时间",
+    "operation": "操作"
+  },
+  "role": {
+    "admin": "管理员",
+    "user": "普通用户"
+  },
+  "dialog": {
+    "title": "添加用户",
+    "bindTitle": "绑定应用"
+  },
+  "field": {
+    "account": "用户名称",
+    "password": "用户密码",
+    "confirmPassword": "确认密码",
+    "userRole": "用户角色"
+  },
+  "validation": {
+    "accountRequired": "账户名称不能为空",
+    "passwordRequired": "密码不能为空",
+    "passwordMismatch": "两次密码输入不一致"
+  },
+  "feedback": {
+    "operateSuccess": "操作成功",
+    "deleteSuccess": "删除成功",
+    "passwordUpdated": "修改密码成功",
+    "saveSuccess": "保存成功",
+    "saveFailed": "保存失败，请重试",
+    "bindSuccess": "绑定成功"
+  },
+  "bindDialog": {
+    "availableApps": "应用列表",
+    "boundApps": "已绑定列表"
+  },
+  "userList": {
+    "field": {
+      "userId": "用户 ID",
+      "userName": "用户名称"
+    },
+    "table": {
+      "nickname": "用户昵称",
+      "userId": "用户 ID",
+      "registeredTime": "注册时间",
+      "account": "用户账号",
+      "phone": "手机号",
+      "email": "邮箱",
+      "status": "用户状态",
+      "operation": "操作"
+    },
+    "status": {
+      "normal": "正常",
+      "blocked": "已封禁"
+    },
+    "feedback": {
+      "banned": "已封禁",
+      "unbanned": "已解封",
+      "requestFailed": "Error: {code} {msg}"
+    }
+  }
+}

@@ -1,0 +1,37 @@
+{
+  "action": {
+    "add": "添加",
+    "import": "导入词库",
+    "delete": "删除"
+  },
+  "table": {
+    "word": "词语",
+    "filterType": "过滤类型",
+    "operation": "操作"
+  },
+  "type": {
+    "filter": "过滤",
+    "replace": "替换（****）"
+  },
+  "dialog": {
+    "warningTitle": "警告",
+    "warningContent": "你确定要删除？",
+    "addWordTitle": "添加敏感词",
+    "importTitle": "导入词库",
+    "wordLibrary": "词库"
+  },
+  "field": {
+    "word": "敏感词"
+  },
+  "placeholder": {
+    "word": "请输入敏感词",
+    "filterType": "请选择过滤类型"
+  },
+  "feedback": {
+    "deleteSuccess": "删除成功",
+    "addSuccess": "添加成功",
+    "importSuccess": "导入成功",
+    "formIncomplete": "请填写完整信息",
+    "loading": "请稍候..."
+  }
+}

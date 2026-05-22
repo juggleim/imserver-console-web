@@ -1,0 +1,127 @@
+{
+  "app": {
+    "title": {
+      "list": "应用列表"
+    },
+    "table": {
+      "appName": "应用名称",
+      "licenseCount": "授权个数",
+      "usedLicenseCount": "已使用授权数量",
+      "unusedLicenseCount": "未使用授权数量",
+      "expireTime": "到期时间",
+      "createdTime": "创建时间",
+      "operation": "操作"
+    },
+    "feedback": {
+      "createSuccess": "创建成功"
+    }
+  },
+  "sample": {
+    "companyName": "北京未来科技有限公司",
+    "receiverCompany": "北京追风未来科技有限公司",
+    "receiverBank": "北京工商银行人民大学支行",
+    "wechat": "微信",
+    "serviceTitleAndroid": "集成 Android SDK 报错",
+    "serviceTitleIos": "集成 iOS SDK 报错",
+    "serviceTitleGeneric": "问题怎么看"
+  },
+  "finance": {
+    "dashboard": {
+      "availableBalance": "可用余额",
+      "recharge": "充值汇款",
+      "details": "收支明细",
+      "cashBalance": "现金余额",
+      "arrears": "欠费金额",
+      "frozenAmount": "冻结金额"
+    },
+    "recharge": {
+      "tab": {
+        "online": "在线充值",
+        "public": "对公汇款"
+      },
+      "field": {
+        "rechargeAccount": "充值账号",
+        "accountBalance": "账户余额",
+        "rechargeAmount": "充值金额",
+        "payType": "支付类型",
+        "receiverName": "收款名称",
+        "receiverAccount": "收款账号",
+        "receiverBank": "收款银行"
+      },
+      "payType": {
+        "wechat": "微信支付",
+        "alipay": "支付宝"
+      }
+    },
+    "bill": {
+      "title": "历史账单"
+    },
+    "rechargeList": {
+      "title": "充值记录"
+    },
+    "table": {
+      "invoiceTitle": "开票抬头",
+      "invoiceAmount": "开票金额",
+      "invoiceType": "发票类型",
+      "status": "状态",
+      "invoiceTime": "开票时间"
+    },
+    "invoiceType": {
+      "normal": "普通发票",
+      "special": "专用发票"
+    },
+    "status": {
+      "sent": "已寄出"
+    }
+  },
+  "invoice": {
+    "draw": {
+      "title": "待开票记录",
+      "table": {
+        "rechargeSubject": "充值主体",
+        "rechargeAmount": "充值金额",
+        "invoiceAmount": "可开票金额",
+        "rechargeType": "充值方式",
+        "rechargeTime": "充值时间"
+      },
+      "total": "开票金额合计：",
+      "field": {
+        "invoiceTitle": "发票抬头",
+        "taxNumber": "纳税人识别号",
+        "receiver": "接收人",
+        "phone": "手机号",
+        "email": "邮箱地址",
+        "address": "收件地址",
+        "remark": "开票备注"
+      },
+      "invoiceType": {
+        "online": "增值税普通发票（电子）",
+        "paper": "增值税普通发票（纸质）"
+      }
+    },
+    "list": {
+      "title": "开票记录"
+    }
+  },
+  "service": {
+    "orderList": {
+      "table": {
+        "orderNo": "工单号",
+        "title": "标题",
+        "status": "状态",
+        "replyTime": "最后回复时间",
+        "operation": "操作"
+      },
+      "status": {
+        "processing": "处理中"
+      }
+    },
+    "orderCreate": {
+      "field": {
+        "title": "工单标题",
+        "description": "问题描述",
+        "attachments": "添加附件"
+      }
+    }
+  }
+}

@@ -1,0 +1,22 @@
+{
+  "sectionTitle": "Basic Info",
+  "field": {
+    "accountName": "Account Name",
+    "accountPassword": "Account Password",
+    "currentPassword": "Current Password",
+    "newPassword": "New Password"
+  },
+  "action": {
+    "edit": "Edit"
+  },
+  "dialog": {
+    "title": "Change Password"
+  },
+  "validation": {
+    "currentPasswordRequired": "Current password is required",
+    "newPasswordRequired": "New password is required"
+  },
+  "feedback": {
+    "success": "Password updated successfully"
+  }
+}

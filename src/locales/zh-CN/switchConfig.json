@@ -1,0 +1,35 @@
+{
+  "section": {
+    "app": "应用相关",
+    "message": "消息相关",
+    "group": "群组相关",
+    "chatroom": "聊天室相关"
+  },
+  "item": {
+    "token_effective_minute": "Token 有效时长（小时）",
+    "kick_mode": "允许用户多移动端同时登录",
+    "security_domains": "安全域名",
+    "is_hide_msg_before_join_group": "入群后获取之前的历史消息",
+    "not_check_grp_member": "不在群组是否可以获取群消息",
+    "his_msg_save_day": "历史消息存储时长 (天)",
+    "max_grp_member_count": "群人数上限",
+    "chrm_msg_cache_max_count": "单个聊天室消息桶大小",
+    "chrm_att_max_count": "单个聊天室属性数量",
+    "chrm_event_ntf": "是否开启聊天室事件通知",
+    "chrm_event_cache_max_count": "单个聊天室事件桶大小"
+  },
+  "option": {
+    "save7days": "7 天",
+    "save1year": "1 年"
+  },
+  "feedback": {
+    "saveSuccess": "保存成功"
+  },
+  "domainDialog": {
+    "title": "安全域名",
+    "hint": "请输入安全域名, 多个域名请用【英文分号】分割，取消设置安全域名，清空保存即可",
+    "exampleTitle": "域名示例：",
+    "warning": "配置安全域名后，Web 只能在已设置的域名下连接 IM Server，生产环境请谨慎使用",
+    "invalid": "{domain} 格式不正确"
+  }
+}

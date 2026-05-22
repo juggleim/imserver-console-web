@@ -1,0 +1,33 @@
+{
+  "field": {
+    "currentStorage": "正在使用存储",
+    "storageType": "设置存储类型",
+    "useHttps": "启用 HTTPS"
+  },
+  "channel": {
+    "aws": "AWS",
+    "qiniu": "七牛云",
+    "oss": "阿里云",
+    "minio": "MinIO"
+  },
+  "dialog": {
+    "addConfig": "添加配置",
+    "editConfig": "修改配置"
+  },
+  "action": {
+    "saveSettings": "保存设置",
+    "addConfig": "添加 {name} 配置"
+  },
+  "option": {
+    "enabled": "启用",
+    "disabled": "禁用"
+  },
+  "feedback": {
+    "addSuccess": "添加成功，请选择存储类型后，保存设置",
+    "editSuccess": "修改成功，请选择存储类型后，保存设置",
+    "saveSuccess": "保存成功"
+  },
+  "helper": {
+    "addConfigFirst": "请优先添加文件存储配置"
+  }
+}

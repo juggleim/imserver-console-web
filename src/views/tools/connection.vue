@@ -7,6 +7,8 @@ import { Inspect } from "../../services";
 import ConnManger from "./conns/mange.vue";
 import ConnSignal from "./conns/signal.vue";
 import { useRouter } from "vue-router";
+import { t } from '@/i18n';
+import PageSection from '@/components/page-section.vue';
 
 let router = useRouter();
 let { currentRoute: { _rawValue: { params: { app_key } } } } = router;
@@ -16,7 +18,7 @@ let state = reactive({
   isShowEdit: false,
   current: { session: 'manger' },
   tabs: [
-    { connTimeName: '连接信息', session: 'manger', isActive: true, isClose: false, content: '123' },
+    { connTimeName: t('tools.connection.tab.manager'), session: 'manger', isActive: true, isClose: false, content: '123' },
   ]
 });
 function onChanged(item, index){
@@ -84,7 +86,7 @@ function getSignals(params, callback){
       let _list = formatLogs(logs);
       callback({ list: _list, index });
     }else{
-      context.proxy.$toast({ icon: 'error', text: `Error: ${code} ${msg}` });
+      context.proxy.$toast({ icon: 'error', text: t('tools.connection.feedback.requestFailed', { code, msg }, `Error: ${code} ${msg}`) });
     }
   })
 }
@@ -121,13 +123,13 @@ function formatLogs(logs){
 function removeAttrs(log){
   let { code} = log;
   
-  let error = { name: '成功', value: '', cls: 'success' }
+  let error = { name: t('tools.connection.status.success'), value: '', cls: 'success' }
   if(!utils.isUndefined(code)){
     let index = utils.find(IM_ERRORS, (item) => {
       return utils.isEqual(item.code, code);
     });
     let errorItem = IM_ERRORS[index] || { code: code, msg: '' }
-    error = { name: '失败', value: `: ${errorItem.code} ${errorItem.msg}`, cls: 'warn' }
+    error = { name: t('tools.connection.status.failed'), value: `: ${errorItem.code} ${errorItem.msg}`, cls: 'warn' }
   }
 
   let attrs = ['action', 'app_key', 'method', 'session', 'timestamp', 'code', 'real_time'];
@@ -150,7 +152,7 @@ function format(date, fmt = 'yyyy-MM-dd hh:mm') {
 }
 </script>
 <template>
-  <div class="cim-tcon-container">
+  <PageSection title-key="menu.dev.connectionInspect" body-class="cim-tcon-container">
     <ul class="cim-tcon-headers nav nav-tabs" ref="navs">
       <li class="cim-tcon-nav-item nav-item fadeinx" v-for="(tab, index) in state.tabs" :class="[!tab.isClose ? 'cim-tcon-nav-item-ab' : '']">
         <span v-if="tab.isClose" class="nav-close cicon cicon-close-c" @click="onClose(index)"></span>
@@ -170,5 +172,5 @@ function format(date, fmt = 'yyyy-MM-dd hh:mm') {
         <ConnSignal v-else :conn="tab" @next="onNext"></ConnSignal>
       </li>
     </ul>
-</div>
+  </PageSection>
 </template>

@@ -1,16 +1,15 @@
 <script setup lang="ts">
   import { RouterView, useRoute } from 'vue-router';
-  import { watch } from 'vue';
+  import { computed, watch } from 'vue';
   import {
-    dateZhCN,
     GlobalThemeOverrides,
     NConfigProvider,
     NDialogProvider,
     NMessageProvider,
-    zhCN,
   } from 'naive-ui';
   import Storage from '@/common/storage';
   import { STORAGE } from '@/common/enum';
+  import { getLocaleState, getNaiveLocaleConfig } from '@/i18n';
 
   const themeOverrides: GlobalThemeOverrides = {
     common: {
@@ -30,6 +29,8 @@
     // ...
   };
   const route = useRoute();
+  const localeState = getLocaleState();
+  const naiveLocaleConfig = computed(() => getNaiveLocaleConfig(localeState.locale));
   Storage.set(STORAGE.APP_KEY,  route.params.app_key);
   watch(
     () => route.params.app_key,
@@ -40,7 +41,11 @@
 </script>
 
 <template>
-  <n-config-provider :locale="zhCN" :date-locale="dateZhCN" :theme-overrides="themeOverrides">
+  <n-config-provider
+    :locale="naiveLocaleConfig.locale"
+    :date-locale="naiveLocaleConfig.dateLocale"
+    :theme-overrides="themeOverrides"
+  >
     <n-dialog-provider>
       <n-message-provider>
         <RouterView />

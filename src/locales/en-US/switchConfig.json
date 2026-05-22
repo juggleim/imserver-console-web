@@ -1,0 +1,35 @@
+{
+  "section": {
+    "app": "App Settings",
+    "message": "Message Settings",
+    "group": "Group Settings",
+    "chatroom": "Chatroom Settings"
+  },
+  "item": {
+    "token_effective_minute": "Token validity (hours)",
+    "kick_mode": "Allow multi-end login on the same device",
+    "security_domains": "Security domains",
+    "is_hide_msg_before_join_group": "Fetch history sent before joining a group",
+    "not_check_grp_member": "Allow non-members to fetch group messages",
+    "his_msg_save_day": "Message retention (days)",
+    "max_grp_member_count": "Group member limit",
+    "chrm_msg_cache_max_count": "Chatroom message bucket size",
+    "chrm_att_max_count": "Chatroom attribute limit",
+    "chrm_event_ntf": "Enable chatroom event notifications",
+    "chrm_event_cache_max_count": "Chatroom event bucket size"
+  },
+  "option": {
+    "save7days": "7 days",
+    "save1year": "1 year"
+  },
+  "feedback": {
+    "saveSuccess": "Saved successfully"
+  },
+  "domainDialog": {
+    "title": "Security domains",
+    "hint": "Enter security domains separated by semicolons. Clear the field and save to remove all configured domains.",
+    "exampleTitle": "Domain examples:",
+    "warning": "After security domains are configured, Web clients can only connect to IM Server from the allowed domains. Use with caution in production.",
+    "invalid": "{domain} format is invalid"
+  }
+}

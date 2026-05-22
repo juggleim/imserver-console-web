@@ -32,9 +32,43 @@ function setRTC(data){
   });
 }
 
+function getEmail(params = {}){
+  let { app_key } = params;
+  let url = `${SERVER_PATH.R3D_EMAIL_GET}?app_key=${app_key}`;
+  return request(url, {
+    method: 'GET'
+  });
+}
+
+function setEmail(data){
+  return request(SERVER_PATH.R3D_EMAIL_SET, {
+    method: 'POST',
+    body: utils.toJSON(data)
+  });
+}
+
+function getSms(params = {}){
+  let { app_key } = params;
+  let url = `${SERVER_PATH.R3D_SMS_GET}?app_key=${app_key}`;
+  return request(url, {
+    method: 'GET'
+  });
+}
+
+function setSms(data){
+  return request(SERVER_PATH.R3D_SMS_SET, {
+    method: 'POST',
+    body: utils.toJSON(data)
+  });
+}
+
 export default {
   getTranslate,
   setTranslate,
   getRTC,
   setRTC,
+  getEmail,
+  setEmail,
+  getSms,
+  setSms,
 }

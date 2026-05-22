@@ -3,6 +3,7 @@ import Dialog from './dialog.vue';
 import { reactive, getCurrentInstance, watch } from 'vue';
 import utils from '../common/utils';
 import { R3D_USE_TYPE } from '../common/enum';
+import { t } from '@/i18n';
 
 const context = getCurrentInstance();
 const props = defineProps(['show', 'title','channel', 'list', 'custom']);
@@ -19,7 +20,11 @@ function onSave(){
   for(let i = 0; i < fields.length; i++){
     let filed = fields[i];
     if(utils.isEmpty(filed.value)){
-      return context.proxy.$toast({ icon: 'error', text: `${filed.name} 不可为空` });
+      let fieldName = filed.displayLabelKey ? t(filed.displayLabelKey, {}, filed.name) : filed.name;
+      return context.proxy.$toast({ icon: 'error', text: t('translateConfig.validation.required', { name: fieldName }) });
+    }
+    if(filed.type == 'text'){
+      filed.value = filed.value.toString();
     }
   }
   emit('save', { uid: channelUid, fields: utils.clone(fields) });
@@ -53,7 +58,7 @@ watch(() => props.show, () => {
       <div>
         <div class="form-floating">
           <select class="form-select" v-model="state.channelUid" :disabled="true">
-            <option :value="item.uid" v-for="item in props.list" >{{ item.name }}</option>
+            <option :value="item.uid" v-for="item in props.list" >{{ item.displayNameKey ? t(item.displayNameKey, {}, item.name) : item.name }}</option>
           </select>
           <label>{{ props.custom }}</label>
         </div>
@@ -61,13 +66,13 @@ watch(() => props.show, () => {
       <div v-for="field in state.fields">
         <div class="form-floating cim-from-must cicon cicon-must" v-if="field.type == 'text' || field.type == 'number'">
           <input class="form-control" placeholder="placeholder" :type="field.type" v-model="field.value">
-          <label>{{ field.name }}</label>
+          <label>{{ field.displayLabelKey ? t(field.displayLabelKey, {}, field.name) : field.name }}</label>
         </div>
         <div class="form-floating" v-if="field.type == 'select'">
           <select class="form-select" v-model="field.value">
-            <option :value="child.value" v-for="child in field.children" >{{ child.label }}</option>
+            <option :value="child.value" v-for="child in field.children" >{{ child.displayLabelKey ? t(child.displayLabelKey, {}, child.label) : child.label }}</option>
           </select>
-          <label>{{ field.name }}</label>
+          <label>{{ field.displayLabelKey ? t(field.displayLabelKey, {}, field.name) : field.name }}</label>
         </div>
       </div>
       

@@ -1,0 +1,11 @@
+{
+  "title": "My Apps",
+  "field": {
+    "appStatus": "Status"
+  },
+  "status": {
+    "normal": "Not Online",
+    "online": "Online",
+    "blocked": "Blocked"
+  }
+}

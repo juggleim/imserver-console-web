@@ -1,0 +1,37 @@
+{
+  "dialog": {
+    "title": "SMS Settings",
+    "channel": "SMS Channel"
+  },
+  "feedback": {
+    "createFailed": "Create failed: {code}",
+    "updateFailed": "Update failed: {code}",
+    "fetchFailed": "Failed to load config: {code}",
+    "success": "Operation succeeded"
+  },
+  "status": {
+    "enabled": "[Enabled]",
+    "unset": "Not set"
+  },
+  "action": {
+    "settings": "Settings"
+  },
+  "provider": {
+    "baidu": "Baidu",
+    "smsbao": "SMSBao"
+  },
+  "field": {
+    "api_key": "APIKey",
+    "secret_key": "SecretKey",
+    "endpoint": "Endpoint",
+    "template": "Template",
+    "signature_id": "Signature ID",
+    "is_used": "Enabled",
+    "username": "Username",
+    "password": "Password"
+  },
+  "option": {
+    "enable": "Enable",
+    "disable": "Disable"
+  }
+}

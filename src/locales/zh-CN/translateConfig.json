@@ -1,0 +1,39 @@
+{
+  "status": {
+    "enabled": "【已启用】",
+    "disabled": "【未启用】",
+    "unset": "未设置"
+  },
+  "action": {
+    "settings": "设置",
+    "disable": "停用",
+    "enable": "启用"
+  },
+  "dialog": {
+    "title": "翻译设置",
+    "channel": "翻译通道"
+  },
+  "feedback": {
+    "createFailed": "添加失败: {code}",
+    "updateFailed": "修改失败: {code}",
+    "fetchFailed": "获取配置失败: {code}",
+    "success": "操作成功"
+  },
+  "provider": {
+    "baidu": "百度翻译",
+    "deepl": "DeepL"
+  },
+  "field": {
+    "api_key": "APIKey",
+    "secret_key": "SecretKey",
+    "auth_key": "AuthKey",
+    "is_used": "是否启用"
+  },
+  "option": {
+    "enable": "启用",
+    "disable": "禁用"
+  },
+  "validation": {
+    "required": "{name} 不可为空"
+  }
+}

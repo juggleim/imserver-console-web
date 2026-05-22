@@ -38,7 +38,7 @@ let routes = [{
       name: 'ArguBase',
       component:  () => import('@/views/argument/base.vue'),
       meta: {
-        titles: ['应用配置', '基本信息'],
+        titles: ['应用管理', '基本信息'],
         showHeaderApps: true
       }
     },
@@ -47,7 +47,7 @@ let routes = [{
       name: 'ArguSwitch',
       component:  () => import('@/views/argument/switch.vue'),
       meta: {
-        titles: ['应用配置', '服务开关'],
+        titles: ['应用管理', '服务开关'],
         showHeaderApps: true
       }
     },
@@ -56,7 +56,16 @@ let routes = [{
       name: 'ArguCallback',
       component:  () => import('@/views/argument/webhook.vue'),
       meta: {
-        titles: ['应用配置', '回调设置'],
+        titles: ['应用管理', '回调设置'],
+        showHeaderApps: true
+      }
+    },
+    {
+      path: '/argument_message_intercept/:app_key',
+      name: 'ArguMessageIntercept',
+      component:  () => import('@/views/argument/message_intercept.vue'),
+      meta: {
+        titles: ['应用管理', '消息拦截'],
         showHeaderApps: true
       }
     },
@@ -65,7 +74,7 @@ let routes = [{
       name: 'ArguPush',
       component:  () => import('@/views/argument/push.vue'),
       meta: {
-        titles: ['应用配置', '推送配置'],
+        titles: ['应用管理', '推送配置'],
         showHeaderApps: true
       }
     },
@@ -74,7 +83,7 @@ let routes = [{
       name: 'ArguStorage',
       component:  () => import('@/views/argument/storage.vue'),
       meta: {
-        titles: ['应用配置', '存储配置'],
+        titles: ['应用管理', '存储配置'],
         showHeaderApps: true
       }
     },
@@ -83,7 +92,43 @@ let routes = [{
       name: 'ArguTranslte',
       component:  () => import('@/views/argument/translate.vue'),
       meta: {
-        titles: ['应用配置', '翻译配置'],
+        titles: ['应用管理', '翻译配置'],
+        showHeaderApps: true
+      }
+    },
+    {
+      path: '/argument_worklist/:app_key',
+      name: 'ArguWorkList',
+      component:  () => import('@/views/argument/worklist.vue'),
+      meta: {
+        titles: ['应用管理', '工作台'],
+        showHeaderApps: true
+      }
+    },
+    {
+      path: '/argument_grouplist/:app_key',
+      name: 'ArguGroupList',
+      component:  () => import('@/views/argument/grouplist.vue'),
+      meta: {
+        titles: ['应用管理', '群组管理'],
+        showHeaderApps: true
+      }
+    },
+    {
+      path: '/argument_userlist/:app_key',
+      name: 'ArguUserList',
+      component:  () => import('@/views/argument/userlist.vue'),
+      meta: {
+        titles: ['应用管理', '用户管理'],
+        showHeaderApps: true
+      }
+    },
+    {
+      path: '/argument_conversationlist/:app_key',
+      name: 'ArguConversationList',
+      component:  () => import('@/views/argument/conversationlist.vue'),
+      meta: {
+        titles: ['消息管理', '会话列表'],
         showHeaderApps: true
       }
     },
@@ -92,7 +137,7 @@ let routes = [{
     //   name: 'ArguAudit',
     //   component:  () => import('@/views/argument/audit.vue'),
     //   meta: {
-    //     titles: ['应用配置', '内容审核'],
+    //     titles: ['应用管理', '内容审核'],
     //     showHeaderApps: true
     //   }
     // },
@@ -101,25 +146,34 @@ let routes = [{
       name: 'ArguRTC',
       component:  () => import('@/views/argument/rtc.vue'),
       meta: {
-        titles: ['应用配置', '实时音视频'],
+        titles: ['应用管理', '实时音视频'],
         showHeaderApps: true
       }
     },
-    // {
-    //   path: '/argument_sms/:app_key',
-    //   name: 'ArguSMS',
-    //   component:  () => import('@/views/argument/sms.vue'),
-    //   meta: {
-    //     titles: ['应用配置', '短信配置'],
-    //     showHeaderApps: true
-    //   }
-    // },
+    {
+      path: '/argument_email/:app_key',
+      name: 'ArguEmail',
+      component:  () => import('@/views/argument/email.vue'),
+      meta: {
+        titles: ['应用管理', '邮箱配置'],
+        showHeaderApps: true
+      }
+    },
+    {
+      path: '/argument_sms/:app_key',
+      name: 'ArguSms',
+      component:  () => import('@/views/argument/sms.vue'),
+      meta: {
+        titles: ['应用管理', '短信配置'],
+        showHeaderApps: true
+      }
+    },
     // {
     //   path: '/argument_ai/:app_key',
     //   name: 'ArguAI',
     //   component:  () => import('@/views/argument/ai.vue'),
     //   meta: {
-    //     titles: ['应用配置', 'AIGC'],
+    //     titles: ['应用管理', 'AIGC'],
     //     showHeaderApps: true
     //   }
     // },

@@ -6,6 +6,7 @@ import utils from "../common/utils";
 import Storage from '../common/storage';
 import { Application } from "../services";
 import emitter from '../common/emmit';
+import { t } from '@/i18n';
 
 const props = defineProps(['title', 'text']);
 const emit = defineEmits(['hide'])
@@ -18,7 +19,6 @@ let state = reactive({
   isShowNewEdit: false,
   name: '',
   license: '',
-  title: user.is_commercial ? '导入应用' : '创建应用',
 });
 
 function onShowNewEdit(isShow){
@@ -38,7 +38,7 @@ function onSave(){
 function createApp(){
   let { name } = state;
   if(utils.isEmpty(name)){
-    return state.nameError = '名字不可为空';
+    return state.nameError = t('appDialog.validation.nameRequired');
   }
   Application.create({ name }).then(onCompleted);
 }
@@ -46,7 +46,7 @@ function createApp(){
 function importApp(){
   let { license } = state;
   if(utils.isEmpty(license)){
-    return state.licenseError = 'License 不可为空';
+    return state.licenseError = t('appDialog.validation.licenseRequired');
   }
   Application.importApp({ license }).then(onCompleted);
 }
@@ -54,13 +54,15 @@ function importApp(){
 function onCompleted(result) {
   let { code, msg, data } = result;
   let { is_commercial } = user;
-  let tname = is_commercial ? '导入' : '保存';
-  let icon = 'error', text = `${tname}失败: ${code} ${msg}`;
+  let icon = 'error';
+  let text = is_commercial
+    ? t('appDialog.feedback.importFailed', { code, msg })
+    : t('appDialog.feedback.createFailed', { code, msg });
   if (utils.isEqual(code, ErrorType.SUCCESS_0.code)) {
     icon = 'success';
-    text = `${tname}成功`;
+    text = is_commercial ? t('appDialog.feedback.importSuccess') : t('appDialog.feedback.createSuccess');
     let { app_key, app_name, app_type } = data;
-    let app = { app_key, app_name, app_type, kind: '私有云' };
+    let app = { app_key, app_name, app_type, kind_key: 'common.appType.private' };
     emitter.$emit(EVENT_NAME.CREATE_APP_FINISHED, app);
     onHide();
   }
@@ -78,18 +80,23 @@ watch(() => props.isShow, (value) => {
 </script>
 
 <template>
-  <ModifyDialog :cls="'cim-dialog-createapp'" :title="state.title" @hide="onHide" @save="onSave">
+  <ModifyDialog
+    :cls="'cim-dialog-createapp'"
+    :title="user.is_commercial ? t('appDialog.title.import') : t('appDialog.title.create')"
+    @hide="onHide"
+    @save="onSave"
+  >
     <div class="row g-2 cim-row"v-if="user.is_commercial">
       <div class="form-floating cimfrom-floating">
-        <input class="form-control" placeholder="License" v-model="state.license" @input="onInput">
-        <label>License Key</label>
+        <input class="form-control" :placeholder="t('appDialog.field.licenseKey')" v-model="state.license" @input="onInput">
+        <label>{{ t('appDialog.field.licenseKey') }}</label>
         <div class="invalid-feedback feedback" >{{ state.licenseError }}</div>
       </div>
     </div>
     <div class="row g-2 cim-row" v-else>
       <div class="form-floating cimfrom-floating">
-        <input class="form-control" placeholder="应用名称" v-model="state.name" @input="onInput">
-        <label>应用名称</label>
+        <input class="form-control" :placeholder="t('appDialog.field.appName')" v-model="state.name" @input="onInput">
+        <label>{{ t('appDialog.field.appName') }}</label>
         <div class="invalid-feedback feedback" >{{ state.nameError }}</div>
       </div>
     </div>

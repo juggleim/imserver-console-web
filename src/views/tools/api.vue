@@ -8,6 +8,8 @@ import JsonEditor from 'vue3-ts-jsoneditor';
 import { apis } from './apis/api';
 import { useRouter } from 'vue-router';
 import { RESPONSE } from '../../common/enum';
+import { t, useI18n } from '@/i18n';
+import PageSection from '@/components/page-section.vue';
 
 let router = useRouter();
 let context = getCurrentInstance();
@@ -18,9 +20,75 @@ let {
       },
     },
   } = router;
+const { locale } = useI18n();
+
+const apiCatalogSource = utils.clone(apis);
+
+function translateApiCatalog(type, text) {
+  if (!text) {
+    return text;
+  }
+  return t(`tools.api.catalog.${type}.${text}`, {}, text);
+}
+
+function localizeApiItem(item) {
+  let body = item.body ? utils.clone(item.body) : item.body;
+  if (body && body['//']) {
+    body['//'] = translateApiCatalog('prompt', body['//']);
+  }
+  return {
+    ...item,
+    sourceName: item.name,
+    name: translateApiCatalog('name', item.name),
+    body,
+  };
+}
+
+function localizeApiGroup(group) {
+  return {
+    ...group,
+    sourceCategory: group.category,
+    category: translateApiCatalog('category', group.category),
+    children: group.children.map(localizeApiItem),
+  };
+}
+
+function syncApiCatalog() {
+  const previousGroups = state.apis || [];
+  const previousGroupsBySource = previousGroups.reduce((result, group) => {
+    result[group.sourceCategory || group.category] = group;
+    return result;
+  }, {});
+  const previousChildrenByUrl = previousGroups.flatMap((group) => group.children || []).reduce((result, item) => {
+    result[item.url] = item;
+    return result;
+  }, {});
+
+  state.apis = apiCatalogSource.map((group) => {
+    const localizedGroup = localizeApiGroup(group);
+    const previousGroup = previousGroupsBySource[group.category];
+    if (previousGroup) {
+      localizedGroup.isFold = previousGroup.isFold;
+      localizedGroup.isActive = previousGroup.isActive;
+    }
+    localizedGroup.children = localizedGroup.children.map((child) => {
+      const previousChild = previousChildrenByUrl[child.url];
+      if (previousChild) {
+        child.isActive = previousChild.isActive;
+      }
+      return child;
+    });
+    return localizedGroup;
+  });
+
+  if (state.currentAPI.url) {
+    const currentItem = state.apis.flatMap((group) => group.children || []).find((item) => item.url === state.currentAPI.url);
+    state.currentAPI = currentItem || { url: '' };
+  }
+}
 
 let state = reactive({
-  apis: apis,
+  apis: apiCatalogSource.map(localizeApiGroup),
   request: { },
   response: {},
   isJSONContent: false,
@@ -86,9 +154,12 @@ watch(() => state.currentAPI, (value) => {
     onInputChange({ text: utils.toJSON(state.request) });
   }
 })
+watch(locale, () => {
+  syncApiCatalog();
+});
 </script>
 <template>
-  <div class="mb-4 cim-api-box">
+  <PageSection title-key="menu.dev.apiDebug" body-class="cim-api-box">
     <div class="cim-bk-form cim-api-sidebar">
       <ul class="cim-api-sidebar-nav">
         <li class="cim-api-nav-group" v-for="item in state.apis">
@@ -109,13 +180,13 @@ watch(() => state.currentAPI, (value) => {
           <input type="text" v-model="state.currentAPI.url">
         </div>
         <div class="cim-api-header-buttons">
-          <div class="cim-button cim-button-bg" @click="onSend">发送</div>
+          <div class="cim-button cim-button-bg" @click="onSend">{{ t('tools.api.send') }}</div>
         </div>
       </div>
       <div class="cim-bk-form cim-api-main-body">
         <div class="cim-api-request">
           <div class="jug-api-rr-header">
-            <span>请求</span>
+            <span>{{ t('tools.api.request') }}</span>
           </div>
           <JsonEditor
             mode="text"
@@ -128,7 +199,7 @@ watch(() => state.currentAPI, (value) => {
           />
         </div>
         <div class="cim-api-response">
-          <div class="jug-api-rr-header">响应</div>
+          <div class="jug-api-rr-header">{{ t('tools.api.response') }}</div>
           <JsonEditor
             mode="text"
             :mainMenuBar=false
@@ -141,5 +212,5 @@ watch(() => state.currentAPI, (value) => {
         </div>
       </div>
     </div>
-  </div>
+  </PageSection>
 </template>

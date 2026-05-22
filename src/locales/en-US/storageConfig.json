@@ -1,0 +1,33 @@
+{
+  "field": {
+    "currentStorage": "Current Storage",
+    "storageType": "Storage Type",
+    "useHttps": "Enable HTTPS"
+  },
+  "channel": {
+    "aws": "AWS",
+    "qiniu": "Qiniu",
+    "oss": "Alibaba Cloud",
+    "minio": "MinIO"
+  },
+  "dialog": {
+    "addConfig": "Add Config",
+    "editConfig": "Edit Config"
+  },
+  "action": {
+    "saveSettings": "Save Settings",
+    "addConfig": "Add {name} Config"
+  },
+  "option": {
+    "enabled": "Enable",
+    "disabled": "Disable"
+  },
+  "feedback": {
+    "addSuccess": "Config added. Select a storage type and save the settings.",
+    "editSuccess": "Config updated. Select a storage type and save the settings.",
+    "saveSuccess": "Saved successfully"
+  },
+  "helper": {
+    "addConfigFirst": "Add a file storage config first"
+  }
+}

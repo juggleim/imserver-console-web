@@ -42,8 +42,8 @@ function getSetting(data) {
 }
 
 function getList(params = {}) {
-  let { limit = 50, offset = 1 } = params;
-  let url = `${SERVER_PATH.APP_GET_LIST}?limit=${limit}&offset=${offset}`;
+  let { limit = 50, offset ='', account = '' } = params;
+  let url = `${SERVER_PATH.APP_GET_LIST}?limit=${limit}&offset=${offset}&account=${account}`;
   return request(url, {
     method: 'GET',
   });
@@ -78,6 +78,49 @@ function getEventHook({ app_key }) {
   let url = `${SERVER_PATH.APP_EVENT_GET}?app_key=${app_key}`;
   return request(url, {
     method: 'GET',
+  });
+}
+
+function getInterceptorList({ app_key }) {
+  return get(SERVER_PATH.APP_INTERCEPTOR_LIST, { app_key });
+}
+
+function addInterceptor(params) {
+  return request(SERVER_PATH.APP_INTERCEPTOR_ADD, {
+    method: 'POST',
+    body: utils.toJSON(params),
+  });
+}
+
+function updateInterceptor(params) {
+  return request(SERVER_PATH.APP_INTERCEPTOR_UPDATE, {
+    method: 'POST',
+    body: utils.toJSON(params),
+  });
+}
+
+function getInterceptorConditionList({ app_key, interceptor_id }) {
+  return get(SERVER_PATH.APP_INTERCEPTOR_CONDITION_LIST, { app_key, interceptor_id });
+}
+
+function addInterceptorCondition(params) {
+  return request(SERVER_PATH.APP_INTERCEPTOR_CONDITION_ADD, {
+    method: 'POST',
+    body: utils.toJSON(params),
+  });
+}
+
+function updateInterceptorCondition(params) {
+  return request(SERVER_PATH.APP_INTERCEPTOR_CONDITION_UPDATE, {
+    method: 'POST',
+    body: utils.toJSON(params),
+  });
+}
+
+function deleteInterceptorCondition(params) {
+  return request(SERVER_PATH.APP_INTERCEPTOR_CONDITION_DELETE, {
+    method: 'POST',
+    body: utils.toJSON(params),
   });
 }
 
@@ -241,6 +284,13 @@ export default {
   getOne,
   setEventHook,
   getEventHook,
+  getInterceptorList,
+  addInterceptor,
+  updateInterceptor,
+  getInterceptorConditionList,
+  addInterceptorCondition,
+  updateInterceptorCondition,
+  deleteInterceptorCondition,
   setAndroidPushConfig,
   getAndroidPushConfig,
   uploadFile,

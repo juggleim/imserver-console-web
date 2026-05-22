@@ -6,6 +6,7 @@ import { ErrorType, STORAGE, RESPONSE, STAT_TYPE, CONVERSATION_TYPE, ANA_DATE_RA
 import common from "../../common/common";
 import { useRouter } from "vue-router";
 import AnalysisDay from '../../components/analysis-day.vue';
+import { t } from '@/i18n';
 const context = getCurrentInstance();
 let router = useRouter();
 let { currentRoute: { _rawValue: { params: { app_key } } } } = router;
@@ -33,7 +34,11 @@ function drawChat(result){
   const colors = ['#5470C6', '#008000', '#EE6666'];
   let option = {
     legend: {
-      data: ['群聊上行消息量', '群聊下行消息量', '群聊分发消息量']
+      data: [
+        t('analysis.group.legendUp'),
+        t('analysis.group.legendDown'),
+        t('analysis.group.legendDispatch')
+      ]
     },
     tooltip: {
       trigger: 'none',
@@ -58,7 +63,7 @@ function drawChat(result){
     },
     series: [
       {
-        name: '群聊上行消息量',
+        name: t('analysis.group.legendUp'),
         type: 'line',
         smooth: true,
         data: upMsgs,
@@ -74,7 +79,7 @@ function drawChat(result){
         },
       },
       {
-        name: '群聊下行消息量',
+        name: t('analysis.group.legendDown'),
         type: 'line',
         smooth: true,
         lineStyle: {
@@ -90,7 +95,7 @@ function drawChat(result){
         },
       },
       {
-        name: '群聊分发消息量',
+        name: t('analysis.group.legendDispatch'),
         type: 'line',
         smooth: true,
         lineStyle: {
@@ -159,19 +164,19 @@ watch(() => state.range, async () => {
     <div class="row cim-cb-row cim-as-header">
       <div class="cim-bk-form">
         <div class="row cim-asr-row">
-          <AnalysisDay :title="'昨日群聊上行消息量（条）'" :item="state.yestday.upMsg"></AnalysisDay>
-          <AnalysisDay :title="'昨日群聊下行消息量（条）'" :item="state.yestday.downMsg"></AnalysisDay>
-          <AnalysisDay :title="'昨日群聊分发消息量（条）'" :item="state.yestday.disMsg"></AnalysisDay>
+          <AnalysisDay :title="t('analysis.group.dayUp')" :item="state.yestday.upMsg"></AnalysisDay>
+          <AnalysisDay :title="t('analysis.group.dayDown')" :item="state.yestday.downMsg"></AnalysisDay>
+          <AnalysisDay :title="t('analysis.group.dayDispatch')" :item="state.yestday.disMsg"></AnalysisDay>
         </div>
       </div>
     </div>
     <div class="cim-as-tools">
       <div class="cim-as-tool">
-        <div class="cim-as-button" :class="{'cim-as-button-active': item.isActive}" v-for="item in state.buttons" @click="onTabDateClicker(item)">{{ item.title }}</div>
+        <div class="cim-as-button" :class="{'cim-as-button-active': item.isActive}" v-for="item in state.buttons" @click="onTabDateClicker(item)">{{ item.titleKey ? t(item.titleKey, {}, item.title) : item.title }}</div>
         <div class="cim-as-date cicon cicon-date">
           <VDatePicker v-model.range="state.range" class="cim-as-date-picker">
             <template #default="{ togglePopover }">
-              <div class="cim-as-date-content" @click="togglePopover">{{ format(state.range.start) }} 至 {{ format(state.range.end) }}</div>
+              <div class="cim-as-date-content" @click="togglePopover">{{ format(state.range.start) }} {{ t('common.word.to') }} {{ format(state.range.end) }}</div>
             </template>
           </VDatePicker>
         </div>

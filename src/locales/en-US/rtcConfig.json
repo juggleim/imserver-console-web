@@ -1,0 +1,31 @@
+{
+  "dialog": {
+    "title": "RTC Settings",
+    "channel": "RTC Channel"
+  },
+  "feedback": {
+    "createFailed": "Create failed: {code}",
+    "updateFailed": "Update failed: {code}",
+    "fetchFailed": "Failed to load config: {code}",
+    "success": "Operation succeeded"
+  },
+  "status": {
+    "unset": "Not set"
+  },
+  "action": {
+    "settings": "Settings"
+  },
+  "provider": {
+    "zego_conf": "ZEGO",
+    "agora_conf": "Agora",
+    "livekit_conf": "LiveKit"
+  },
+  "field": {
+    "app_id": "AppId",
+    "secret": "Secret",
+    "app_certificate": "Certificate",
+    "app_key": "AppKey",
+    "app_secret": "Secret",
+    "service_url": "Url"
+  }
+}

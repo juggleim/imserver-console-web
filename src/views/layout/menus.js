@@ -1,11 +1,11 @@
 import utils from '../../common/utils';
 import Storage from '../../common/storage';
-import { STORAGE, USER_ROLE, ROLES, MENU_UID } from '../../common/enum';
+import { STORAGE, ROLES, MENU_UID, USER_ROLE_TYPE } from '../../common/enum';
 import appTools from '../../common/app-tools';
 
 function MenuFactory() {
   let homePage = {
-    title: '首页导航',
+    title: 'menu.home',
     name: 'Dashboard',
     icon: 'cicon-home',
   };
@@ -13,74 +13,104 @@ function MenuFactory() {
 
   let privateMenus = {
     getApps: ({ router }) => {
-      return [
+      var appMenus = [
         homePage,
-        {
-          title: '应用配置',
+      ];
+      if(isAdmin()){
+        appMenus.push({
+          title: 'menu.appManagement',
           icon: 'cicon-set',
           isHidden: isHidenMenu(MENU_UID.APP),
           isUnfold: isFold('Argu', router),
           children: [
-            { title: '基本信息', name: 'ArguBase' },
-            { title: '功能配置', name: 'ArguSwitch' },
-            { title: '事件设置', name: 'ArguCallback' },
-            { title: '推送设置', name: 'ArguPush' },
-            { title: '存储配置', name: 'ArguStorage' },
-            { title: '翻译配置', name: 'ArguTranslte' },
-            { title: '音视频配置', name: 'ArguRTC' },
+            { title: 'menu.app.baseInfo', name: 'ArguBase' },
+            { title: 'menu.app.featureConfig', name: 'ArguSwitch' },
+            { title: 'menu.app.webhookSettings', name: 'ArguCallback' },
+            { title: 'menu.app.messageIntercept', name: 'ArguMessageIntercept' },
+            { title: 'menu.app.pushSettings', name: 'ArguPush' },
+            { title: 'menu.app.storageSettings', name: 'ArguStorage' },
+            { title: 'menu.app.translateSettings', name: 'ArguTranslte' },
+            { title: 'menu.app.workbenchSettings', name: 'ArguWorkList' },
+            { title: 'menu.app.rtcSettings', name: 'ArguRTC' },
+            { title: 'menu.app.emailSettings', name: 'ArguEmail' },
+            { title: 'menu.app.smsSettings', name: 'ArguSms' },
+          ],
+        });
+      }
+      appMenus = appMenus.concat([
+        {
+          title: 'menu.userManagement',
+          icon: 'cicon-user',
+          isHidden: isHidenMenu(MENU_UID.APP),
+          isUnfold: isFold('Argu', router),
+          children: [
+            { title: 'menu.user.users', name: 'ArguUserList' },
+            { title: 'menu.user.groups', name: 'ArguGroupList' },
           ],
         },
         {
-          title: '敏感词管理',
-          icon: 'cicon-set',
+          title: 'menu.sensitive.root',
+          icon: 'cicon-app',
           isHidden: isHidenMenu(MENU_UID.SENTSIVE),
           isUnfold: isFold('sensitive', router),
           children: [
-            { title: '敏感词配置', name: 'sensitiveConfig' },
+            { title: 'menu.sensitive.config', name: 'sensitiveConfig' },
           ],
         },
         {
-          title: '数据统计',
+          title: 'menu.message.root',
+          icon: 'cicon-book',
+          isHidden: isHidenMenu(MENU_UID.SENTSIVE),
+          isUnfold: isFold('sensitive', router),
+          children: [
+            { title: 'menu.message.conversations', name: 'ArguConversationList' },
+          ],
+        },
+        {
+          title: 'menu.analytics.root',
           icon: 'cicon-analysis',
           isHidden: isHidenMenu(MENU_UID.ANALYSE),
           isUnfold: isFold('Analysis', router),
           children: [
-            { title: '用户统计【日活】', name: 'AnalysisUser' },
-            { title: '消息统计【单聊】', name: 'AnalysisMessage' },
-            { title: '消息统计【群聊】', name: 'AnalysisGroup' },
-            { title: '消息统计【聊天室】', name: 'AnalysisChatroom' },
+            { title: 'menu.analytics.userDaily', name: 'AnalysisUser' },
+            { title: 'menu.analytics.messagePrivate', name: 'AnalysisMessage' },
+            { title: 'menu.analytics.messageGroup', name: 'AnalysisGroup' },
+            { title: 'menu.analytics.messageChatroom', name: 'AnalysisChatroom' },
           ],
         },
         {
-          title: '日志管理',
+          title: 'menu.logs.root',
           icon: 'cicon-logs',
           isHidden: isHidenMenu(MENU_UID.LOG),
           isUnfold: isFold('Logs', router),
           children: [
-            { title: '日志列表', name: 'Logs' },
+            { title: 'menu.logs.list', name: 'Logs' },
           ]
-        },
-        {
-          title: '开发工具',
+        }
+      ]);
+      if(isAdmin()){
+        appMenus.push({
+          title: 'menu.dev.root',
           icon: 'cicon-dev',
           isHidden: isHidenMenu(MENU_UID.DEV_TOOL),
           isUnfold: isFold('Tools', router),
           children: [
-            { title: 'API 调试', name: 'ToolsAPI' },
-            { title: '连接排查', name: 'ToolsConnection' },
+            { title: 'menu.dev.apiDebug', name: 'ToolsAPI' },
+            { title: 'menu.dev.connectionInspect', name: 'ToolsConnection' },
           ]
-        },
-      ];
+        });
+      }
+      return appMenus;
     },
     getUsers: ({ router }) => {
       return [
         {
-          title: '账户信息',
+          title: 'menu.account.root',
           icon: 'cicon-user',
           isUnfold: isFold('User', router),
           children: [
-            { title: '账户设置', name: 'UserSetting' },
-            { title: '用户管理', name: 'UserManader', isHidden: isHidenMenu(MENU_UID.USER_MANGER), },
+            { title: 'menu.account.settings', name: 'UserSetting' },
+            { title: 'menu.account.users', name: 'UserManader', isHidden: isHidenMenu(MENU_UID.USER_MANGER), },
           ],
         },
       ];
@@ -99,6 +129,11 @@ function MenuFactory() {
     return utils.isInclude(name, type);
   }
 
+  function isAdmin(){
+    let user = Storage.get(STORAGE.USER_TOKEN);
+    let roleType = user.role_type;
+    return utils.isEqual(roleType, USER_ROLE_TYPE.ADMIN);
+  }
   function isHidenMenu(menuId){
     let user = Storage.get(STORAGE.USER_TOKEN);
     let roleId = user.role_id || 0;

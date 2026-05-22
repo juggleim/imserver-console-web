@@ -1,0 +1,50 @@
+{
+  "hero": {
+    "badge": "JuggleIM Cloud",
+    "title": "A New Generation of Messaging Cloud",
+    "description": "A stable, secure, and easy-to-integrate communication platform for faster IM delivery and simpler console management.",
+    "cards": {
+      "1": {
+        "title": "Simple Integration",
+        "description": "Launch core admin workflows quickly with ready-to-use capabilities."
+      },
+      "2": {
+        "title": "Reliable Service",
+        "description": "Built with layered safeguards for stable critical-path operations."
+      },
+      "3": {
+        "title": "Hands-on Support",
+        "description": "Get responsive technical help from onboarding to delivery."
+      },
+      "4": {
+        "title": "Lightweight Product",
+        "description": "Clean interactions and direct configuration reduce admin effort."
+      },
+      "5": {
+        "title": "Flexible Features",
+        "description": "Adapt feature combinations to different business scenarios."
+      },
+      "6": {
+        "title": "Practical Pricing",
+        "description": "Balance cost and experience for long-term product growth."
+      }
+    }
+  },
+  "title": "Sign In to JuggleIM Admin",
+  "subtitle": "Enter your account and password to continue",
+  "action": {
+    "loading": "Signing in..."
+  },
+  "field": {
+    "account": "Account",
+    "password": "Password"
+  },
+  "validation": {
+    "accountRequired": "Account is required",
+    "passwordRequired": "Password is required"
+  },
+  "feedback": {
+    "success": "Signed in successfully",
+    "failedWithCode": "Sign in failed: {code}"
+  }
+}

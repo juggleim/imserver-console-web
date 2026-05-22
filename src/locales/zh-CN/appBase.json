@@ -1,0 +1,14 @@
+{
+  "sectionTitle": "基本信息",
+  "field": {
+    "appName": "App 名称",
+    "appKey": "App Key",
+    "appSecret": "App Secret",
+    "expireTime": "App 到期时间",
+    "licenseCount": "授权数量",
+    "status": "App 状态"
+  },
+  "status": {
+    "online": "已上线"
+  }
+}

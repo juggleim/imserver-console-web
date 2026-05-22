@@ -1,8 +1,8 @@
 @font-face {
   font-family: 'cicon';  /* Project id 3778079 */
-  src: url('//at.alicdn.com/t/c/font_4368833_aolpalcad2t.woff2?t=1735815022426') format('woff2'),
-  url('//at.alicdn.com/t/c/font_4368833_aolpalcad2t.woff?t=1735815022426') format('woff'),
-  url('//at.alicdn.com/t/c/font_4368833_aolpalcad2t.ttf?t=1735815022426') format('truetype');
+  src: url('//at.alicdn.com/t/c/font_4368833_alsk23ltod6.woff2?t=1757060611113') format('woff2'),
+       url('//at.alicdn.com/t/c/font_4368833_alsk23ltod6.woff?t=1757060611113') format('woff'),
+       url('//at.alicdn.com/t/c/font_4368833_alsk23ltod6.ttf?t=1757060611113') format('truetype');
 }
 
 .cicon {
@@ -22,6 +22,9 @@
 }
 .cicon-finance::before{
   content: '\e7b5';
+}
+.cicon-file::before{
+  content: '\e6a3';
 }
 .cicon-set::before{
   content: '\e7b2';
@@ -172,12 +175,14 @@
 }
 
 /* 成功 */
+.cicon-user-state-0::before,
 .cicon-status-1::before{
   content: '\e739';
   color: rgb(9, 187, 7);
 }
 
 /* 失败 */
+.cicon-user-state-1::before,
 .cicon-status-2::before{
   content: '\e738';
   color: #df1717df;
@@ -241,7 +246,11 @@
 }
 .wr-disable::before{
   content: '\e66b';
+  color: rgb(186, 6, 6);
 }
 .wr-enable::before{
   content: '\e66c';
+}
+.cicon-right-arrow::before{
+  content: '\e607';
 }

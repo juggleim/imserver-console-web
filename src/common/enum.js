@@ -6,14 +6,14 @@ export let INVOICE_TYPE = {
 };
 
 let ErrorMessages = [
-  { code: 200, msg: '成功', name: 'SUCCESS' },
-  { code: 0, msg: '成功', name: 'SUCCESS_0' },
-  { code: 1003, msg: '用户名密码不匹配', name: 'USER_LOGIN_FAILED' },
-  { code: 1016, msg: '用户已被禁用，请联系管理员', name: 'USER_BLOCKED' },
-  { code: 1012, msg: '用户已存在，换个名字吧', name: 'USER_EXISTS' },
-  { code: 1001, msg: '原密码不正确', name: 'USER_OLDPWD_WRONG' },
-  { code: 1006, msg: '应用已存在', name: 'APP_EXISTS' },
-  { code: 1001, msg: '登录身份过期', name: 'USER_TOKEN_EXPIRE' },
+  { code: 200, msg: '成功', key: 'errors.api.SUCCESS', name: 'SUCCESS' },
+  { code: 0, msg: '成功', key: 'errors.api.SUCCESS_0', name: 'SUCCESS_0' },
+  { code: 1003, msg: '用户名密码不匹配', key: 'errors.api.USER_LOGIN_FAILED', name: 'USER_LOGIN_FAILED' },
+  { code: 1016, msg: '用户已被禁用，请联系管理员', key: 'errors.api.USER_BLOCKED', name: 'USER_BLOCKED' },
+  { code: 1012, msg: '用户已存在，换个名字吧', key: 'errors.api.USER_EXISTS', name: 'USER_EXISTS' },
+  { code: 1001, msg: '原密码不正确', key: 'errors.api.USER_OLDPWD_WRONG', name: 'USER_OLDPWD_WRONG' },
+  { code: 1006, msg: '应用已存在', key: 'errors.api.APP_EXISTS', name: 'APP_EXISTS' },
+  { code: 1001, msg: '登录身份过期', key: 'errors.api.USER_TOKEN_EXPIRE', name: 'USER_TOKEN_EXPIRE' },
 ];
 
 export let Errors = ErrorMessages;
@@ -21,8 +21,8 @@ export let Errors = ErrorMessages;
 function getErrorType() {
   let errors = {};
   utils.forEach(ErrorMessages, (error) => {
-    let { name, code, msg } = error;
-    errors[name] = { code, msg };
+    let { name, code, msg, key } = error;
+    errors[name] = { code, msg, key };
   });
   return errors;
 }
@@ -32,6 +32,7 @@ export let STORAGE = {
   PREFIX: 'jgadmin',
   USER_TOKEN: 'user_auth_token',
   APP_KEY: 'app_key',
+  LOCALE: 'locale',
 }
 export let USER_STATE = {
   ENABLE: 0,
@@ -211,16 +212,16 @@ export let CONVERSATION_TYPE = {
 }
 
 export let ANA_DATE_RANGES = [
-  { title: '7 天', name: 7, isActive: true },
-  { title: '14 天', name: 14, isActive: false },
-  { title: '30 天', name: 30, isActive: false },
+  { title: '7 天', titleKey: 'analysis.range.7days', name: 7, isActive: true },
+  { title: '14 天', titleKey: 'analysis.range.14days', name: 14, isActive: false },
+  { title: '30 天', titleKey: 'analysis.range.30days', name: 30, isActive: false },
 ]
 
 export let PLATFORMAS = [
-  { name: 'Android', value: 'Android' },
-  { name: 'iOS', value: 'iOS' },
-  { name: 'Web', value: 'Web' },
-  { name: 'PC', value: 'PC' }, 
+  { name: 'Android', labelKey: '', value: 'Android' },
+  { name: 'iOS', labelKey: '', value: 'iOS' },
+  { name: 'Web', labelKey: '', value: 'Web' },
+  { name: 'PC', labelKey: '', value: 'PC' }, 
 ];
 
 export let MENU_UID = {
@@ -229,18 +230,10 @@ export let MENU_UID = {
   ANALYSE: 3,
   LOG: 4,
   DEV_TOOL: 5,
-  USER_MANGER: 6
+  USER_MANGER: 6,
+  
 };
-export let USER_ROLE = {
-  ADMIN: 0,
-  ANALYST: 1,
-  DEVELOPER: 2
-}
-export let ROLES = [
-  { name: '超级管理员', value: USER_ROLE.ADMIN, menuIds: [ MENU_UID.APP, MENU_UID.SENTSIVE, MENU_UID.ANALYSE, MENU_UID.LOG, MENU_UID.DEV_TOOL, MENU_UID.USER_MANGER] },
-  { name: '数据分析员', value: USER_ROLE.ANALYST, menuIds: [MENU_UID.ANALYSE] },
-  { name: '开发人员', value: USER_ROLE.DEVELOPER, menuIds: [MENU_UID.DEV_TOOL, MENU_UID.LOG] },
-];
+
 
 export let R3D_USE_TYPE = {
   ENABLE: 1,
@@ -273,10 +266,91 @@ export let RTC_CHANNELS = [
     children: [
       { name: 'AppId', type: 'number', key: 'app_id', value: '' }, 
       { name: 'Secret', type: 'text', key: 'secret', value: '', secretValue: '**************' },
+      // { name: '是否启用', type: 'select', key: 'is_used', value: R3D_USE_TYPE.DISABLE, children: [
+      //   { label: '启用', value: R3D_USE_TYPE.ENABLE },
+      //   { label: '禁用', value: R3D_USE_TYPE.DISABLE },
+      // ] },
+    ] 
+  },
+  { uid: 'agora_conf', name: '声网', icon: 'agora', isUsed: false, 
+    children: [
+      { name: 'AppId', type: 'text', key: 'app_id', value: '' }, 
+      { name: 'Certificate', type: 'text', key: 'app_certificate', value: '', secretValue: '**************' },
+      // { name: '是否启用', type: 'select', key: 'is_used', value: R3D_USE_TYPE.DISABLE, children: [
+      //   { label: '启用', value: R3D_USE_TYPE.ENABLE },
+      //   { label: '禁用', value: R3D_USE_TYPE.DISABLE },
+      // ] },
+    ] 
+  },
+  { uid: 'livekit_conf', name: 'LiveKit', icon: 'livekit', isUsed: false, 
+    children: [
+      { name: 'AppKey', type: 'text', key: 'app_key', value: '' }, 
+      { name: 'Secret', type: 'text', key: 'app_secret', value: '', secretValue: '**************' },
+      { name: 'Url', type: 'text', key: 'service_url', value: '' },
+      // { name: '是否启用', type: 'select', key: 'is_used', value: R3D_USE_TYPE.DISABLE, children: [
+      //   { label: '启用', value: R3D_USE_TYPE.ENABLE },
+      //   { label: '禁用', value: R3D_USE_TYPE.DISABLE },
+      // ] },
+    ] 
+  }
+];
+export let EMAIL_CHANNELS = [
+  { uid: 'ali', name: '阿里云', icon: 'ali', isUsed: false, 
+    children: [
+      { name: 'AppId', type: 'text', key: 'access_key', value: '' }, 
+      { name: 'Secret', type: 'text', key: 'access_secret', value: '', secretValue: '**************' },
+      { name: 'FromEmail', type: 'text', key: 'from_email', value: '' },
+      { name: 'FromAlias', type: 'text', key: 'from_alias', value: '' },
       { name: '是否启用', type: 'select', key: 'is_used', value: R3D_USE_TYPE.DISABLE, children: [
         { label: '启用', value: R3D_USE_TYPE.ENABLE },
         { label: '禁用', value: R3D_USE_TYPE.DISABLE },
       ] },
     ] 
-  }
+  },
+  { uid: 'engagelab', name: 'EngageLab', icon: 'engagelab', isUsed: false, 
+    children: [
+      { name: 'Url', type: 'text', key: 'url', value: '' }, 
+      { name: 'API_User', type: 'text', key: 'api_user', value: '' },
+      { name: 'API_Key', type: 'text', key: 'api_key', value: '', secretValue: '**************' },
+      { name: 'FromEmail', type: 'text', key: 'from_email', value: '' },
+      { name: '是否启用', type: 'select', key: 'is_used', value: R3D_USE_TYPE.DISABLE, children: [
+        { label: '启用', value: R3D_USE_TYPE.ENABLE },
+        { label: '禁用', value: R3D_USE_TYPE.DISABLE },
+      ] },
+    ] 
+  },
+];
+export let SMS_CHANNELS = [
+  { uid: 'baidu', name: '百度', icon: 'baidu', isUsed: false, 
+    children: [
+      { name: 'APIKey', type: 'text', key: 'api_key', value: '' }, 
+      { name: 'SecretKey', type: 'text', key: 'secret_key', value: '', secretValue: '**************' },
+      { name: 'Endpoint', type: 'text', key: 'endpoint', value: '' },
+      { name: '模版', type: 'text', key: 'template', value: '' },
+      { name: '签名 ID', type: 'text', key: 'signature_id', value: '' },
+      { name: '是否启用', type: 'select', key: 'is_used', value: R3D_USE_TYPE.DISABLE, children: [
+        { label: '启用', value: R3D_USE_TYPE.ENABLE },
+        { label: '禁用', value: R3D_USE_TYPE.DISABLE },
+      ] },
+    ] 
+  },
+  { uid: 'smsbao', name: '短信宝', icon: 'smsbao', isUsed: false, 
+    children: [
+      { name: '名称', type: 'text', key: 'username', value: '' }, 
+      { name: '密码', type: 'text', key: 'password', value: '', secretValue: '**************' },
+      { name: '模版', type: 'text', key: 'template', value: '' },
+      { name: '是否启用', type: 'select', key: 'is_used', value: R3D_USE_TYPE.DISABLE, children: [
+        { label: '启用', value: R3D_USE_TYPE.ENABLE },
+        { label: '禁用', value: R3D_USE_TYPE.DISABLE },
+      ] },
+    ] 
+  },
+];
+export let USER_ROLE_TYPE = {
+  ADMIN: 0,
+  USER: 1,
+}
+export let ROLES = [
+  { name: '超级管理员', labelKey: 'userManager.role.admin', value: USER_ROLE_TYPE.ADMIN, menuIds: [ MENU_UID.APP, MENU_UID.SENTSIVE, MENU_UID.ANALYSE, MENU_UID.LOG, MENU_UID.DEV_TOOL, MENU_UID.USER_MANGER] },
+  { name: '普通用户', labelKey: 'userManager.role.user', value: USER_ROLE_TYPE.USER, menuIds: [MENU_UID.ANALYSE] },
 ];

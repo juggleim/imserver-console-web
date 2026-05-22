@@ -1,0 +1,22 @@
+{
+  "sectionTitle": "基本信息",
+  "field": {
+    "accountName": "账户名称",
+    "accountPassword": "账户密码",
+    "currentPassword": "原密码",
+    "newPassword": "新密码"
+  },
+  "action": {
+    "edit": "修改"
+  },
+  "dialog": {
+    "title": "修改密码"
+  },
+  "validation": {
+    "currentPasswordRequired": "原密码不能为空",
+    "newPasswordRequired": "新密码不能为空"
+  },
+  "feedback": {
+    "success": "修改成功"
+  }
+}

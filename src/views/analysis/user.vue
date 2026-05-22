@@ -5,6 +5,7 @@ import { ErrorType, STORAGE, RESPONSE, STAT_TYPE, CONVERSATION_TYPE, ANA_DATE_RA
 import { useRouter } from "vue-router";
 import common from "../../common/common";
 import { Analysis } from "../../services";
+import { t } from '@/i18n';
 
 const context = getCurrentInstance();
 let router = useRouter();
@@ -28,7 +29,7 @@ function drawChat(result){
   const colors = ['#5470C6'];
   let option = {
     legend: {
-      data: ['日活']
+      data: [t('analysis.user.legendDau')]
     },
     tooltip: {
       trigger: 'none',
@@ -53,7 +54,7 @@ function drawChat(result){
     },
     series: [
       {
-        name: '日活',
+        name: t('analysis.user.legendDau'),
         type: 'line',
         smooth: true,
         data: daus,
@@ -79,7 +80,7 @@ async function getUserChat(params){
     let { items } = data;
     return { items };
   }
-  context.proxy.$toast({ icon: 'error', text: `日活统计失败，请刷新重试` });
+  context.proxy.$toast({ icon: 'error', text: t('analysis.user.fetchFailed') });
   return { items: [] };
 }
 function format(date) {
@@ -121,30 +122,30 @@ watch(() => state.range, async () => {
       <div class="cim-bk-form">
         <div class="row cim-asr-row">
           <div class="col-sm-4 cim-asr-col">
-            <span class="cim-ars-memo">本月峰值 DAU（个）</span>
+            <span class="cim-ars-memo">Peak DAU This Month</span>
             <div class="cim-ars-num">1,029</div>
           </div>
           <div class="col-sm-4 cim-asr-col">
-            <span class="cim-ars-memo">昨日新注册用户数（个）</span>
+            <span class="cim-ars-memo">New Users Yesterday</span>
             <div class="cim-ars-num">2,000</div>
             <div class="cim-ars-percent">
-              较前一日<span class="cicon cicon-ac-up cim-ars-direction">10%</span>
+              vs previous day<span class="cicon cicon-ac-up cim-ars-direction">10%</span>
             </div>
           </div>
           <div class="col-sm-4 cim-asr-col">
-            <span class="cim-ars-memo">截至昨日累计用户数（个）</span>
+            <span class="cim-ars-memo">Total Users as of Yesterday</span>
             <div class="cim-ars-num">3,043</div>
           </div>
         </div>
       </div>
     </div> -->
     <div class="cim-as-tools">
-      <div class="cim-as-tool">
-        <div class="cim-as-button" :class="{'cim-as-button-active': item.isActive}" v-for="item in state.buttons" @click="onTabDateClicker(item)">{{ item.title }}</div>
+        <div class="cim-as-tool">
+        <div class="cim-as-button" :class="{'cim-as-button-active': item.isActive}" v-for="item in state.buttons" @click="onTabDateClicker(item)">{{ item.titleKey ? t(item.titleKey, {}, item.title) : item.title }}</div>
         <div class="cim-as-date cicon cicon-date">
           <VDatePicker v-model.range="state.range" class="cim-as-date-picker">
             <template #default="{ togglePopover }">
-              <div class="cim-as-date-content" @click="togglePopover">{{ format(state.range.start) }} 至 {{ format(state.range.end) }}</div>
+              <div class="cim-as-date-content" @click="togglePopover">{{ format(state.range.start) }} {{ t('common.word.to') }} {{ format(state.range.end) }}</div>
             </template>
           </VDatePicker>
         </div>

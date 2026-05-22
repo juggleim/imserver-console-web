@@ -1,0 +1,12 @@
+{
+  "api": {
+    "SUCCESS": "成功",
+    "SUCCESS_0": "成功",
+    "USER_LOGIN_FAILED": "用户名密码不匹配",
+    "USER_BLOCKED": "用户已被禁用，请联系管理员",
+    "USER_EXISTS": "用户已存在，换个名字吧",
+    "USER_OLDPWD_WRONG": "原密码不正确",
+    "APP_EXISTS": "应用已存在",
+    "USER_TOKEN_EXPIRE": "登录身份过期"
+  }
+}

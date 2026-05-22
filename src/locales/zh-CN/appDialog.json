@@ -1,0 +1,20 @@
+{
+  "title": {
+    "create": "创建应用",
+    "import": "导入应用"
+  },
+  "field": {
+    "licenseKey": "License Key",
+    "appName": "应用名称"
+  },
+  "validation": {
+    "licenseRequired": "License 不可为空",
+    "nameRequired": "名字不可为空"
+  },
+  "feedback": {
+    "createSuccess": "保存成功",
+    "createFailed": "保存失败: {code} {msg}",
+    "importSuccess": "导入成功",
+    "importFailed": "导入失败: {code} {msg}"
+  }
+}

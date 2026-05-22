@@ -6,6 +6,8 @@ import utils from '../../common/utils';
 import { Application } from "../../services";
 import { useRouter } from "vue-router";
 import appTools from '../../common/app-tools';
+import { t } from '@/i18n';
+import PageSection from '@/components/page-section.vue';
 
 let context = getCurrentInstance();
 let router = useRouter();
@@ -30,17 +32,17 @@ function onShowEdit(isShow){
 function onSave(){
   let { app } = state;
   if(utils.isEmpty(app.name)){
-    return state.nameErrorMsg = '名称不能为空';
+    return state.nameErrorMsg = t('appDialog.validation.nameRequired');
   }
   if(utils.isEmpty(app.licenseKey)){
-    return state.licenseErrorMsg = '授权不能为空';
+    return state.licenseErrorMsg = t('appDialog.validation.licenseRequired');
   }
 
   Application.create(app).then(({ code, msg }) => {
-    let icon = 'error', text = `导入失败 ${msg}`;
+    let icon = 'error', text = t('appDialog.feedback.importFailed', { code, msg }, `Import failed: ${code} ${msg}`);
     if(utils.isEqual(code, ErrorType.SUCCESS_0.code)){
       icon = 'success';
-      text = '创建成功';
+      text = t('appDialog.feedback.importSuccess');
       state.apps.push(app);
       state.app = utils.clone(defaltApp);
     }
@@ -71,20 +73,19 @@ function onViewDetal(app){
 }
 </script>
 <template>
-  <div class="mb-4">
-    <div class="header cim-header">
-      <div class="cim-title">应用列表</div>
-      <div class="cicon cicon-add cim-button cim-button-bg" @click="onShowEdit(true)" @save="onSave()">导入应用</div>
-    </div>
+  <PageSection title-key="legacyPages.app.title.list">
+    <template #actions>
+      <div class="cicon cicon-add cim-button cim-button-bg" @click="onShowEdit(true)" @save="onSave()">{{ t('common.action.import') }}</div>
+    </template>
     <table class="table cim-table">
       <thead>
         <tr>
-          <th>应用名称</th>
-          <th class="jd-td-c">已使用授权数量</th>
-          <th class="jd-td-c">未使用授权数量</th>
-          <th class="jd-td-c">到期时间</th>
-          <th class="jd-td-c">创建时间</th>
-          <th>操作</th>
+          <th>{{ t('legacyPages.app.table.appName') }}</th>
+          <th class="jd-td-c">{{ t('legacyPages.app.table.usedLicenseCount') }}</th>
+          <th class="jd-td-c">{{ t('legacyPages.app.table.unusedLicenseCount') }}</th>
+          <th class="jd-td-c">{{ t('legacyPages.app.table.expireTime') }}</th>
+          <th class="jd-td-c">{{ t('legacyPages.app.table.createdTime') }}</th>
+          <th>{{ t('legacyPages.app.table.operation') }}</th>
         </tr>
       </thead>
       <tbody>
@@ -96,16 +97,16 @@ function onViewDetal(app){
           <td class="jd-td-c">{{ app.created_time }}</td>
           <td>
             <!-- <a class="btn-link cim-btn-link" type="button" @click="onShowEdit(true)">修改</a> -->
-            <a class="btn-link cim-btn-link" type="button" @click="onViewDetal(app)">查看</a>
+            <a class="btn-link cim-btn-link" type="button" @click="onViewDetal(app)">{{ t('common.action.view') }}</a>
           </td>
         </tr>
       </tbody>
     </table>
-    <ModifyDialog :show="state.isShowEdit" :title="'导入应用'" @hide="onShowEdit(false)" @save="onSave()">
+    <ModifyDialog :show="state.isShowEdit" :title="t('appDialog.title.import')" @hide="onShowEdit(false)" @save="onSave()">
       <div class="row g-2 cim-row">
           <div class="form-floating">
-            <input class="form-control" v-model="state.app.name" placeholder="应用名称"  @input="onInput()">
-            <label>应用名称</label>
+            <input class="form-control" v-model="state.app.name" :placeholder="t('appDialog.field.appName')"  @input="onInput()">
+            <label>{{ t('appDialog.field.appName') }}</label>
             <div class="invalid-feedback feedback" v-if="state.nameErrorMsg">{{ state.nameErrorMsg }}</div>
           </div>
           <div class="form-floating">
@@ -115,5 +116,5 @@ function onViewDetal(app){
           </div>
       </div>
     </ModifyDialog>
-  </div>
+  </PageSection>
 </template>

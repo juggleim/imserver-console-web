@@ -1,4 +1,6 @@
 <script setup>
+import { t } from '@/i18n';
+
 const props = defineProps(['show', 'title', 'cls']);
 const emit = defineEmits(['close', 'save'])
 
@@ -26,7 +28,7 @@ function onHide(){
           <slot></slot>
         </div>
         <div class="modal-footer">
-          <div class="cim-button" @click="onSave()">保存</div>
+          <div class="cim-button" @click="onSave()">{{ t('common.dialog.save') }}</div>
         </div>
       </div>
     </div>

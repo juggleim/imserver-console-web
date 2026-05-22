@@ -2,22 +2,24 @@
 import { reactive } from 'vue';
 import { INVOICE_TYPE } from "../../common/enum";
 import utils from '../../common/utils';
+import { t } from '@/i18n';
+import PageSection from '@/components/page-section.vue';
 let state = reactive({
   records: [
-    { id: 1, title: '北京未来科技有限公司', checked: false, recharge: 25000, invoice: 25000, type: '微信', time: '2023-10-10 23:03' },
-    { id: 2, title: '北京未来科技有限公司', checked: false, recharge: 25000, invoice: 25000, type: '微信', time: '2023-10-10 23:03' },
-    { id: 3, title: '北京未来科技有限公司', checked: false, recharge: 25000, invoice: 25000, type: '微信', time: '2023-10-10 23:03' },
-    { id: 4, title: '北京未来科技有限公司', checked: false, recharge: 25000, invoice: 25000, type: '微信', time: '2023-10-10 23:03' },
-    { id: 5, title: '北京未来科技有限公司', checked: false, recharge: 25000, invoice: 25000, type: '微信', time: '2023-10-10 23:03' },
-    { id: 6, title: '北京未来科技有限公司', checked: false, recharge: 25000, invoice: 25000, type: '微信', time: '2023-10-10 23:03' },
-    { id: 7, title: '北京未来科技有限公司', checked: false, recharge: 25000, invoice: 25000, type: '微信', time: '2023-10-10 23:03' },
-    { id: 8, title: '北京未来科技有限公司', checked: false, recharge: 25000, invoice: 25000, type: '微信', time: '2023-10-10 23:03' },
-    { id: 9, title: '北京未来科技有限公司', checked: false, recharge: 25000, invoice: 25000, type: '微信', time: '2023-10-10 23:03' },
-    { id: 10, title: '北京未来科技有限公司', checked: false, recharge: 25000, invoice: 25000, type: '微信', time: '2023-10-10 23:03' },
+    { id: 1, titleKey: 'legacyPages.sample.companyName', checked: false, recharge: 25000, invoice: 25000, typeKey: 'legacyPages.sample.wechat', time: '2023-10-10 23:03' },
+    { id: 2, titleKey: 'legacyPages.sample.companyName', checked: false, recharge: 25000, invoice: 25000, typeKey: 'legacyPages.sample.wechat', time: '2023-10-10 23:03' },
+    { id: 3, titleKey: 'legacyPages.sample.companyName', checked: false, recharge: 25000, invoice: 25000, typeKey: 'legacyPages.sample.wechat', time: '2023-10-10 23:03' },
+    { id: 4, titleKey: 'legacyPages.sample.companyName', checked: false, recharge: 25000, invoice: 25000, typeKey: 'legacyPages.sample.wechat', time: '2023-10-10 23:03' },
+    { id: 5, titleKey: 'legacyPages.sample.companyName', checked: false, recharge: 25000, invoice: 25000, typeKey: 'legacyPages.sample.wechat', time: '2023-10-10 23:03' },
+    { id: 6, titleKey: 'legacyPages.sample.companyName', checked: false, recharge: 25000, invoice: 25000, typeKey: 'legacyPages.sample.wechat', time: '2023-10-10 23:03' },
+    { id: 7, titleKey: 'legacyPages.sample.companyName', checked: false, recharge: 25000, invoice: 25000, typeKey: 'legacyPages.sample.wechat', time: '2023-10-10 23:03' },
+    { id: 8, titleKey: 'legacyPages.sample.companyName', checked: false, recharge: 25000, invoice: 25000, typeKey: 'legacyPages.sample.wechat', time: '2023-10-10 23:03' },
+    { id: 9, titleKey: 'legacyPages.sample.companyName', checked: false, recharge: 25000, invoice: 25000, typeKey: 'legacyPages.sample.wechat', time: '2023-10-10 23:03' },
+    { id: 10, titleKey: 'legacyPages.sample.companyName', checked: false, recharge: 25000, invoice: 25000, typeKey: 'legacyPages.sample.wechat', time: '2023-10-10 23:03' },
   ],
   radios: [
-    { name: 'type', value: INVOICE_TYPE.ONLINE, label: '增值税普通发票（电子）' },
-    { name: 'type', value: INVOICE_TYPE.PAPER, label: '增值税普通发票（纸质）' },
+    { name: 'type', value: INVOICE_TYPE.ONLINE, label: 'VAT Invoice (Electronic)', labelKey: 'legacyPages.invoice.draw.invoiceType.online' },
+    { name: 'type', value: INVOICE_TYPE.PAPER, label: 'VAT Invoice (Paper)', labelKey: 'legacyPages.invoice.draw.invoiceType.paper' },
   ],
   total: 0,
   invoiceType: INVOICE_TYPE.ONLINE,
@@ -56,11 +58,8 @@ function onCheckAll(){
 }
 </script>
 <template>
-  <div class="mb-4">
+  <PageSection title-key="legacyPages.invoice.draw.title">
     <div class="card-body">
-      <ul class="nav nav-underline-border">
-        <li class="nav-item"><a class="nav-link active cicon cicon-list">待开票记录</a></li>
-      </ul>
       <div class="tab-content rounded-bottom">
         <div class="tab-pane p-3 active cim-wait-list">
           <table class="table cim-table">
@@ -69,11 +68,11 @@ function onCheckAll(){
                 <th class="cim-td-c">
                   <input class="form-check-input cim-td-select" type="checkbox" @change="onCheckAll()">
                 </th>
-                <th>充值主体</th>
-                <th class="cim-td-c">充值金额</th>
-                <th class="cim-td-c">可开票金额</th>
-                <th class="cim-td-c">充值方式</th>
-                <th class="cim-td-c">充值时间</th>
+                <th>{{ t('legacyPages.invoice.draw.table.rechargeSubject') }}</th>
+                <th class="cim-td-c">{{ t('legacyPages.invoice.draw.table.rechargeAmount') }}</th>
+                <th class="cim-td-c">{{ t('legacyPages.invoice.draw.table.invoiceAmount') }}</th>
+                <th class="cim-td-c">{{ t('legacyPages.invoice.draw.table.rechargeType') }}</th>
+                <th class="cim-td-c">{{ t('legacyPages.invoice.draw.table.rechargeTime') }}</th>
               </tr>
             </thead>
             <tbody>
@@ -81,10 +80,10 @@ function onCheckAll(){
                 <td class="cim-td-c">
                   <input class="form-check-input cim-td-select" :checked="record.checked"  type="checkbox" @change="onCheckboxChanged(record)">
                 </td>
-                <td>{{ record.title }}</td>
+                <td>{{ record.titleKey ? t(record.titleKey) : record.title }}</td>
                 <td class="cim-td-c">{{ record.recharge }}</td>
                 <td class="cim-td-c">{{ record.invoice }}</td>
-                <td class="cim-td-c">{{ record.type }}</td>
+                <td class="cim-td-c">{{ record.typeKey ? t(record.typeKey) : record.type }}</td>
                 <td class="cim-td-c">{{ record.time }}</td>
               </tr>
             </tbody>
@@ -94,10 +93,10 @@ function onCheckAll(){
         <div class="tab-pane p-3 active cim-tab-line">
           <div class="form-check form-check-inline" v-for="radio in state.radios">
             <input class="form-check-input" type="radio" name="radio.name" :value="radio.value" v-model="state.invoiceType" @change="onRadieChanged(radio.value)">
-            <label class="form-check-label">{{ radio.label }}</label>
+            <label class="form-check-label">{{ radio.labelKey ? t(radio.labelKey, {}, radio.label) : radio.label }}</label>
           </div>
           <div class="form-check form-check-inline">
-            <label class="form-check-label cim-invoice-label">开票金额合计：</label>
+            <label class="form-check-label cim-invoice-label">{{ t('legacyPages.invoice.draw.total') }}</label>
             <label class="cim-invoice-label cim-invoice-amount"> {{ state.total }} </label>
           </div>
         </div>
@@ -105,29 +104,14 @@ function onCheckAll(){
         <div class="row g-2 cim-row">
           <div class="col-md">
             <div class="form-floating">
-              <input class="form-control" type="email" placeholder="发票抬头">
-              <label>发票抬头</label>
+              <input class="form-control" type="email" :placeholder="t('legacyPages.invoice.draw.field.invoiceTitle')">
+              <label>{{ t('legacyPages.invoice.draw.field.invoiceTitle') }}</label>
             </div>
           </div>
           <div class="col-md">
             <div class="form-floating">
-              <input class="form-control" type="email" placeholder="纳税人识别号">
-              <label>纳税人识别号</label>
-            </div>
-          </div>
-        </div>
-
-        <div class="row g-2 cim-row">
-          <div class="col-md">
-            <div class="form-floating">
-              <input class="form-control" type="email" placeholder="接收人">
-              <label>接收人</label>
-            </div>
-          </div>
-          <div class="col-md">
-            <div class="form-floating">
-              <input class="form-control" type="email" placeholder="手机号">
-              <label>手机号</label>
+              <input class="form-control" type="email" :placeholder="t('legacyPages.invoice.draw.field.taxNumber')">
+              <label>{{ t('legacyPages.invoice.draw.field.taxNumber') }}</label>
             </div>
           </div>
         </div>
@@ -135,18 +119,33 @@ function onCheckAll(){
         <div class="row g-2 cim-row">
           <div class="col-md">
             <div class="form-floating">
-              <input class="form-control" type="email" placeholder="邮箱地址">
-              <label>{{ state.invoiceType == INVOICE_TYPE.ONLINE ? '邮箱地址' : '收件地址' }}</label>
+              <input class="form-control" type="email" :placeholder="t('legacyPages.invoice.draw.field.receiver')">
+              <label>{{ t('legacyPages.invoice.draw.field.receiver') }}</label>
             </div>
           </div>
           <div class="col-md">
             <div class="form-floating">
-              <input class="form-control" type="email" placeholder="开票备注">
-              <label>开票备注</label>
+              <input class="form-control" type="email" :placeholder="t('legacyPages.invoice.draw.field.phone')">
+              <label>{{ t('legacyPages.invoice.draw.field.phone') }}</label>
+            </div>
+          </div>
+        </div>
+
+        <div class="row g-2 cim-row">
+          <div class="col-md">
+            <div class="form-floating">
+              <input class="form-control" type="email" :placeholder="state.invoiceType == INVOICE_TYPE.ONLINE ? t('legacyPages.invoice.draw.field.email') : t('legacyPages.invoice.draw.field.address')">
+              <label>{{ state.invoiceType == INVOICE_TYPE.ONLINE ? t('legacyPages.invoice.draw.field.email') : t('legacyPages.invoice.draw.field.address') }}</label>
+            </div>
+          </div>
+          <div class="col-md">
+            <div class="form-floating">
+              <input class="form-control" type="email" :placeholder="t('legacyPages.invoice.draw.field.remark')">
+              <label>{{ t('legacyPages.invoice.draw.field.remark') }}</label>
             </div>
           </div>
         </div>
       </div>
     </div>
-  </div>
+  </PageSection>
 </template>

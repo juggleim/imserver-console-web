@@ -1,0 +1,51 @@
+{
+  "home": "Home",
+  "appManagement": "App Management",
+  "app": {
+    "baseInfo": "Basic Info",
+    "featureConfig": "Feature Settings",
+    "webhookSettings": "Event Forwarding",
+    "messageIntercept": "Message Intercept",
+    "pushSettings": "Push Settings",
+    "storageSettings": "Storage Settings",
+    "translateSettings": "Translation Settings",
+    "workbenchSettings": "Workbench Settings",
+    "rtcSettings": "RTC Settings",
+    "emailSettings": "Email Settings",
+    "smsSettings": "SMS Settings"
+  },
+  "userManagement": "User Management",
+  "user": {
+    "users": "Users",
+    "groups": "Groups"
+  },
+  "sensitive": {
+    "root": "Sensitive Words",
+    "config": "Word Settings"
+  },
+  "message": {
+    "root": "Message Management",
+    "conversations": "Conversations"
+  },
+  "analytics": {
+    "root": "Analytics",
+    "userDaily": "User Stats [DAU]",
+    "messagePrivate": "Message Stats [Direct]",
+    "messageGroup": "Message Stats [Group]",
+    "messageChatroom": "Message Stats [Chatroom]"
+  },
+  "logs": {
+    "root": "Logs",
+    "list": "Log List"
+  },
+  "dev": {
+    "root": "Developer Tools",
+    "apiDebug": "API Debug",
+    "connectionInspect": "Connection Inspect"
+  },
+  "account": {
+    "root": "Account",
+    "settings": "Account Settings",
+    "users": "User Management"
+  }
+}

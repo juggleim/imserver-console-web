@@ -1,0 +1,70 @@
+{
+  "header": {
+    "brand": "IM Console",
+    "selectApp": "Select App",
+    "docs": "Docs",
+    "accountSettings": "Settings",
+    "logout": "Sign Out"
+  },
+  "word": {
+    "to": "to",
+    "yuan": "CNY"
+  },
+  "dialog": {
+    "save": "Save"
+  },
+  "action": {
+    "create": "Create App",
+    "import": "Import App",
+    "viewDetails": "View Details",
+    "view": "View",
+    "login": "Sign In",
+    "search": "Search",
+    "edit": "Edit",
+    "add": "Add",
+    "remove": "Remove",
+    "cancel": "Cancel",
+    "confirm": "Confirm",
+    "delete": "Delete",
+    "recall": "Recall",
+    "upload": "Upload",
+    "enable": "Enable",
+    "disable": "Disable",
+    "ban": "Ban",
+    "unban": "Unban",
+    "nextPage": "Next",
+    "settings": "Settings"
+  },
+  "appType": {
+    "private": "Private Cloud",
+    "public": "Public Cloud"
+  },
+  "feedback": {
+    "copySuccess": "Copied successfully",
+    "copyFailed": "Copy failed",
+    "noMore": "No more items",
+    "requestFailed": "Error: {code} {msg}",
+    "missing": "Translation pending"
+  },
+  "status": {
+    "enabled": "Enabled",
+    "disabled": "Disabled",
+    "unset": "Not set",
+    "online": "Online"
+  },
+  "label": {
+    "appName": "App Name",
+    "appKey": "App-Key",
+    "createdTime": "Created At",
+    "registeredUsers": "Registered Users",
+    "maxUsers": "Licensed Users",
+    "deploymentType": "Deployment",
+    "expireTime": "Expires At",
+    "unlimited": "Unlimited"
+  },
+  "form": {
+    "addCertificate": "Add Certificate",
+    "removeCertificate": "Remove Certificate",
+    "saveInfo": "Save"
+  }
+}

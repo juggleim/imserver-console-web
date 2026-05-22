@@ -1,9 +1,12 @@
 <script setup>
 import { reactive, getCurrentInstance } from 'vue';
 import ModifyDialog from '../../components/dialog.vue';
-import { USER_STATE, ErrorType, USER_ROLE, ROLES } from "../../common/enum";
+import BindAppDialog from '../../components/dialog-bind-app.vue';
+import { USER_STATE, ErrorType, ROLES, USER_ROLE_TYPE } from "../../common/enum";
 import utils from '../../common/utils';
 import { User } from "../../services";
+import { t } from '@/i18n';
+import PageSection from '@/components/page-section.vue';
 
 let context = getCurrentInstance();
 let defaltUser = {
@@ -11,14 +14,14 @@ let defaltUser = {
   password: '',
   confirmPasswrod: '',
   state: USER_STATE.ENABLE,
-  role: USER_ROLE.ADMIN
+  role: USER_ROLE_TYPE.ADMIN
 }
 let state = reactive({
   users: [],
   roles: utils.clone(ROLES),
   radios: [
-    { name: 'type', value: USER_STATE.ENABLE, label: '启用' },
-    { name: 'type', value: USER_STATE.DISABLE, label: '禁用' },
+    { name: 'type', value: USER_STATE.ENABLE, label: 'Enable', labelKey: 'userManager.action.enable' },
+    { name: 'type', value: USER_STATE.DISABLE, label: 'Disable', labelKey: 'userManager.action.disable' },
   ],
   isShowEdit: false,
   user: utils.clone(defaltUser),
@@ -26,6 +29,9 @@ let state = reactive({
   accountErrorMsg: '',
   pwdErrorMsg: '',
   conPwdErrorMsg: '',
+
+  isShowBindApp: false,
+  selectUser: {},
 });
 
 User.getUsers().then(({ data }) => {
@@ -43,6 +49,10 @@ function onShowEdit(isShow, user) {
   if(!isShow){
     state.user = utils.clone(defaltUser);
   }
+}
+function onShowBindApp(isShow, user){
+  state.isShowBindApp = isShow;
+  state.selectUser = isShow ? user : {};
 }
 function onRadieChanged(type){
   state.user.state = type;
@@ -67,11 +77,10 @@ function onOperate(user){
     });
     context.proxy.$toast({
       icon: 'success',
-      text: '操作成功',
+      text: t('userManager.feedback.operateSuccess'),
       duration: 4000
     })
   })
-  
 }
 function onDelete(index){
   let user = state.users[index];
@@ -79,7 +88,7 @@ function onDelete(index){
     state.users.splice(index, 1);
     context.proxy.$toast({
       icon: 'success',
-      text: '删除成功',
+      text: t('userManager.feedback.deleteSuccess'),
       duration: 4000
     });
   });
@@ -88,25 +97,25 @@ function onSave(){
   let { user } = state;
   let { account, password, confirmPasswrod, role } = user;
   if(utils.isEmpty(account)){
-    return state.accountErrorMsg = '账户名称不能为空';
+    return state.accountErrorMsg = t('userManager.validation.accountRequired');
   }
   if(utils.isEmpty(password)){
-    return state.pwdErrorMsg = '密码不能为空';
+    return state.pwdErrorMsg = t('userManager.validation.passwordRequired');
   }
   if(!utils.isEqual(confirmPasswrod, password)){
-    return state.conPwdErrorMsg = '两次密码输入不一致';
+    return state.conPwdErrorMsg = t('userManager.validation.passwordMismatch');
   }
   if(user.created_time){
     return User.updatePwd({
       account: account,
       password: password,
       new_password: confirmPasswrod,
-      role_id: role,
+      role_type: role,
     }).then(({ code, msg }) => {
       if(utils.isEqual(code, ErrorType.SUCCESS_0.code)){
         context.proxy.$toast({
           icon: 'success',
-          text: '修改密码成功',
+          text: t('userManager.feedback.passwordUpdated'),
           duration: 3000
         });
       }else{
@@ -118,18 +127,18 @@ function onSave(){
       }
     });
   }
-  User.add({ account, password, state: user.state, role_id: role }).then(({ code }) => {
-    let icon = 'success', text = '保存成功';
+  User.add({ account, password, state: user.state, role_type: role }).then(({ code }) => {
+    let icon = 'success', text = t('userManager.feedback.saveSuccess');
     if(utils.isEqual(code, ErrorType.SUCCESS_0.code)){
       user.time = utils.formatTime(Date.now());
       state.users.push(user);
       onShowEdit(false);
     }else if(utils.isEqual(code, ErrorType.USER_EXISTS.code)){
       icon = 'error';
-      text = ErrorType.USER_EXISTS.msg;
+      text = t(ErrorType.USER_EXISTS.key);
     }else{
       icon = 'error';
-      text = '保存失败，请重试';
+      text = t('userManager.feedback.saveFailed');
     }
     context.proxy.$toast({
       icon,
@@ -152,63 +161,67 @@ function onInput(name){
   };
   events[name]();
 }
+function onBindApp(){
+  let { selectUser } = state;
+  onShowBindApp(false, {});
+}
 </script>
 <template>
-  <div class="mb-4">
-    <div class="header cim-header">
-      <div class="cim-title">用户管理</div>
-      <div class="cicon cicon-add cim-button cim-button-bg" @click="onShowEdit(true)">添加用户</div>
-    </div>
+  <PageSection title-key="menu.account.users">
+    <template #actions>
+      <div class="cicon cicon-add cim-button cim-button-bg" @click="onShowEdit(true)">{{ t('userManager.action.addUser') }}</div>
+    </template>
     <table class="table cim-table">
       <thead>
         <tr>
-          <th>用户名称</th>
-          <th>用户账号</th>
-          <th>用户密码</th>
-          <th>是否启用</th>
-          <th>创建时间</th>
-          <th class="cim-td-c">操作</th>
+          <th>{{ t('userManager.table.account') }}</th>
+          <th>{{ t('userManager.table.role') }}</th>
+          <th>{{ t('userManager.table.password') }}</th>
+          <th>{{ t('userManager.table.status') }}</th>
+          <th>{{ t('userManager.table.createdTime') }}</th>
+          <th class="cim-td-c">{{ t('userManager.table.operation') }}</th>
         </tr>
       </thead>
       <tbody>
         <tr v-for="(user, index) in state.users">
           <td>{{ user.account }}</td>
-          <td>{{ user.account }}</td>
+          <td>{{ user.role_type == USER_ROLE_TYPE.ADMIN ? t('userManager.role.admin') : t('userManager.role.user') }}</td>
           <td>**** ****</td>
           <td class="cicon" :class="{ 'cicon-success': user.state == USER_STATE.ENABLE, 'cicon-error': user.state == USER_STATE.DISABLE }">
-            {{ user.state == USER_STATE.ENABLE ? '已启用' : '已禁用' }}
+            {{ user.state == USER_STATE.ENABLE ? t('common.status.enabled') : t('common.status.disabled') }}
           </td>
           <td>{{ user.time }}</td>
           <td class="cim-td-c cim-td-operate">
+            <a class="btn-link cim-btn-link" type="button" v-if="user.role_type == USER_ROLE_TYPE.USER"  @click="onShowBindApp(true, user)">{{ t('userManager.action.bindApp') }}</a>
             <!-- <a class="btn-link cim-btn-link" type="button" @click="onShowEdit(true, user)">修改</a> -->
-            <a class="btn-link cim-btn-link" type="button" @click="onOperate(user)">{{ user.state == USER_STATE.DISABLE ? '启用' : '禁用'}}</a>
-            <a class="btn-link cim-btn-link" type="button" @click="onDelete(index)">删除</a>
+            <a class="btn-link cim-btn-link" type="button" v-if="user.role_type == USER_ROLE_TYPE.USER" @click="onOperate(user)">{{ user.state == USER_STATE.DISABLE ? t('userManager.action.enable') : t('userManager.action.disable')}}</a>
+            <a class="btn-link cim-btn-link" type="button" v-if="user.role_type == USER_ROLE_TYPE.USER" @click="onDelete(index)">{{ t('userManager.action.delete') }}</a>
           </td>
         </tr>
       </tbody>
     </table>
-    <ModifyDialog :show="state.isShowEdit" :title="'用户变更'" @hide="onShowEdit(false)" @save="onSave()">
+    <ModifyDialog :show="state.isShowEdit" :title="t('userManager.dialog.title')" @hide="onShowEdit(false)" @save="onSave()">
       <div class="row g-2 cim-row">
         <div class="form-floating">
-          <input class="form-control" :disabled="state.user.created_time" v-model="state.user.account" type="text" placeholder="用户名称" autocomplete="off"  @input="onInput('account')">
-          <label>用户名称</label>
+          <input class="form-control" :disabled="state.user.created_time" v-model="state.user.account" type="text" :placeholder="t('userManager.field.account')" autocomplete="off"  @input="onInput('account')">
+          <label>{{ t('userManager.field.account') }}</label>
           <div class="invalid-feedback feedback" v-if="state.accountErrorMsg">{{ state.accountErrorMsg }}</div>
         </div>
         <div class="form-floating">
-          <input class="form-control" v-model="state.user.password" type="text" placeholder="用户密码" @input="onInput('pwd')">
-          <label>用户密码</label>
+          <input class="form-control" v-model="state.user.password" type="text" :placeholder="t('userManager.field.password')" @input="onInput('pwd')">
+          <label>{{ t('userManager.field.password') }}</label>
           <div class="invalid-feedback feedback" v-if="state.pwdErrorMsg">{{ state.pwdErrorMsg }}</div>
         </div>
         <div class="form-floating">
-          <input class="form-control" v-model="state.user.confirmPasswrod" type="text" placeholder="确认密码" @input="onInput('confirm')">
-          <label>确认密码</label>
+          <input class="form-control" v-model="state.user.confirmPasswrod" type="text" :placeholder="t('userManager.field.confirmPassword')" @input="onInput('confirm')">
+          <label>{{ t('userManager.field.confirmPassword') }}</label>
           <div class="invalid-feedback feedback" v-if="state.conPwdErrorMsg">{{ state.conPwdErrorMsg }}</div>
         </div>
         <div class="form-floating">
           <select class="form-select" v-model="state.user.role">
-            <option :value="item.value" v-for="item in state.roles" >{{ item.name }}</option>
+            <option :value="item.value" v-for="item in state.roles" >{{ item.labelKey ? t(item.labelKey, {}, item.name) : item.name }}</option>
           </select>
-          <label>用户角色</label>
+          <label>{{ t('userManager.field.userRole') }}</label>
         </div>
         <!-- <div class="form-floating">
           <div class="form-control">
@@ -218,10 +231,12 @@ function onInput(name){
               <label class="form-check-label">{{ radio.label }}</label>
             </div>
           </div>
-          <label>是否启用</label>
+          <label>Enabled</label>
         </div> -->
         <input type="password" autocomplete="new-password" style="display: none;" />
       </div>
     </ModifyDialog>
-  </div>
+
+    <BindAppDialog :show="state.isShowBindApp" :title="t('userManager.dialog.bindTitle')" :account="state.selectUser.account" @hide="onShowBindApp(false)" @save="onBindApp()"></BindAppDialog>
+  </PageSection>
 </template>

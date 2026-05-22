@@ -1,0 +1,127 @@
+{
+  "app": {
+    "title": {
+      "list": "Apps"
+    },
+    "table": {
+      "appName": "App Name",
+      "licenseCount": "License Count",
+      "usedLicenseCount": "Used Licenses",
+      "unusedLicenseCount": "Unused Licenses",
+      "expireTime": "Expires At",
+      "createdTime": "Created At",
+      "operation": "Actions"
+    },
+    "feedback": {
+      "createSuccess": "Created successfully"
+    }
+  },
+  "sample": {
+    "companyName": "Future Tech Co., Ltd.",
+    "receiverCompany": "SnailChat Technology Co., Ltd.",
+    "receiverBank": "ICBC Renmin University Branch",
+    "wechat": "WeChat",
+    "serviceTitleAndroid": "Android SDK Integration Error",
+    "serviceTitleIos": "iOS SDK Integration Error",
+    "serviceTitleGeneric": "How should I handle this issue?"
+  },
+  "finance": {
+    "dashboard": {
+      "availableBalance": "Available Balance",
+      "recharge": "Recharge",
+      "details": "Transaction Details",
+      "cashBalance": "Cash Balance",
+      "arrears": "Outstanding Balance",
+      "frozenAmount": "Frozen Amount"
+    },
+    "recharge": {
+      "tab": {
+        "online": "Online Recharge",
+        "public": "Bank Transfer"
+      },
+      "field": {
+        "rechargeAccount": "Recharge Account",
+        "accountBalance": "Account Balance",
+        "rechargeAmount": "Recharge Amount",
+        "payType": "Payment Method",
+        "receiverName": "Payee Name",
+        "receiverAccount": "Payee Account",
+        "receiverBank": "Receiving Bank"
+      },
+      "payType": {
+        "wechat": "WeChat Pay",
+        "alipay": "Alipay"
+      }
+    },
+    "bill": {
+      "title": "Billing History"
+    },
+    "rechargeList": {
+      "title": "Recharge Records"
+    },
+    "table": {
+      "invoiceTitle": "Invoice Title",
+      "invoiceAmount": "Invoice Amount",
+      "invoiceType": "Invoice Type",
+      "status": "Status",
+      "invoiceTime": "Invoice Time"
+    },
+    "invoiceType": {
+      "normal": "Standard Invoice",
+      "special": "Special Invoice"
+    },
+    "status": {
+      "sent": "Sent"
+    }
+  },
+  "invoice": {
+    "draw": {
+      "title": "Pending Invoices",
+      "table": {
+        "rechargeSubject": "Recharge Subject",
+        "rechargeAmount": "Recharge Amount",
+        "invoiceAmount": "Invoiceable Amount",
+        "rechargeType": "Recharge Method",
+        "rechargeTime": "Recharge Time"
+      },
+      "total": "Total Invoice Amount:",
+      "field": {
+        "invoiceTitle": "Invoice Title",
+        "taxNumber": "Taxpayer ID",
+        "receiver": "Recipient",
+        "phone": "Phone",
+        "email": "Email",
+        "address": "Mailing Address",
+        "remark": "Invoice Notes"
+      },
+      "invoiceType": {
+        "online": "VAT Invoice (Electronic)",
+        "paper": "VAT Invoice (Paper)"
+      }
+    },
+    "list": {
+      "title": "Invoice Records"
+    }
+  },
+  "service": {
+    "orderList": {
+      "table": {
+        "orderNo": "Ticket No.",
+        "title": "Title",
+        "status": "Status",
+        "replyTime": "Last Reply",
+        "operation": "Actions"
+      },
+      "status": {
+        "processing": "Processing"
+      }
+    },
+    "orderCreate": {
+      "field": {
+        "title": "Ticket Title",
+        "description": "Issue Description",
+        "attachments": "Attachments"
+      }
+    }
+  }
+}

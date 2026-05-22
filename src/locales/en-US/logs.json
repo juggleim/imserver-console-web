@@ -1,0 +1,42 @@
+{
+  "field": {
+    "userId": "User ID",
+    "description": "Remarks",
+    "platform": "Platform",
+    "timeRange": "Time Range"
+  },
+  "action": {
+    "search": "Search",
+    "pullLogs": "Pull Logs",
+    "download": "Download",
+    "previous": "Previous",
+    "next": "Next"
+  },
+  "table": {
+    "collectTime": "Collected At",
+    "pullTime": "Pulled At",
+    "status": "Log Status",
+    "remark": "Remarks",
+    "operation": "Actions"
+  },
+  "dialog": {
+    "title": "Pull Logs"
+  },
+  "pullDialog": {
+    "businessLogs": "Business Logs",
+    "remark": "Remark"
+  },
+  "status": {
+    "0": "Pending",
+    "1": "Command sent",
+    "2": "Command failed",
+    "3": "Upload completed",
+    "4": "Upload failed",
+    "5": "No logs on client"
+  },
+  "feedback": {
+    "userIdRequired": "User ID is required",
+    "descriptionRequired": "Remark is required",
+    "requestFailed": "Error: {code} {msg}"
+  }
+}

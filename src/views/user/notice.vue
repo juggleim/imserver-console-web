@@ -1,8 +1,7 @@
 <script setup>
-
+import { t } from '@/i18n';
+import PageSection from '@/components/page-section.vue';
 </script>
 <template>
-   <div>
-    用户通知
-  </div>
+   <PageSection title-key="tools.notice.title"></PageSection>
 </template>

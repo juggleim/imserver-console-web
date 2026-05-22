@@ -1,0 +1,14 @@
+{
+  "sectionTitle": "Basic Info",
+  "field": {
+    "appName": "App Name",
+    "appKey": "App Key",
+    "appSecret": "App Secret",
+    "expireTime": "App Expiration",
+    "licenseCount": "Licensed Users",
+    "status": "App Status"
+  },
+  "status": {
+    "online": "Online"
+  }
+}

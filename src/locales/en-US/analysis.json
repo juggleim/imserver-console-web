@@ -1,0 +1,38 @@
+{
+  "range": {
+    "7days": "7 days",
+    "14days": "14 days",
+    "30days": "30 days"
+  },
+  "common": {
+    "comparePreviousDay": "vs previous day"
+  },
+  "user": {
+    "legendDau": "DAU",
+    "fetchFailed": "Failed to load DAU data. Please refresh and try again"
+  },
+  "message": {
+    "legendUp": "Direct Upstream Messages",
+    "legendDown": "Direct Downstream Messages",
+    "legendDispatch": "Direct Dispatch Messages",
+    "dayUp": "Yesterday Direct Upstream Messages",
+    "dayDown": "Yesterday Direct Downstream Messages",
+    "dayDispatch": "Yesterday Direct Dispatch Messages"
+  },
+  "group": {
+    "legendUp": "Group Upstream Messages",
+    "legendDown": "Group Downstream Messages",
+    "legendDispatch": "Group Dispatch Messages",
+    "dayUp": "Yesterday Group Upstream Messages",
+    "dayDown": "Yesterday Group Downstream Messages",
+    "dayDispatch": "Yesterday Group Dispatch Messages"
+  },
+  "chatroom": {
+    "legendUp": "Chatroom Upstream Messages",
+    "legendDown": "Chatroom Downstream Messages",
+    "legendDispatch": "Chatroom Dispatch Messages",
+    "dayUp": "Yesterday Chatroom Upstream Messages",
+    "dayDown": "Yesterday Chatroom Downstream Messages",
+    "dayDispatch": "Yesterday Chatroom Dispatch Messages"
+  }
+}

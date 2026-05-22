@@ -7,7 +7,7 @@
   overflow: auto;
   margin-left: 1rem;
   background: #FAFAFA;
-  padding: 0 1rem;
+  padding: 0 0.6rem;
 }
 
 .mb-4{
@@ -30,8 +30,11 @@
 .cim-table tr:last-child td:last-child{
   border-bottom-right-radius: 10px;
 }
+.cim-table tr:last-child td{
+  border-color: transparent;
+}
 .cim-td-c{
-  text-align: center;
+  text-align: left;
 }
 .cim-td-r{
   text-align: right;

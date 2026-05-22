@@ -1,0 +1,42 @@
+{
+  "field": {
+    "userId": "用户 ID",
+    "description": "备注信息",
+    "platform": "平台",
+    "timeRange": "时间范围"
+  },
+  "action": {
+    "search": "查询",
+    "pullLogs": "拉取日志",
+    "download": "下载",
+    "previous": "上一页",
+    "next": "下一页"
+  },
+  "table": {
+    "collectTime": "收集时间",
+    "pullTime": "拉取时间",
+    "status": "日志状态",
+    "remark": "日志备注",
+    "operation": "操作"
+  },
+  "dialog": {
+    "title": "拉取日志"
+  },
+  "pullDialog": {
+    "businessLogs": "业务日志",
+    "remark": "备注说明"
+  },
+  "status": {
+    "0": "待执行",
+    "1": "指令成功已发",
+    "2": "指令发送失败",
+    "3": "日志上传完成",
+    "4": "日志上传失败",
+    "5": "客户端无日志"
+  },
+  "feedback": {
+    "userIdRequired": "用户 ID 不可为空",
+    "descriptionRequired": "备注 不可为空",
+    "requestFailed": "Error: {code} {msg}"
+  }
+}

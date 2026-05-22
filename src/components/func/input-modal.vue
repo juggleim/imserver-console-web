@@ -5,6 +5,7 @@ const props = defineProps(['item']);
 const emit = defineEmits(['save'])
 import { reactive, watch } from 'vue';
 import utils from '../../common/utils';
+import { t } from '@/i18n';
 let state = reactive({
   isShowModal: false,
   domains: []
@@ -29,14 +30,14 @@ watch(() => props.item.value, (value) => {
 <template>
    <div class="cim-sw-form">
     <div class="cim-form-check form-switch">
-      <label class="form-check-label">{{ props.item.name }}</label>
+      <label class="form-check-label">{{ props.item.labelKey ? t(props.item.labelKey, {}, props.item.name) : props.item.name }}</label>
       <div class="cim-secrity-dm-content">
         <ul>
-          <li v-if="state.domains.length == 0">未设置</li>
+          <li v-if="state.domains.length == 0">{{ t('common.status.unset') }}</li>
           <li v-else>{{ state.domains.join(';') }}</li>
         </ul>
       </div>
-      <div class="cim-button" @click="onShowModal(true)">修改</div>
+      <div class="cim-button" @click="onShowModal(true)">{{ t('common.action.edit') }}</div>
     </div>
   </div>
   <DialogDomain :show="state.isShowModal" :domains="state.domains" @hide="onShowModal(false)" @save="onSave"></DialogDomain>

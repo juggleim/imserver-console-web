@@ -1,0 +1,37 @@
+{
+  "dialog": {
+    "title": "Email Settings",
+    "channel": "Email Channel"
+  },
+  "feedback": {
+    "createFailed": "Create failed: {code}",
+    "updateFailed": "Update failed: {code}",
+    "fetchFailed": "Failed to load config: {code}",
+    "success": "Operation succeeded"
+  },
+  "status": {
+    "enabled": "[Enabled]",
+    "unset": "Not set"
+  },
+  "action": {
+    "settings": "Settings"
+  },
+  "provider": {
+    "ali": "Alibaba Cloud",
+    "engagelab": "EngageLab"
+  },
+  "field": {
+    "access_key": "AccessKey",
+    "access_secret": "AccessSecret",
+    "from_email": "FromEmail",
+    "from_alias": "FromAlias",
+    "url": "Url",
+    "api_user": "API_User",
+    "api_key": "API_Key",
+    "is_used": "Enabled"
+  },
+  "option": {
+    "enable": "Enable",
+    "disable": "Disable"
+  }
+}

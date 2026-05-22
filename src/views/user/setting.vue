@@ -5,6 +5,8 @@ import { STORAGE, ErrorType } from "../../common/enum";
 import Storage from "../../common/storage";
 import utils from '../../common/utils';
 import { User } from "../../services";
+import { t } from '@/i18n';
+import PageSection from '@/components/page-section.vue';
 
 let context = getCurrentInstance();
 let state = reactive({
@@ -33,10 +35,10 @@ function onInput(name){
 function onSave(){
   let { newPwd, pwd, user } = state;
   if(utils.isEmpty(pwd)){
-    return state.pwdErrorMsg = '原密码不能为空';
+    return state.pwdErrorMsg = t('accountSettings.validation.currentPasswordRequired');
   }
   if(utils.isEmpty(newPwd)){
-    return state.newPwdErrorMsg = '新密码不能为空';
+    return state.newPwdErrorMsg = t('accountSettings.validation.newPasswordRequired');
   }
   User.updatePwd({
     account: user.account,
@@ -46,11 +48,11 @@ function onSave(){
     if(utils.isEqual(code, ErrorType.SUCCESS_0.code)){
       onShowEdit(false);
       context.proxy.$toast({
-        text: '修改成功',
+        text: t('accountSettings.feedback.success'),
         icon: 'success'
       });
     }else if(utils.isEqual(code, ErrorType.USER_OLDPWD_WRONG.code)){
-      state.newPwdErrorMsg = ErrorType.USER_OLDPWD_WRONG.msg;
+      state.newPwdErrorMsg = t(ErrorType.USER_OLDPWD_WRONG.key);
     }else{
       context.proxy.$toast({
         text: `${code}: ${msg}`,
@@ -61,13 +63,10 @@ function onSave(){
 }
 </script>
 <template>
-  <div class="md-4 app-base">
-    <ul class="nav nav-underline-border ab-underline-border">
-      <li class="nav-item"><a class="nav-link active cicon cicon-product">基本信息</a></li>
-    </ul>
+  <PageSection title-key="menu.account.settings">
     <div class="cim-us-table">
       <div class="row cim-ab-row cim-us-row">
-        <label class="col-sm-1 col-form-label">账户名称</label>
+        <label class="col-sm-1 col-form-label">{{ t('accountSettings.field.accountName') }}</label>
         <div class="col-sm-2">
           <input class="form-control-plaintext" type="text" readonly :value="state.user.account">
         </div>
@@ -77,17 +76,17 @@ function onSave(){
       </div>
 
       <div class="row cim-ab-row cim-us-row">
-        <label class="col-sm-1 col-form-label">账户密码</label>
+        <label class="col-sm-1 col-form-label">{{ t('accountSettings.field.accountPassword') }}</label>
         <div class="col-sm-2">
           <input class="form-control-plaintext" type="text" readonly value="**** ****">
         </div>
         <div class="col-sm-4">
-          <a class="btn-link cim-btn-link" type="button" @click="onShowEdit(true)">修改</a>
+          <a class="btn-link cim-btn-link" type="button" @click="onShowEdit(true)">{{ t('accountSettings.action.edit') }}</a>
         </div>
       </div>
 
       <!-- <div class="row cim-ab-row cim-us-row">
-        <label class="col-sm-1 col-form-label">注册时间</label>
+        <label class="col-sm-1 col-form-label">Registered At</label>
         <div class="col-sm-2">
           <input class="form-control-plaintext" type="text" readonly value="2024-01-01 18:09:20">
         </div>
@@ -96,23 +95,23 @@ function onSave(){
       </div> -->
     </div>
 
-    <ModifyDialog :show="state.isShowEdit" :title="'修改密码'" @hide="onShowEdit(false)" @save="onSave()">
+    <ModifyDialog :show="state.isShowEdit" :title="t('accountSettings.dialog.title')" @hide="onShowEdit(false)" @save="onSave()">
       <div class="row g-2 cim-row">
           <div class="form-floating">
-            <input class="form-control" placeholder="账户名称" :value="state.user.account" disabled>
-            <label>账户名称</label>
+            <input class="form-control" :placeholder="t('accountSettings.field.accountName')" :value="state.user.account" disabled>
+            <label>{{ t('accountSettings.field.accountName') }}</label>
           </div>
           <div class="form-floating">
-            <input class="form-control" placeholder="原密码" v-model="state.pwd" @input="onInput('pwd')">
-            <label>原密码</label>
+            <input class="form-control" :placeholder="t('accountSettings.field.currentPassword')" v-model="state.pwd" @input="onInput('pwd')">
+            <label>{{ t('accountSettings.field.currentPassword') }}</label>
             <div class="invalid-feedback feedback" v-if="state.pwdErrorMsg">{{ state.pwdErrorMsg }}</div>
           </div>
           <div class="form-floating">
-            <input class="form-control" placeholder="新密码" v-model="state.newPwd" @input="onInput('newPwd')">
-            <label>新密码</label>
+            <input class="form-control" :placeholder="t('accountSettings.field.newPassword')" v-model="state.newPwd" @input="onInput('newPwd')">
+            <label>{{ t('accountSettings.field.newPassword') }}</label>
             <div class="invalid-feedback feedback" v-if="state.newPwdErrorMsg">{{ state.newPwdErrorMsg }}</div>
           </div>
       </div>
     </ModifyDialog>
-  </div>
+  </PageSection>
 </template>

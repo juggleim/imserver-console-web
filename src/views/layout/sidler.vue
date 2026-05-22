@@ -6,6 +6,7 @@ import Stroage from "../../common/storage";
 import { STORAGE } from "../../common/enum";
 import menuTools from "./menu-tools";
 import appTools from '../../common/app-tools';
+import { t } from '@/i18n';
 
 const props = defineProps(["isCollapse", "isHome"]);
 const router = useRouter();
@@ -18,7 +19,7 @@ menuTools.setMenuConfig({ state, router });
 
 function updateActive(active){
   state.menus.map((_menu) => {
-    // _menu.isUnfold = utils.isInclude(active.name, _menu.tag);
+    _menu.isActive = !_menu.children && utils.isEqual(active.name, _menu.name);
     if(_menu.children){
       _menu.children = _menu.children.map((child) => {
         child.isActive = utils.isEqual(active.name, child.name);
@@ -70,27 +71,53 @@ if(!utils.isEqual(name, 'Dashboard')){
 updateActive({ name });
 </script>
 <template>
-  <div class="sidebar" :class="{ 'hide': props.isCollapse && utils.isMobile(), 'show':   props.isCollapse && utils.isMobile(), 'hide': props.isHome}" id="sidebar">
- 
-    <ul class="sidebar-nav" data-coreui="navigation" data-simplebar>
-      <li class="nav-group" v-for="menu in state.menus" :class="{ 'show': menu.isUnfold, 'hideMenu': menu.isHidden }">
-        <div class="nav-link cicon" :class="{ 'nav-group-toggle': menu.children, 'active': menu.isActive }" href="#" @click="onNavigate(menu)">
-          <span class="cim-nav-icon cicon" :class="[menu.icon]"></span>
-          {{ menu.title }}
-        </div>
-        <ul class="nav-group-items compact">
-          <li class="nav-item" v-for="child in menu.children" :class="{'hideMenu': child.isHidden }">
-            <div class="nav-link cicon" :class="{ 'active': child.isActive}" href="#" @click="onNavigate(child)">
-              <span class="nav-icon">
-                <!-- <span class="nav-icon-bullet"></span> -->
-              </span> {{ child.title }}
-            </div>
-          </li>
-        </ul>
-      </li>
-    </ul>
-    <div class="sidebar-footer">     
-      <div class="cicon cicon-logout cim-button cim-sider-logout" @click="onLogout">退出登录</div>
+  <div
+    class="sidebar cim-sider-shell"
+    :class="{ 'hide': props.isCollapse && utils.isMobile(), 'show': props.isCollapse && utils.isMobile(), 'hide': props.isHome }"
+    id="sidebar"
+  >
+    <div class="cim-sider-panel">
+      <ul class="sidebar-nav cim-sidebar-nav" data-coreui="navigation" data-simplebar>
+        <li
+          class="nav-group cim-sidebar-group"
+          v-for="menu in state.menus"
+          :key="menu.name || menu.title"
+          :class="{ 'show': menu.isUnfold, 'hideMenu': menu.isHidden }"
+        >
+          <div
+            class="nav-link cicon cim-sidebar-link cim-sidebar-link-root"
+            :class="{ 'active': menu.isActive, 'is-open': menu.isUnfold, 'is-parent': menu.children }"
+            @click="onNavigate(menu)"
+          >
+            <span class="cim-nav-icon cicon" :class="[menu.icon]"></span>
+            <span class="cim-sidebar-label">{{ t(menu.title) }}</span>
+            <span
+              v-if="menu.children"
+              class="cim-sidebar-arrow cicon cicon-right-arrow"
+              :class="{ 'is-open': menu.isUnfold }"
+            ></span>
+          </div>
+          <ul v-if="menu.children" class="nav-group-items compact cim-sidebar-children">
+            <li
+              class="nav-item cim-sidebar-child-item"
+              v-for="child in menu.children"
+              :key="child.name || child.title"
+              :class="{ 'hideMenu': child.isHidden }"
+            >
+              <div
+                class="nav-link cicon cim-sidebar-link cim-sidebar-link-child"
+                :class="{ 'active': child.isActive }"
+                @click="onNavigate(child)"
+              >
+                <span class="cim-sidebar-child-label">{{ t(child.title) }}</span>
+              </div>
+            </li>
+          </ul>
+        </li>
+      </ul>
+    </div>
+    <div class="sidebar-footer cim-sider-footer">
+      <div class="cicon cicon-logout cim-button cim-sider-logout" @click="onLogout">{{ t('common.header.logout') }}</div>
     </div>
   </div>
 </template>

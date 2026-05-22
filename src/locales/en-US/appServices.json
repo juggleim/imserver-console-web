@@ -1,0 +1,161 @@
+{
+  "push": {
+    "channel": {
+      "Huawei": "Huawei",
+      "Xiaomi": "Xiaomi",
+      "Oppo": "OPPO",
+      "Vivo": "vivo",
+      "ios": "iOS",
+      "fcm": "FCM"
+    },
+    "field": {
+      "package": "Package Name",
+      "certFile": "Certificate File",
+      "certPassword": "Certificate Password",
+      "voipCertPassword": "VoIP Certificate Password",
+      "voipCertFile": "VoIP Certificate File",
+      "certEnv": "Certificate Environment"
+    },
+    "option": {
+      "dev": "Development",
+      "prod": "Production"
+    },
+    "feedback": {
+      "saveSuccess": "Saved successfully",
+      "queryFailed": "Query failed. Refresh and try again."
+    }
+  },
+  "webhook": {
+    "field": {
+      "eventUrl": "Event Callback URL",
+      "authToken": "Auth Token"
+    },
+    "placeholder": {
+      "eventUrl": "Enter the event callback URL",
+      "authToken": "Enter the auth token. It will be sent to your server with the callback event."
+    },
+    "feedback": {
+      "saveSuccess": "Saved successfully"
+    }
+  },
+  "messageIntercept": {
+    "section": {
+      "callback": "Intercept Callback",
+      "rules": "Trigger Rules"
+    },
+    "field": {
+      "eventUrl": "Intercept URL",
+      "authToken": "Auth Token",
+      "channelType": "Conversation Type",
+      "senderId": "Sender ID or *",
+      "targetId": "Receiver ID or *",
+      "messageType": "Message Type or *"
+    },
+    "placeholder": {
+      "eventUrl": "Enter the intercept URL",
+      "authToken": "Enter the auth token. It will be sent to your server with the intercept request.",
+      "senderId": "Enter the sender ID",
+      "targetId": "Enter the receiver ID",
+      "messageType": "Enter the message type"
+    },
+    "option": {
+      "allChannelTypes": "All Conversation Types"
+    },
+    "rule": {
+      "title": "Trigger Rule {index}"
+    },
+    "action": {
+      "drag": "Drag to sort"
+    },
+    "tip": {
+      "callback": "Save the intercept callback before configuring the rules below.",
+      "dragToSort": "Use the add button to insert a rule and drag the handle to change the execution order.",
+      "rulesLocked": "The rule editor is available only after the intercept callback is saved."
+    },
+    "feedback": {
+      "saveSuccess": "Saved successfully",
+      "callbackRequired": "Enter the intercept URL first."
+    }
+  },
+  "worklist": {
+    "title": {
+      "addApp": "Add App",
+      "editApp": "Edit App"
+    },
+    "section": {
+      "preview": "Preview"
+    },
+    "table": {
+      "appInfo": "App Info",
+      "appUrl": "App URL",
+      "appOrder": "App Order",
+      "operation": "Actions"
+    },
+    "field": {
+      "appName": "App Name",
+      "appIcon": "App Icon",
+      "appUrl": "App URL",
+      "appOrder": "App Order"
+    },
+    "action": {
+      "uploadIcon": "Upload Icon",
+      "viewMessages": "View Messages"
+    },
+    "validation": {
+      "appNameRequired": "App name is required",
+      "appIconRequired": "App icon is required",
+      "appUrlRequired": "App URL is required"
+    },
+    "feedback": {
+      "uploadError": "Upload Error: {code}"
+    }
+  },
+  "groupList": {
+    "field": {
+      "groupId": "Group ID",
+      "groupName": "Group Name"
+    },
+    "table": {
+      "groupName": "Group Name",
+      "memberCount": "Members",
+      "groupId": "Group ID",
+      "createdTime": "Created At",
+      "operation": "Actions"
+    },
+    "action": {
+      "dissolve": "Dissolve"
+    },
+    "feedback": {
+      "dissolved": "Group dissolved"
+    }
+  },
+  "conversationList": {
+    "field": {
+      "userName": "Conversation Name",
+      "targetId": "Conversation ID",
+      "channelType": "Conversation Type"
+    },
+    "table": {
+      "conversationType": "Type",
+      "conversationInfo": "Conversation",
+      "lastMessageTime": "Last Message Time",
+      "operation": "Actions"
+    },
+    "channel": {
+      "all": "All",
+      "group": "Group",
+      "private": "Private"
+    },
+    "action": {
+      "viewMessages": "View Messages"
+    },
+    "feedback": {
+      "deleteSuccess": "Deleted successfully",
+      "recallSuccess": "Recalled successfully"
+    },
+    "message": {
+      "unsupported": "Preview not supported",
+      "empty": "No messages"
+    }
+  }
+}

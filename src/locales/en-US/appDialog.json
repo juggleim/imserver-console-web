@@ -1,0 +1,20 @@
+{
+  "title": {
+    "create": "Create App",
+    "import": "Import App"
+  },
+  "field": {
+    "licenseKey": "License Key",
+    "appName": "App Name"
+  },
+  "validation": {
+    "licenseRequired": "License is required",
+    "nameRequired": "App name is required"
+  },
+  "feedback": {
+    "createSuccess": "Saved successfully",
+    "createFailed": "Save failed: {code} {msg}",
+    "importSuccess": "Imported successfully",
+    "importFailed": "Import failed: {code} {msg}"
+  }
+}

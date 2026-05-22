@@ -6,13 +6,13 @@
       :show-icon="false"
       preset="dialog"
       transform-origin="center"
-      :title="'导入词库'"
+      :title="t('sensitive.dialog.importTitle')"
       :style="{
         width: 840,
       }"
     >
       <n-scrollbar style="max-height: 87vh" class="pr-5">
-        <n-spin :show="loading" description="请稍候...">
+        <n-spin :show="loading" :description="t('sensitive.feedback.loading')">
           <n-form
             ref="formRef"
             :model="formValue"
@@ -22,7 +22,7 @@
           >
             <n-grid cols="1 s:1 m:1 l:1 xl:1 2xl:1" responsive="screen">
               <n-gi span="1">
-                <n-form-item label="词库" path="word">
+                <n-form-item :label="t('sensitive.dialog.wordLibrary')" path="word">
                   <input type="file" @change="handleFileChange" />
                 </n-form-item>
               </n-gi>
@@ -32,8 +32,8 @@
       </n-scrollbar>
       <template #action>
         <n-space>
-          <n-button @click="closeForm"> 取消</n-button>
-          <n-button type="info" :loading="formBtnLoading" @click="confirmForm"> 确定</n-button>
+          <n-button @click="closeForm">{{ t('common.action.cancel') }}</n-button>
+          <n-button type="info" :loading="formBtnLoading" @click="confirmForm">{{ t('common.action.confirm') }}</n-button>
         </n-space>
       </template>
     </n-modal>
@@ -46,6 +46,7 @@
   import { useRouter } from 'vue-router';
   import { Application } from '@/services';
   import { showToast } from '@/common/toast';
+  import { t } from '@/i18n';
   const emit = defineEmits(['reloadTable']);
   const message = useMessage();
   const loading = ref(false);
@@ -82,14 +83,14 @@
         console.log(file);
 
         Application.importSensitiveWords(app_key, file).then((res) => {
-          showToast({ text: '导入成功' });
+          showToast({ text: t('sensitive.feedback.importSuccess') });
           emit('reloadTable');
           showModal.value = false;
         }).finally(() => {
           formBtnLoading.value = false;
         });
       } else {
-        message.error('请填写完整信息');
+        message.error(t('sensitive.feedback.formIncomplete'));
       }
     });
   }

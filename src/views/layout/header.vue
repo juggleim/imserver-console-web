@@ -3,24 +3,28 @@ import {useRouter} from "vue-router";
 import { getCurrentInstance, reactive, watch, nextTick } from 'vue';
 import utils from "../../common/utils";
 import Storage from "../../common/storage";
-import {APP_TYPE, DEPLOY_TYPE, ErrorType, EVENT_NAME, STORAGE} from "../../common/enum";
+import {APP_TYPE, DEPLOY_TYPE, ErrorType, EVENT_NAME, STORAGE, USER_ROLE_TYPE} from "../../common/enum";
 import menuTools from '../layout/menu-tools';
 import appTools from '../../common/app-tools';
 import emitter from '../../common/emmit';
 import CreateDialog from '../../components/dialog-app.vue';
+import LangSwitcher from '@/components/lang-switcher.vue';
+import { useI18n } from '@/i18n';
+import BaseDropdown from '@/components/base-dropdown.vue';
 
 const context = getCurrentInstance();
 const router = useRouter();
+const { t } = useI18n();
 
 let currentUser = Storage.get(STORAGE.USER_TOKEN);
-let defaultApp = {app_name: '选择应用', kine: ''};
+let defaultApp = {app_name: '', kind: '', kind_key: ''};
 let defaultNewApp = {name: '', licenseKey: ''}
 let state = reactive({
   isPublic: utils.isEqual(currentUser.type, DEPLOY_TYPE.PUBLIC),
+  isAdmin: utils.isEqual(currentUser.role_type, USER_ROLE_TYPE.ADMIN),
   isCollapse: false,
   isShowSetting: false,
   isShowDropdwonMenu: false,
-  isShowDropdwonMenuBackdrop: false,
   breadcumbs: [],
   showHeaderApps: false,
   apps: [],
@@ -50,10 +54,22 @@ function onSetting() {
   state.isShowSetting = !state.isShowSetting;
 }
 
-let onNavigate = (name) => {
-  if (utils.isEqual(name, 'dropdown')) {
-    return state.isShowDropdwonMenu = !state.isShowDropdwonMenu;
+function getAppName(app) {
+  return app.app_name || t('common.header.selectApp');
+}
+
+function getAppKind(app) {
+  if (app.kind_key) {
+    return t(app.kind_key);
   }
+  return app.kind || '';
+}
+
+function getCreateActionLabel() {
+  return currentUser.is_commercial ? t('common.action.import') : t('common.action.create');
+}
+
+let onNavigate = (name) => {
   if (utils.isEqual(name, 'Login')) {
     Storage.remove(STORAGE.USER_TOKEN);
   }
@@ -95,6 +111,7 @@ function onDropclick(app, isFirst) {
   }
   appTools.setCurrent(utils.clone(app));
   utils.extend(state.currentApp, appTools.getCurrent())
+  state.isShowDropdwonMenu = false;
 }
 
 function onHomePage() {
@@ -104,15 +121,8 @@ function onHomePage() {
 function onHideDropmenu() {
   utils.extend(state, {
     isShowDropdwonMenu: false,
-    isShowDropdwonMenuBackdrop: false,
     isShowSetting: false
   });
-}
-
-function onShowbackdrop() {
-  utils.extend(state, {
-    isShowDropdwonMenuBackdrop: true
-  })
 }
 
 function onShowNewEdit(isShow) {
@@ -140,6 +150,9 @@ emitter.$on(EVENT_NAME.ON_LOGOUT, () => {
 let canscroll = true;
 nextTick(() => {
   let { appList } = context.refs;
+  if(!appList){
+    return;
+  }
   appList.addEventListener("scroll", () => {
     let scrollTop = appList.scrollTop;
     let scrollHeight = appList.scrollHeight;
@@ -164,77 +177,93 @@ nextTick(() => {
 
 </script>
 <template>
-  <header class="header header-sticky p-0">
-    <div class="container-fluid border-bottom px-4 cim-header-container">
-      <div class="sidebar-header" @click="onHomePage()">
-        <div class="sidebar-brand">
-          <div class="sildebar-logo">IM 管理后台</div>
-        </div>
+  <header class="cim-topbar">
+    <div class="cim-topbar-inner">
+      <div class="cim-topbar-brand" @click="onHomePage()">
+        <span class="cim-topbar-title">{{ t('common.header.brand') }}</span>
       </div>
-      <ul class="header-nav d-lg-flex">
-        <li class="nav-item cim-nav-item">
-          <button class="header-toggler cicon cicon-fold cim-header-tg" type="button" @click="onClick"></button>
-        </li>
-        <li class="nav-item cim-nav-item cim-nav-item-apps cicon cicon-down">
-          <div class="dropdown cim-dropdown">
-            <div class="row cim-hrow" @click="onNavigate('dropdown')">
-              <div class="col-md-6 cim-hdpm-appname">{{ state.currentApp.app_name }}</div>
-              <div class="col-md-6 cim-hdpm-appname">{{ state.currentApp.kind }}</div>
+
+      <BaseDropdown
+        root-class="cim-topbar-app"
+        menu-class="cim-topbar-appmenu"
+        v-model="state.isShowDropdwonMenu"
+      >
+        <template #trigger="{ toggle }">
+          <button class="cim-topbar-apptrigger" type="button" @click="toggle">
+            <span class="cim-topbar-appsummary">
+              {{ getAppName(state.currentApp) }}
+              <template v-if="getAppKind(state.currentApp)">
+                {{ ` ${getAppKind(state.currentApp)}` }}
+              </template>
+            </span>
+            <span class="cim-topbar-arrow" aria-hidden="true"></span>
+          </button>
+        </template>
+        <template #menu="{ close }">
+          <div class="cim-topbar-appmenu-inner" ref="appList">
+            <div class="cim-topbar-appmenu-create" v-if="state.isAdmin">
+              <button class="cim-topbar-create" type="button" @click="onShowNewEdit(true); close();">
+                {{ getCreateActionLabel() }}
+              </button>
             </div>
-            <ul class="dropdown-menu cim-dropdown-menu cim-dropdown-menu-app cim-header-app-dropdown" :class="{ 'show': state.isShowDropdwonMenu }"
-              @mouseleave="onShowbackdrop()" ref="appList">
-              
-              <li class="cim-dropdown-item">
-                <div class="dropdown-item">
-                  <div class="dropdown-item-app">
-                    <div class="row cim-hrow">
-                      <div class="cicon cicon-add cim-button cim-button-bg" @click="onShowNewEdit(true)">
-                        {{ currentUser.is_commercial ? '导入应用' : '创建应用' }}
-                      </div>
-                    </div>
-                  </div>
+
+            <ul class="cim-topbar-appitems">
+              <li
+                class="cim-topbar-appitem"
+                v-for="app in state.apps"
+                :key="app.app_key"
+                @click.stop="onDropclick(app); close();"
+              >
+                <div class="cim-topbar-appitem-name">{{ app.app_name }}</div>
+                <div
+                  class="cim-topbar-appitem-kind"
+                  :class="{ 'is-private': utils.isEqual(app.app_type, APP_TYPE.PRIVATE) }"
+                >
+                  {{ getAppKind(app) }}
                 </div>
               </li>
-
-              <li class="cim-dropdown-item" v-for="app in state.apps" @click.stop="onDropclick(app)">
-                <div class="cim-header-nav-app">
-                  <div class="cim-header-nav-appname">{{ app.app_name }}</div>
-                  <div class="cim-header-nav-apptype cim-app-public" :class="{'cim-app-private': utils.isEqual(app.app_type, APP_TYPE.PRIVATE)}">{{ app.kind }}</div>
-                </div>
-              </li>
-
             </ul>
           </div>
-        </li>
-      </ul>
-      <ul class="header-nav ms-auto">
-        <!-- <li class="nav-item cim-nav-item cim-r-nav">
-          <div class="nav-link cim-nav-link cicon cicon-finance" @click="onNavigate('FinaDash')">财务管理</div>
-        </li>
-        <li class="nav-item cim-nav-item cim-r-nav">
-          <div class="nav-link cim-nav-link cicon cicon-book" @click="onNavigate('OrderList')">技术支持</div>
-        </li> -->
-      </ul>
-      <ul class="header-nav cim-user-header-nav">
-        <li class="nav-item py-1">
-          <div class="vr h-100 mx-2 text-body"></div>
-        </li>
-        <li class="nav-item dropdown cim-dropdown">
-          <a class="nav-link py-0 pe-0" href="#" @click="onSetting">
-            <div class="avatar cim-avatar cim-header-avatar">
-              <img class="avatar-img" src="../../assets/images/res/avatar.jpg">
-            </div>
-          </a>
-          <div class="dropdown-menu cim-dropdown-menu" :class="{ 'show': state.isShowSetting }"
-            @mouseleave="onShowbackdrop()">
-            <div class="dropdown-item cim-dropdown-item cicon cicon-setting" @click="onNavigate('UserSetting')">账户设置
-            </div>
-            <div class="dropdown-item cim-dropdown-item cicon cicon-logout" @click="onNavigate('Login')">退出登录</div>
-          </div>
-        </li>
-      </ul>
+        </template>
+      </BaseDropdown>
+
+      <div class="cim-topbar-actions">
+        <button class="cim-topbar-doc" type="button" @click="onNavigate('OrderList')">
+          {{ t('common.header.docs') }}
+        </button>
+
+        <LangSwitcher
+          wrapper-class="cim-topbar-lang"
+          class-name="cim-topbar-lang-trigger"
+        />
+
+        <BaseDropdown
+          align="right"
+          root-class="cim-topbar-user"
+          menu-class="cim-topbar-usermenu"
+          v-model="state.isShowSetting"
+        >
+          <template #trigger="{ toggle }">
+            <button class="cim-topbar-avatar" type="button" @click="toggle">
+              <img class="cim-topbar-avatar-img" src="../../assets/images/header/avatar.png" alt="avatar">
+            </button>
+          </template>
+          <template #menu="{ close }">
+            <button
+              class="cim-topbar-useritem is-setting"
+              type="button"
+              v-if="state.isAdmin"
+              @click="onNavigate('UserSetting'); close();"
+            >
+              {{ t('common.header.accountSettings') }}
+            </button>
+            <button class="cim-topbar-useritem is-logout" type="button" @click="onNavigate('Login'); close();">
+              {{ t('common.header.logout') }}
+            </button>
+          </template>
+        </BaseDropdown>
+      </div>
     </div>
   </header>
-  <div class="modal-backdrop cim-o0-modal-backdrop" v-if="state.isShowDropdwonMenuBackdrop" @click="onHideDropmenu()"></div>
   <CreateDialog :show="state.isShowNewEdit" @hide="onShowNewEdit(false)"></CreateDialog>
 </template>

@@ -1,0 +1,37 @@
+{
+  "dialog": {
+    "title": "邮箱设置",
+    "channel": "邮箱通道"
+  },
+  "feedback": {
+    "createFailed": "添加失败: {code}",
+    "updateFailed": "修改失败: {code}",
+    "fetchFailed": "获取配置失败: {code}",
+    "success": "操作成功"
+  },
+  "status": {
+    "enabled": "【已启用】",
+    "unset": "未设置"
+  },
+  "action": {
+    "settings": "设置"
+  },
+  "provider": {
+    "ali": "阿里云",
+    "engagelab": "EngageLab"
+  },
+  "field": {
+    "access_key": "AccessKey",
+    "access_secret": "AccessSecret",
+    "from_email": "FromEmail",
+    "from_alias": "FromAlias",
+    "url": "Url",
+    "api_user": "API_User",
+    "api_key": "API_Key",
+    "is_used": "是否启用"
+  },
+  "option": {
+    "enable": "启用",
+    "disable": "禁用"
+  }
+}

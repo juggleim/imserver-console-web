@@ -41,7 +41,24 @@ function disable(data){
     body: utils.toJSON(data)
   });
 }
-
+function bindApp(data){
+  return request(SERVER_PATH.USER_BIND_APP, {
+    method: 'POST',
+    body: utils.toJSON(data)
+  });
+}
+function unBindApp(data){
+  return request(SERVER_PATH.USER_UNBIND_APP, {
+    method: 'POST',
+    body: utils.toJSON(data)
+  });
+}
+function getFileToken(params){
+  return request(SERVER_PATH.USER_FILE_TOKEN, {
+    method: 'POST',
+    body: utils.toJSON(params)
+  });
+}
 export default {
   login,
   updatePwd,
@@ -49,4 +66,7 @@ export default {
   add,
   remove,
   disable,
+  bindApp,
+  unBindApp,
+  getFileToken
 }

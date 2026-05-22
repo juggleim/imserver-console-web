@@ -1,0 +1,51 @@
+{
+  "home": "首页导航",
+  "appManagement": "应用管理",
+  "app": {
+    "baseInfo": "基本信息",
+    "featureConfig": "功能配置",
+    "webhookSettings": "事件抄送",
+    "messageIntercept": "消息拦截",
+    "pushSettings": "推送设置",
+    "storageSettings": "存储配置",
+    "translateSettings": "翻译配置",
+    "workbenchSettings": "工作台配置",
+    "rtcSettings": "音视频配置",
+    "emailSettings": "邮箱配置",
+    "smsSettings": "短信配置"
+  },
+  "userManagement": "用户管理",
+  "user": {
+    "users": "用户管理",
+    "groups": "群组管理"
+  },
+  "sensitive": {
+    "root": "敏感词库",
+    "config": "敏感词配置"
+  },
+  "message": {
+    "root": "消息管理",
+    "conversations": "会话列表"
+  },
+  "analytics": {
+    "root": "数据统计",
+    "userDaily": "用户统计【日活】",
+    "messagePrivate": "消息统计【单聊】",
+    "messageGroup": "消息统计【群聊】",
+    "messageChatroom": "消息统计【聊天室】"
+  },
+  "logs": {
+    "root": "日志管理",
+    "list": "日志列表"
+  },
+  "dev": {
+    "root": "开发工具",
+    "apiDebug": "API 调试",
+    "connectionInspect": "连接排查"
+  },
+  "account": {
+    "root": "账户信息",
+    "settings": "账户设置",
+    "users": "用户管理"
+  }
+}

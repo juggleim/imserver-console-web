@@ -1,0 +1,74 @@
+{
+  "title": "User Management",
+  "action": {
+    "addUser": "Add User",
+    "bindApp": "Bind Apps",
+    "delete": "Delete",
+    "enable": "Enable",
+    "disable": "Disable"
+  },
+  "table": {
+    "account": "Account",
+    "role": "Role",
+    "password": "Password",
+    "status": "Status",
+    "createdTime": "Created At",
+    "operation": "Actions"
+  },
+  "role": {
+    "admin": "Administrator",
+    "user": "Standard User"
+  },
+  "dialog": {
+    "title": "Add User",
+    "bindTitle": "Bind Apps"
+  },
+  "field": {
+    "account": "User Name",
+    "password": "Password",
+    "confirmPassword": "Confirm Password",
+    "userRole": "User Role"
+  },
+  "validation": {
+    "accountRequired": "Account name is required",
+    "passwordRequired": "Password is required",
+    "passwordMismatch": "The two passwords do not match"
+  },
+  "feedback": {
+    "operateSuccess": "Operation succeeded",
+    "deleteSuccess": "Deleted successfully",
+    "passwordUpdated": "Password updated successfully",
+    "saveSuccess": "Saved successfully",
+    "saveFailed": "Save failed, please try again",
+    "bindSuccess": "Apps bound successfully"
+  },
+  "bindDialog": {
+    "availableApps": "Available Apps",
+    "boundApps": "Bound Apps"
+  },
+  "userList": {
+    "field": {
+      "userId": "User ID",
+      "userName": "User Name"
+    },
+    "table": {
+      "nickname": "Nickname",
+      "userId": "User ID",
+      "registeredTime": "Registered At",
+      "account": "Account",
+      "phone": "Phone",
+      "email": "Email",
+      "status": "User Status",
+      "operation": "Actions"
+    },
+    "status": {
+      "normal": "Active",
+      "blocked": "Banned"
+    },
+    "feedback": {
+      "banned": "User banned",
+      "unbanned": "User unbanned",
+      "requestFailed": "Error: {code} {msg}"
+    }
+  }
+}

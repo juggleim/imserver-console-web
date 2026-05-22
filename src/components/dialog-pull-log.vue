@@ -2,6 +2,7 @@
 import Dialog from './dialog.vue';
 import { reactive, getCurrentInstance } from 'vue';
 import utils from '../common/utils';
+import { t } from '@/i18n';
 
 const context = getCurrentInstance();
 const props = defineProps(['title','text']);
@@ -19,7 +20,7 @@ let state = reactive({
   },
   times: [{value: '1'}],
   categories: [
-    { name: '业务日志', value: 1 }
+    { name: 'Business Logs', labelKey: 'logs.pullDialog.businessLogs', value: 1 }
   ],
   platforms: [
     { name: 'Android', value: 'Android' },
@@ -32,10 +33,10 @@ let state = reactive({
 function onSave(){
   let { user_id, description } = state.params;
   if(utils.isEqual(user_id.length, 0)){
-    return context.proxy.$toast({ icon: 'error', text: `用户 ID 不可为空` });
+    return context.proxy.$toast({ icon: 'error', text: t('logs.feedback.userIdRequired') });
   }
   if(utils.isEqual(description.length, 0)){
-    return context.proxy.$toast({ icon: 'error', text: `备注 不可为空` });
+    return context.proxy.$toast({ icon: 'error', text: t('logs.feedback.descriptionRequired') });
   }
   let params = utils.clone(state.params);
   let { start, end } = state.range;
@@ -64,30 +65,30 @@ function format(date) {
           <select class="form-select" >
             <option :value="category.value" v-for="category in state.categories" >{{ category.name }}</option>
           </select>
-          <label>日志类型</label>
+          <label>Log Type</label>
         </div> -->
         
         <div class="form-floating">
           <select class="form-select" v-model="state.params.platform">
             <option :value="item.value" v-for="item in state.platforms" >{{ item.name }}</option>
           </select>
-          <label>平台</label>
+          <label>{{ t('logs.field.platform') }}</label>
         </div>
         <div class="form-floating cim-dialog-pull-datetime">
           <VDatePicker v-model.range="state.range" mode="dateTime" is24hr>
             <template #default="{ togglePopover }" >
-              <div class="form-control cim-as-date-content" @click="togglePopover">{{ format(state.range.start) }} 至 {{ format(state.range.end) }}</div>
+              <div class="form-control cim-as-date-content" @click="togglePopover">{{ format(state.range.start) }} {{ t('common.word.to') }} {{ format(state.range.end) }}</div>
             </template>
           </VDatePicker>
-          <label>时间范围</label>
+          <label>{{ t('logs.field.timeRange') }}</label>
         </div>
         <div class="form-floating cim-from-must cicon cicon-must">
-          <input class="form-control" placeholder="用户 ID" v-model="state.params.user_id">
-          <label>用户 ID </label>
+          <input class="form-control" :placeholder="t('logs.field.userId')" v-model="state.params.user_id">
+          <label>{{ t('logs.field.userId') }}</label>
         </div>
         <div class="form-floating cim-from-must cicon cicon-must">
-          <input class="form-control" placeholder="备注说明" v-model="state.params.description">
-          <label>备注说明</label>
+          <input class="form-control" :placeholder="t('logs.pullDialog.remark')" v-model="state.params.description">
+          <label>{{ t('logs.pullDialog.remark') }}</label>
         </div>
     </div>
  </Dialog>

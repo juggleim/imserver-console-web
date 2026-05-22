@@ -9,8 +9,8 @@ function getConns(params){
 }
 
 function getConn(params){
-  let { count = 50, start, app_key, session, user_id } = params;
-  let url = `${SERVER_PATH.CONN_GET_ONE}?app_key=${app_key}&user_id=${user_id}&session=${session}&count=${count}&start=${start}`;
+  let { count = 50, start, app_key, session } = params;
+  let url = `${SERVER_PATH.CONN_GET_ONE}?app_key=${app_key}&session=${session}&count=${count}&start=${start}`;
   return request(url, { method: 'GET' });
 }
 

@@ -4,6 +4,7 @@
   import { useRouter } from 'vue-router';
   import Application from '@/services/application';
   import { showToast } from '@/common/toast';
+  import { t } from '@/i18n';
 
   const emit = defineEmits(['reloadTable']);
   const message = useMessage();
@@ -23,8 +24,8 @@
   } = router;
 
   const wordTypes = [
-    { label: '过滤', value: 1 },
-    { label: '替换（****）', value: 2 },
+    { label: '过滤', labelKey: 'sensitive.type.filter', value: 1 },
+    { label: '替换（****）', labelKey: 'sensitive.type.replace', value: 2 },
   ];
 
   function newState(state = {}) {
@@ -45,14 +46,14 @@
     formRef.value.validate((errors) => {
       if (!errors) {
         Application.addSensitiveWord({ app_key, word: formValue.value.word, word_type: formValue.value.wordType }).then((res) => {
-          showToast({ text: '添加成功' });
+          showToast({ text: t('sensitive.feedback.addSuccess') });
           emit('reloadTable');
           showModal.value = false;
         }).finally(() => {
           formBtnLoading.value = false;
         });
       } else {
-        message.error('请填写完整信息');
+        message.error(t('sensitive.feedback.formIncomplete'));
       }
     });
   }
@@ -74,13 +75,13 @@
       :show-icon="false"
       preset="dialog"
       transform-origin="center"
-      :title="'添加敏感词'"
+      :title="t('sensitive.dialog.addWordTitle')"
       :style="{
         width: 840,
       }"
     >
       <n-scrollbar style="max-height: 87vh" class="pr-5">
-        <n-spin :show="loading" description="请稍候...">
+        <n-spin :show="loading" :description="t('sensitive.feedback.loading')">
           <n-form
             ref="formRef"
             :model="formValue"
@@ -90,13 +91,17 @@
           >
             <n-grid cols="1 s:1 m:1 l:1 xl:1 2xl:1" responsive="screen">
               <n-gi span="1">
-                <n-form-item label="敏感词" path="word">
-                  <n-input placeholder="请输入敏感词" v-model:value="formValue.word" />
+                <n-form-item :label="t('sensitive.field.word')" path="word">
+                  <n-input :placeholder="t('sensitive.placeholder.word')" v-model:value="formValue.word" />
                 </n-form-item>
               </n-gi>
               <n-gi span="1">
-                <n-form-item label="过滤类型" path="wordType">
-                  <n-select placeholder="请选择过滤类型" v-model:value="formValue.wordType" :options="wordTypes" />
+                <n-form-item :label="t('sensitive.table.filterType')" path="wordType">
+                  <n-select
+                    :placeholder="t('sensitive.placeholder.filterType')"
+                    v-model:value="formValue.wordType"
+                    :options="wordTypes.map((item) => ({ ...item, label: t(item.labelKey, {}, item.label) }))"
+                  />
                 </n-form-item>
               </n-gi>
             </n-grid>
@@ -105,12 +110,11 @@
       </n-scrollbar>
       <template #action>
         <n-space>
-          <n-button @click="closeForm"> 取消</n-button>
-          <n-button type="info" :loading="formBtnLoading" @click="confirmForm"> 确定</n-button>
+          <n-button @click="closeForm">{{ t('common.action.cancel') }}</n-button>
+          <n-button type="info" :loading="formBtnLoading" @click="confirmForm">{{ t('common.action.confirm') }}</n-button>
         </n-space>
       </template>
     </n-modal>
   </div>
 </template>
-
 

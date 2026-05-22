@@ -3,6 +3,7 @@ const props = defineProps(['item']);
 const emit = defineEmits(['save'])
 import { reactive, watch } from 'vue';
 import utils from '../../common/utils';
+import { t } from '@/i18n';
 let state = reactive({
   value: String(props.item.value)
 });
@@ -20,9 +21,9 @@ watch(() => props.item.value, (value) => {
 <template>
    <div class="cim-sw-form">
     <div class="cim-form-check form-switch">
-      <label class="form-label">{{ props.item.name }}</label>
+      <label class="form-label">{{ props.item.labelKey ? t(props.item.labelKey, {}, props.item.name) : props.item.name }}</label>
       <input class="form-control form-control1" type="text" v-model="state.value">
-      <div class="cim-button" @click="onSave">保存</div>
+      <div class="cim-button" @click="onSave">{{ t('common.dialog.save') }}</div>
     </div>
   </div>
 </template>

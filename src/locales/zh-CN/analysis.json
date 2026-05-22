@@ -1,0 +1,38 @@
+{
+  "range": {
+    "7days": "7 天",
+    "14days": "14 天",
+    "30days": "30 天"
+  },
+  "common": {
+    "comparePreviousDay": "较前一日"
+  },
+  "user": {
+    "legendDau": "日活",
+    "fetchFailed": "日活统计失败，请刷新重试"
+  },
+  "message": {
+    "legendUp": "单聊上行消息量",
+    "legendDown": "单聊下行消息量",
+    "legendDispatch": "单聊分发消息量",
+    "dayUp": "昨日单聊上行消息量（条）",
+    "dayDown": "昨日单聊下行消息量（条）",
+    "dayDispatch": "昨日单聊分发消息量（条）"
+  },
+  "group": {
+    "legendUp": "群聊上行消息量",
+    "legendDown": "群聊下行消息量",
+    "legendDispatch": "群聊分发消息量",
+    "dayUp": "昨日群聊上行消息量（条）",
+    "dayDown": "昨日群聊下行消息量（条）",
+    "dayDispatch": "昨日群聊分发消息量（条）"
+  },
+  "chatroom": {
+    "legendUp": "聊天室上行消息量",
+    "legendDown": "聊天室下行消息量",
+    "legendDispatch": "聊天室分发消息量",
+    "dayUp": "昨日聊天室上行消息量（条）",
+    "dayDown": "昨日聊天室下行消息量（条）",
+    "dayDispatch": "昨日聊天室分发消息量（条）"
+  }
+}

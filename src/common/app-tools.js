@@ -13,7 +13,7 @@ function fetch(params, callback){
     let apps = items.map((item) => {
       item.time = utils.formatTime(item.created_time);
       item.type = item.app_type;
-      item.kind = utils.isEqual(item.app_type, APP_TYPE.PRIVATE) ? '私有云' : '公有云';
+      item.kind_key = utils.isEqual(item.app_type, APP_TYPE.PRIVATE) ? 'common.appType.private' : 'common.appType.public';
       return item;
     });
     if(utils.isEqual(offset, '')){

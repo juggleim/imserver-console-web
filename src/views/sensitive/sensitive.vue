@@ -6,6 +6,8 @@
   import { showToast } from '@/common/toast';
   import SensitiveDataEdit from './sensitive_data_edit.vue';
   import ImportWords from './importWords.vue';
+  import { t } from '@/i18n';
+  import PageSection from '@/components/page-section.vue';
 
   let router = useRouter();
   let {
@@ -51,11 +53,11 @@
 
   const columns = ref([
     {
-      title: '词语',
+      title: t('sensitive.table.word'),
       key: 'word',
     },
     {
-      title: '过滤类型',
+      title: t('sensitive.table.filterType'),
       key: 'word_type',
       render(row) {
         return h(
@@ -63,14 +65,14 @@
           { type: row.word_type === 1 ? 'success' : 'info' },
           {
             default: () => {
-              return row.word_type === 1 ? '过滤' : '替换（****）';
+              return row.word_type === 1 ? t('sensitive.type.filter') : t('sensitive.type.replace');
             },
           }
         );
       },
     },
     {
-      title: '操作',
+      title: t('sensitive.table.operation'),
       key: 'actions',
       render(row) {
         return h(
@@ -82,7 +84,7 @@
             type: 'error',
             onClick: () => handleDelete(row),
           },
-          { default: () => '删除' }
+          { default: () => t('sensitive.action.delete') }
         );
       },
     },
@@ -132,14 +134,14 @@
 
   function handleDelete(record) {
     dialog.warning({
-      title: '警告',
-      content: '你确定要删除？',
-      positiveText: '确定',
-      negativeText: '取消',
+      title: t('sensitive.dialog.warningTitle'),
+      content: t('sensitive.dialog.warningContent'),
+      positiveText: t('common.action.confirm'),
+      negativeText: t('common.action.cancel'),
       onPositiveClick: () => {
         Application.deleteSensitiveWord({ app_key, word: record.word }).then((res) => {
           if (res.code === 0) {
-            showToast({ text: '删除成功' });
+            showToast({ text: t('sensitive.feedback.deleteSuccess') });
           }
           reloadTable();
         });
@@ -166,11 +168,15 @@
 </script>
 
 <template>
-  <div class="tab-content">
+  <PageSection title-key="menu.sensitive.config" shell-class="tab-content">
+    <template #actions>
+      <n-button type="primary" size="small" @click="addTable">{{ t('sensitive.action.add') }}</n-button>
+      <n-button type="default" size="small" @click="importWords">{{ t('sensitive.action.import') }}</n-button>
+    </template>
     <n-card :bordered="false" class="proCard">
       <!-- <n-form ref="formRef" inline :label-width="80" :model="queryForm">
-        <n-form-item label="敏感词" path="model.logType" style="width: 200px">
-          <n-input v-model:value="queryForm.word" placeholder="敏感词" />
+        <n-form-item label="Sensitive Word" path="model.logType" style="width: 200px">
+          <n-input v-model:value="queryForm.word" placeholder="Sensitive Word" />
         </n-form-item>
         <n-form-item>
           <n-button
@@ -179,16 +185,11 @@
             style="margin-right: 10px"
             @click="handleSearch"
           >
-            搜索
+            Search
           </n-button>
-          <n-button attr-type="button" type="default" @click="handleReset"> 重置</n-button>
+          <n-button attr-type="button" type="default" @click="handleReset"> Reset</n-button>
         </n-form-item>
       </n-form> -->
-      <div style="margin-bottom: 10px">
-        <n-button type="primary" size="small" @click="addTable"> 添加</n-button>
-        &nbsp;
-        <n-button type="default" size="small" @click="importWords"> 导入词库</n-button>
-      </div>
       <n-data-table
         remote
         ref="table"
@@ -203,5 +204,5 @@
 
     <SensitiveDataEdit ref="editRef" @reloadTable="reloadTable" />
     <ImportWords ref="importRef" @reloadTable="reloadTable" />
-  </div>
+  </PageSection>
 </template>

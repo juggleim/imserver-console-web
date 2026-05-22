@@ -1,0 +1,50 @@
+{
+  "hero": {
+    "badge": "JuggleIM Cloud",
+    "title": "全新一代即时通讯云",
+    "description": "",
+    "cards": {
+      "1": {
+        "title": "集成简单高效",
+        "description": "开箱即用的后台能力，快速落地业务。"
+      },
+      "2": {
+        "title": "服务可靠稳定",
+        "description": "多层保障机制，支持核心链路稳定运行。"
+      },
+      "3": {
+        "title": "技术服务贴身",
+        "description": "从接入到交付，提供及时的技术协助。"
+      },
+      "4": {
+        "title": "产品轻量易用",
+        "description": "界面清晰，配置直接，降低管理成本。"
+      },
+      "5": {
+        "title": "功能灵活多变",
+        "description": "覆盖多场景能力，适配不同业务需求。"
+      },
+      "6": {
+        "title": "价格优惠实在",
+        "description": "兼顾成本与体验，适合长期业务增长。"
+      }
+    }
+  },
+  "title": "登录 JuggleIM 后台",
+  "subtitle": "请输入账号和密码继续访问控制台",
+  "action": {
+    "loading": "登录中..."
+  },
+  "field": {
+    "account": "账号",
+    "password": "密码"
+  },
+  "validation": {
+    "accountRequired": "账号不能为空",
+    "passwordRequired": "密码不能为空"
+  },
+  "feedback": {
+    "success": "登录成功",
+    "failedWithCode": "登录失败 {code}"
+  }
+}

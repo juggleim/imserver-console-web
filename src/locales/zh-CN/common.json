@@ -1,0 +1,70 @@
+{
+  "header": {
+    "brand": "管理后台",
+    "selectApp": "选择应用",
+    "docs": "文档",
+    "accountSettings": "账户设置",
+    "logout": "退出登录"
+  },
+  "word": {
+    "to": "至",
+    "yuan": "元"
+  },
+  "dialog": {
+    "save": "保存"
+  },
+  "action": {
+    "create": "创建应用",
+    "import": "导入应用",
+    "viewDetails": "查看明细",
+    "view": "查看",
+    "login": "登录",
+    "search": "查询",
+    "edit": "修改",
+    "add": "添加",
+    "remove": "移除",
+    "cancel": "取消",
+    "confirm": "确定",
+    "delete": "删除",
+    "recall": "撤回",
+    "upload": "上传",
+    "enable": "启用",
+    "disable": "停用",
+    "ban": "封禁",
+    "unban": "解禁",
+    "nextPage": "下一页",
+    "settings": "设置"
+  },
+  "appType": {
+    "private": "私有云",
+    "public": "公有云"
+  },
+  "feedback": {
+    "copySuccess": "复制成功",
+    "copyFailed": "复制失败",
+    "noMore": "没有更多啦",
+    "requestFailed": "Error: {code} {msg}",
+    "missing": "文案待补充"
+  },
+  "status": {
+    "enabled": "已启用",
+    "disabled": "已禁用",
+    "unset": "未设置",
+    "online": "已上线"
+  },
+  "label": {
+    "appName": "应用名称",
+    "appKey": "App-Key",
+    "createdTime": "创建时间",
+    "registeredUsers": "已注册用户",
+    "maxUsers": "授权用户总数",
+    "deploymentType": "部署方式",
+    "expireTime": "到期时间",
+    "unlimited": "无限制"
+  },
+  "form": {
+    "addCertificate": "添加证书",
+    "removeCertificate": "移除证书",
+    "saveInfo": "保存信息"
+  }
+}

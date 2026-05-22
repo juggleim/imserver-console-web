@@ -1,0 +1,31 @@
+{
+  "dialog": {
+    "title": "音视频设置",
+    "channel": "音视频通道"
+  },
+  "feedback": {
+    "createFailed": "添加失败: {code}",
+    "updateFailed": "修改失败: {code}",
+    "fetchFailed": "获取配置失败: {code}",
+    "success": "操作成功"
+  },
+  "status": {
+    "unset": "未设置"
+  },
+  "action": {
+    "settings": "设置"
+  },
+  "provider": {
+    "zego_conf": "即构",
+    "agora_conf": "声网",
+    "livekit_conf": "LiveKit"
+  },
+  "field": {
+    "app_id": "AppId",
+    "secret": "Secret",
+    "app_certificate": "Certificate",
+    "app_key": "AppKey",
+    "app_secret": "Secret",
+    "service_url": "Url"
+  }
+}

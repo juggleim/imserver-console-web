@@ -1,314 +1,315 @@
 <script setup>
-  import { ref, getCurrentInstance, reactive } from 'vue';
-  import FForm from './form.vue';
-  import utils from '../../common/utils.js';
-  import { Application } from '../../services';
-  import { useRouter } from 'vue-router';
-  import { RESPONSE } from '../../common/enum';
+import { reactive, getCurrentInstance } from 'vue';
+import { useRouter } from 'vue-router';
+import utils from '../../common/utils.js';
+import { Application } from '../../services';
+import { RESPONSE } from '../../common/enum';
+import { t } from '@/i18n';
+import PageSection from '@/components/page-section.vue';
+import StorageDialog from '@/components/dialog-storage.vue';
 
-  let router = useRouter();
-  let context = getCurrentInstance();
+const context = getCurrentInstance();
+const router = useRouter();
+const {
+  currentRoute: {
+    _rawValue: {
+      params: { app_key },
+    },
+  },
+} = router;
 
- 
-
-  let {
-    currentRoute: {
-      _rawValue: {
-        params: { app_key },
+const STORAGE_CHANNELS = [
+  {
+    uid: 'aws',
+    name: 'AWS',
+    nameKey: 'storageConfig.channel.aws',
+    avatarText: 'AWS',
+    children: [
+      { key: 'access_key', name: 'Access Key', type: 'text', value: '' },
+      { key: 'secret_key', name: 'Secret Key', type: 'text', value: '', secretValue: '**************' },
+      { key: 'endpoint', name: 'Endpoint', type: 'text', value: '' },
+      { key: 'region', name: 'Region', type: 'text', value: '' },
+      { key: 'bucket', name: 'Bucket Name', type: 'text', value: '' },
+    ],
+  },
+  {
+    uid: 'qiniu',
+    name: 'Qiniu',
+    nameKey: 'storageConfig.channel.qiniu',
+    avatarText: 'QN',
+    children: [
+      { key: 'access_key', name: 'Access Key', type: 'text', value: '' },
+      { key: 'secret_key', name: 'Secret Key', type: 'text', value: '', secretValue: '**************' },
+      { key: 'domain', name: 'Domain Name', type: 'text', value: '' },
+      { key: 'bucket', name: 'Bucket Name', type: 'text', value: '' },
+    ],
+  },
+  {
+    uid: 'oss',
+    name: 'Alibaba Cloud',
+    nameKey: 'storageConfig.channel.oss',
+    avatarText: 'OSS',
+    children: [
+      { key: 'access_key', name: 'Access Key', type: 'text', value: '' },
+      { key: 'secret_key', name: 'Secret Key', type: 'text', value: '', secretValue: '**************' },
+      { key: 'endpoint', name: 'Endpoint', type: 'text', value: '' },
+      { key: 'bucket', name: 'Bucket Name', type: 'text', value: '' },
+    ],
+  },
+  {
+    uid: 'minio',
+    name: 'MinIO',
+    nameKey: 'storageConfig.channel.minio',
+    avatarText: 'M',
+    children: [
+      { key: 'access_key', name: 'Access Key', type: 'text', value: '' },
+      { key: 'secret_key', name: 'Secret Key', type: 'text', value: '', secretValue: '**************' },
+      { key: 'endpoint', name: 'Endpoint', type: 'text', value: '' },
+      {
+        key: 'use_ssl',
+        name: 'Enable HTTPS',
+        labelKey: 'storageConfig.field.useHttps',
+        type: 'radios',
+        value: false,
+        radios: [
+          { value: false, label: 'Disable', labelKey: 'storageConfig.option.disabled' },
+          { value: true, label: 'Enable', labelKey: 'storageConfig.option.enabled' },
+        ],
       },
-    },
-  } = router;
+      { key: 'bucket', name: 'Bucket Name', type: 'text', value: '' },
+    ],
+  },
+];
 
-  let settings = [
-    {
-      type: 'aws',
-      name: 'AWS',
-      state: ref({
-        access_key: '',
-        secret_key: '',
-        endpoint: '',
-        region: '',
-        bucket: '',
-      }),
-      fields: [
-        {
-          name: 'access_key',
-          label: 'Access Key',
-          type: 'input_text',
-        },
-        {
-          name: 'secret_key',
-          label: 'Secret Key',
-          type: 'input_text',
-        },
-        {
-          name: 'endpoint',
-          label: 'Endpoint',
-          type: 'input_text',
-        },
-        {
-          name: 'region',
-          label: 'Region',
-          type: 'input_text',
-        },
-        {
-          name: 'bucket',
-          label: 'Buket Name',
-          type: 'input_text',
-        },
-      ],
-    },
-    {
-      type: 'qiniu',
-      name: '七牛云',
-      state: ref({
-        access_key: '',
-        secret_key: '',
-        bucket: '',
-      }),
-      fields: [
-        {
-          name: 'access_key',
-          label: 'Access Key',
-          type: 'input_text',
-        },
-        {
-          name: 'secret_key',
-          label: 'Secret Key',
-          type: 'input_text',
-        },
-        {
-          name: 'domain',
-          label: 'Domain Name',
-          type: 'input_text',
-        },
-        {
-          name: 'bucket',
-          label: 'Bucket Name',
-          type: 'input_text',
-        },
-      ],
-    },
-    {
-      type: 'oss',
-      name: '阿里云',
-      state: ref({
-        access_key: '',
-        secret_key: '',
-        endpoint: '',
-        bucket: '',
-      }),
-      fields: [
-        {
-          name: 'access_key',
-          label: 'Access Key',
-          type: 'input_text',
-        },
-        {
-          name: 'secret_key',
-          label: 'Secret Key',
-          type: 'input_text',
-        },
-        {
-          name: 'endpoint',
-          label: 'Endpoint',
-          type: 'input_text',
-        },
-        {
-          name: 'bucket',
-          label: 'Bucket name',
-          type: 'input_text',
-        },
-      ],
-    },
-    {
-      type: 'minio',
-      name: 'MinIO',
-      state: ref({
-        access_key: '',
-        secret_key: '',
-        endpoint: '',
-        bucket: '',
-        use_ssl: false,
-      }),
-      fields: [
-        {
-          name: 'access_key',
-          label: 'Access Key',
-          type: 'input_text',
-        },
-        {
-          name: 'secret_key',
-          label: 'Secret Key',
-          type: 'input_text',
-        },
-        {
-          name: 'endpoint',
-          label: 'Endpoint',
-          type: 'input_text',
-        },
-        {
-          name: 'use_ssl',
-          label: '启用 HTTPS',
-          type: 'radios',
-          radios: [
-            { name: 'type', value: false, label: '禁用' },
-            { name: 'type', value: true, label: '启用' },
-          ]
-        },
-        {
-          name: 'bucket',
-          label: 'Buket Name',
-          type: 'input_text',
-        },
-      ],
-    },
-  ];
+const state = reactive({
+  list: createChannels(),
+  current: createChannels()[0],
+  isShowDialog: false,
+});
 
-  let state = reactive({
-    checkedValue: { },
-    current: '',
-    channels: {
-      oss: { name: '阿里云', },
-      aws: { name: 'AWS', },
-      qiniu: { name: '七牛云', },
-      minio: { name: 'MinIO', }
-    },
-    fileConfs: [],
-    formTitle: '添加配置',
+function createChannels() {
+  return utils.clone(STORAGE_CHANNELS);
+}
+
+function getLabel(key, fallback = '') {
+  return key ? t(key, {}, fallback) : fallback;
+}
+
+function getChannelName(channel) {
+  if (!channel) {
+    return '';
+  }
+  return getLabel(channel.nameKey, channel.name);
+}
+
+function getFieldLabel(field) {
+  return getLabel(field.labelKey, field.name);
+}
+
+function isRequestSuccess(code) {
+  return utils.isUndefined(code) || utils.isEqual(code, RESPONSE.SUCCESS);
+}
+
+function showRequestError(result = {}) {
+  let { code = '', msg = '' } = result;
+  context.proxy.$toast({
+    icon: 'error',
+    text: t('common.feedback.requestFailed', { code, msg }, `Error: ${code} ${msg}`),
+  });
+}
+
+function hasConfiguredFields(children = []) {
+  return children.some((field) => {
+    if (field.type === 'radios') {
+      return false;
+    }
+    return !utils.isEmpty(field.value);
+  });
+}
+
+function hasFieldValue(field) {
+  if (field.type === 'radios') {
+    return true;
+  }
+  return !utils.isEmpty(field.value);
+}
+
+function getFieldValue(field) {
+  if (field.type === 'radios') {
+    let option = (field.radios || []).find((item) => utils.isEqual(item.value, field.value));
+    return option ? getLabel(option.labelKey, option.label) : t('common.status.unset');
+  }
+  return field.secretValue || field.value;
+}
+
+function getDialogTitle(channel) {
+  let name = getChannelName(channel);
+  if (channel?.isConfigured) {
+    return t('storageConfig.dialog.editConfig');
+  }
+  return t('storageConfig.action.addConfig', { name }, `Add ${name} Config`);
+}
+
+function onShowDialog(isShow, item) {
+  state.isShowDialog = isShow;
+  if (isShow && item) {
+    state.current = item;
+  }
+}
+
+function syncChannel(item, conf = {}) {
+  item.children = utils.map(item.children, (field) => {
+    let value = Object.prototype.hasOwnProperty.call(conf, field.key) ? conf[field.key] : field.value;
+    return { ...field, value };
+  });
+  item.isConfigured = hasConfiguredFields(item.children) || item.isConfigured;
+}
+
+function updateUsedChannel(channel = '') {
+  utils.forEach(state.list, (item) => {
+    item.isUsed = utils.isEqual(item.uid, channel);
+    if (item.isUsed) {
+      state.current = item;
+    }
+  });
+}
+
+async function onSave(params) {
+  let { uid, fields } = params;
+  let item = state.list.find((channel) => utils.isEqual(channel.uid, uid));
+  let isModify = item?.isConfigured;
+  let conf = {};
+
+  utils.forEach(fields, (field) => {
+    conf[field.key] = field.value;
   });
 
-  const channel = ref(settings[0].type);
+  let result = await Application.setStorageConfig({
+    app_key,
+    channel: uid,
+    conf,
+  });
 
-  function onTab(setting) {
-    channel.value = setting.type;
-    search();
-  }
-
-  function isModify(){
-    let _conf = state.fileConfs.find((conf) => { 
-      return conf.channel == channel.value
-    });
-    return _conf;
+  if (!isRequestSuccess(result?.code)) {
+    return showRequestError(result);
   }
 
-  function onSave(item) {
-    let _isModify = isModify();
-    Application.setStorageConfig({
-      app_key,
-      channel: channel.value,
-      conf: item,
-    }).then(() => {
-      let value = channel.value;
-      let enable = 0;
-      let name = state.channels[value].name;
-      let conf = { channel, enable, name };
-      if(!_isModify){
-        state.fileConfs.push(conf);
-        return context.proxy.$toast({ icon: 'success', text: '添加成功，请选择存储类型后，保存设置' });;
-      }
-      context.proxy.$toast({ icon: 'success', text: '修改成功，请选择存储类型后，保存设置' });;
-    });
+  if (item) {
+    item.children = utils.clone(fields);
+    item.isConfigured = true;
+    if (item.isUsed) {
+      state.current = item;
+    }
   }
 
-  async function search() {
-    const res = await Application.getStorageConfig({ app_key, channel: channel.value });
-    utils.forEach(settings, (item) => {
-      if (item.type === channel.value) {
-        if (res.data && res.data.conf) {
-          item.state.value = { ...item.state.value, ...res.data.conf };
-        }
-      }
-    });
-    state.formTitle = isModify() ? '修改配置' : '添加配置'
+  context.proxy.$toast({
+    icon: 'success',
+    text: t(isModify ? 'storageConfig.feedback.editSuccess' : 'storageConfig.feedback.addSuccess'),
+  });
+  onShowDialog(false);
+}
+
+async function onEnable(item) {
+  let result = await Application.setEnableStorage({ app_key, channel: item.uid });
+  if (!isRequestSuccess(result?.code)) {
+    return showRequestError(result);
   }
-  search();
-  function handleChange(e) {
-    let value = e.target.value;
-    state.checkedValue.value = value;
+  updateUsedChannel(item.uid);
+  context.proxy.$toast({ icon: 'success', text: t('storageConfig.feedback.saveSuccess') });
+}
+
+async function onDisable() {
+  let result = await Application.setEnableStorage({ app_key, channel: '' });
+  if (!isRequestSuccess(result?.code)) {
+    return showRequestError(result);
   }
-  function getCheckedChannel() {
-    Application.getEnableStorage({app_key}).then((result) => {
-      let { code, data = {} } = result;
-      if(utils.isEqual(code, RESPONSE.SUCCESS)){
-        let { file_confs } = data;
-        let useConf = { channel: '' };
-        let fileConfs = utils.map(file_confs, (conf) => {
-          let channel = state.channels[conf.channel] || { name: '' };
-          if(conf.enable){
-            useConf = conf;
-          }
-          return { ...conf, name: channel.name };
-        });
-        state.current = useConf.channel;
-        state.fileConfs = fileConfs;
-      }
-    })
+  updateUsedChannel('');
+  context.proxy.$toast({ icon: 'success', text: t('storageConfig.feedback.saveSuccess') });
+}
+
+async function init() {
+  let list = createChannels();
+  let enableResult = await Application.getEnableStorage({ app_key });
+
+  if (!isRequestSuccess(enableResult?.code)) {
+    showRequestError(enableResult);
+    state.list = list;
+    state.current = list[0];
+    return;
   }
 
-  function setCheckedChannel() {
-    let channel = state.checkedValue.value;
-    Application.setEnableStorage({app_key, channel }).then(() => {
-      state.current = channel;
-      context.proxy.$toast({ icon: 'success', text: '保存成功' });
-    })
-  }
+  let { file_confs = [] } = enableResult?.data || {};
+  let currentChannel = '';
+  let configuredMap = {};
 
-  getCheckedChannel();
+  utils.forEach(file_confs, (conf) => {
+    configuredMap[conf.channel] = true;
+    if (conf.enable) {
+      currentChannel = conf.channel;
+    }
+  });
+
+  let results = await Promise.all(
+    list.map((item) =>
+      Application.getStorageConfig({ app_key, channel: item.uid }).catch(() => ({ data: {} }))
+    )
+  );
+
+  utils.forEach(list, (item, index) => {
+    let result = results[index] || {};
+    let conf = result?.data?.conf || {};
+    item.isUsed = utils.isEqual(item.uid, currentChannel);
+    item.isConfigured = Boolean(configuredMap[item.uid]);
+    syncChannel(item, conf);
+    if (item.isUsed) {
+      state.current = item;
+    }
+  });
+
+  state.list = list;
+  if (!currentChannel) {
+    state.current = list[0];
+  }
+}
+
+init();
 </script>
-<template>
-  <n-flex vertical>
-    <div class="mb-4 app-base cim-cb-box">
-      <div class="row cim-cb-row cim-cb-header">
-        <div class="cim-cb-form cim-file-form">
-         <div class="cim-cb-form-item">
-            <label class="col-sm-1 col-form-label cim-form-item-label">
-              正在使用存储
-            </label>
-            <div class="col-sm-7">
-              <span class="warn">{{ state.channels[state.current] && state.channels[state.current].name || '未设置' }}</span>
-            </div>
-         </div>
-         <div class="cim-cb-form-item">
-            <label class="col-sm-1 col-form-label">
-              设置存储类型
-            </label>
-            <div class="col-sm-4 store-form">
-                <div class="form-check-inline store_inline" v-for="setting in state.fileConfs">
-                  <input class="form-check-input" type="radio" name="setting.name" :value="setting.channel" :checked="setting.enable" @change="handleChange">
-                  <label class="form-check-label">{{ setting.name }}</label>
-                </div>
-                <div class="form-check-inline store_inline" v-if="state.fileConfs.length == 0">
-                  <span class="warn fs-12">请优先添加文件存储配置</span>
-                </div>
-            </div>
-            <div class="col-sm-3 cim-cb-btns">
-              <div class="cim-button cim-button-bg warn-bg" v-if="state.fileConfs.length > 0" @click="setCheckedChannel">保存设置</div>
-            </div>
-         </div>
-        </div>
-      </div>
-    </div>
 
-    <div class="md-6">
-      <ul class="nav nav-underline-border" role="tablist">
-        <li class="nav-item sw-nav-item" v-for="setting in settings" @click="onTab(setting)">
-          <a
-            class="nav-link cicon cicon-free"
-            :class="{ active: utils.isEqual(channel, setting.type) }"
-            > 添加 {{ setting.name }} 配置</a
-          >
-        </li>
-      </ul>
-      <div class="tab-content rounded-bottom">
-        <div
-          class="tab-pane p-3"
-          v-for="setting in settings"
-          :class="{ active: utils.isEqual(channel, setting.type) }"
-        >
-        <FForm :fields="setting.fields" :state="setting.state.value" :btn-type="1" :title="state.formTitle" @save="onSave" />
+<template>
+  <PageSection title-key="menu.app.storageSettings" body-class="cim-r3-container">
+    <ul class="cim-r3-body">
+      <li class="cim-r3-item" v-for="item in state.list" :key="item.uid">
+        <div class="cim-r3-item-header">
+          <div class="cim-r3-header-info">
+            <div class="cim-r3-item-name">
+              {{ getChannelName(item) }}
+            </div>
+          </div>
+          <div class="cim-r3-header-status">
+            <span class="life-status" v-if="item.isUsed">{{ t('common.status.enabled') }}</span>
+            <span class="life-unuse-status success" v-else>{{ t('common.status.disabled') }}</span>
+          </div>
         </div>
-      </div>
-    </div>
-  </n-flex>
+        <ul class="cim-r3-item-contents">
+          <li class="cim-rtc-item-content" v-for="field in item.children" :key="`${item.uid}-${field.key}`">
+            <div class="title">{{ getFieldLabel(field) }}:</div>
+            <div class="value" v-if="hasFieldValue(field)">{{ getFieldValue(field) }}</div>
+            <div class="value unset" v-else>{{ t('common.status.unset') }}</div>
+          </li>
+        </ul>
+        <ul class="cim-r3-item-tools">
+          <li class="cim-r3-item-tool cicon wr-update" @click="onShowDialog(true, item)">{{ t('common.action.settings') }}</li>
+          <li class="cim-r3-item-tool cicon wr-disable warn" v-if="item.isUsed" @click="onDisable()">{{ t('common.action.disable') }}</li>
+          <li class="cim-r3-item-tool cicon wr-enable" v-if="!item.isUsed && item.isConfigured" @click="onEnable(item)">{{ t('common.action.enable') }}</li>
+        </ul>
+      </li>
+    </ul>
+    <StorageDialog
+      :show="state.isShowDialog"
+      :title="getDialogTitle(state.current)"
+      :channel="state.current"
+      @save="onSave"
+      @hide="onShowDialog(false)"
+    />
+  </PageSection>
 </template>

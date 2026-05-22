@@ -4,6 +4,8 @@ import ModifyDialog from '../../components/dialog.vue';
 import { ErrorType } from "../../common/enum";
 import utils from '../../common/utils';
 import { Application } from "../../services";
+import { t } from '@/i18n';
+import PageSection from '@/components/page-section.vue';
 
 let context = getCurrentInstance();
 
@@ -33,7 +35,7 @@ function onSave(){
     let icon = 'error', text = msg;
     if(utils.isEqual(code, ErrorType.SUCCESS_0.code)){
       icon = 'success';
-      text = '创建成功';
+      text = t('legacyPages.app.feedback.createSuccess');
       state.apps.push(app);
       state.app = utils.clone(defaultApp);
     }
@@ -55,19 +57,18 @@ function getApps(){
 getApps();
 </script>
 <template>
-  <div class="mb-4">
-    <div class="header cim-header">
-      <div class="cim-title">应用列表</div>
-      <div class="cicon cicon-add cim-button cim-button-bg" @click="onShowEdit(true)" @save="onSave()">创建应用</div>
-    </div>
+  <PageSection title-key="legacyPages.app.title.list">
+    <template #actions>
+      <div class="cicon cicon-add cim-button cim-button-bg" @click="onShowEdit(true)" @save="onSave()">{{ t('common.action.create') }}</div>
+    </template>
     <table class="table cim-table">
       <thead>
         <tr>
-          <th scope="col">应用名称</th>
-          <th scope="col">授权个数</th>
-          <th scope="col">到期时间</th>
-          <th scope="col">创建时间</th>
-          <th scope="col">操作</th>
+          <th scope="col">{{ t('legacyPages.app.table.appName') }}</th>
+          <th scope="col">{{ t('legacyPages.app.table.licenseCount') }}</th>
+          <th scope="col">{{ t('legacyPages.app.table.expireTime') }}</th>
+          <th scope="col">{{ t('legacyPages.app.table.createdTime') }}</th>
+          <th scope="col">{{ t('legacyPages.app.table.operation') }}</th>
         </tr>
       </thead>
       <tbody>
@@ -78,24 +79,24 @@ getApps();
           <td>{{ app.created_time }}</td>
           <td>
             <!-- <a class="btn-link cim-btn-link" type="button" @click="onShowEdit(true)">修改</a> -->
-            <a class="btn-link cim-btn-link" type="button" @click="">查看</a>
+            <a class="btn-link cim-btn-link" type="button" @click="">{{ t('common.action.view') }}</a>
           </td>
         </tr>
       </tbody>
     </table>
-    <ModifyDialog :show="state.isShowEdit" :title="'创建应用'" @hide="onShowEdit(false)">
+    <ModifyDialog :show="state.isShowEdit" :title="t('appDialog.title.create')" @hide="onShowEdit(false)">
       <div class="row g-2 cim-row">
           <div class="form-floating">
-            <input class="form-control" placeholder="应用名称">
-            <label>应用名称</label>
+            <input class="form-control" :placeholder="t('appDialog.field.appName')">
+            <label>{{ t('appDialog.field.appName') }}</label>
           </div>
           <div class="form-floating">
             <select class="form-select">
               <option :value="license.value" v-for="license in state.licenses">{{ license.label }}</option>
             </select>
-            <label>授权个数</label>
+            <label>{{ t('legacyPages.app.table.licenseCount') }}</label>
           </div>
       </div>
     </ModifyDialog>
-  </div>
+  </PageSection>
 </template>

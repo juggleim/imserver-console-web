@@ -1,11 +1,13 @@
 <script setup>
 import { useRouter } from "vue-router";
 import { User } from "../../services";
-import { reactive, getCurrentInstance } from 'vue';
+import { reactive, computed, getCurrentInstance } from 'vue';
 import { ErrorType, STORAGE, DEPLOY_TYPE, Errors } from "../../common/enum";
 import utils from "../../common/utils";
 import Stroage from "../../common/storage";
 import menuTools from "../layout/menu-tools";
+import { t } from '@/i18n';
+import LangSwitcher from '@/components/lang-switcher.vue';
 
 let context = getCurrentInstance();
 const router = useRouter();
@@ -18,27 +20,44 @@ let state = reactive({
   isSending: false,
 });
 
+const featureCards = computed(() => {
+  return [1, 2, 3, 4, 5, 6].map((index) => ({
+    title: t(`login.hero.cards.${index}.title`),
+  }));
+});
+
 function onLogin(){
+  if (state.isSending) {
+    return;
+  }
   let { account, password } = state;
+  state.accountErrorMsg = '';
+  state.pwdErrorMsg = '';
+  state.loginErrorMsg = '';
+
   if(utils.isEmpty(account)){
-    return state.accountErrorMsg = '账号不能为空';
+    return state.accountErrorMsg = t('login.validation.accountRequired');
   }
   if(utils.isEmpty(password)){
-    return state.pwdErrorMsg = '密码不能为空';
+    return state.pwdErrorMsg = t('login.validation.passwordRequired');
   }
+
+  state.isSending = true;
   User.login({ account, password }).then(({ code, data }) => {
     if(utils.isEqual(code, ErrorType.SUCCESS_0.code)){
       data.type = utils.isEqual(data.env, 'private') ? DEPLOY_TYPE.PRIVATE : DEPLOY_TYPE.PUBLIC;
       Stroage.set(STORAGE.USER_TOKEN,  data);
       context.proxy.$toast({
-        text: '登录成功',
+        text: t('login.feedback.success'),
         icon: 'success'
       });
-      menuTools.goHomePage(router);
+      return menuTools.goHomePage(router);
     }
 
     let error = Errors.find((item) => { return utils.isEqual(item.code, code)}) || {}
-    state.loginErrorMsg = error.msg || '登录失败 ' + code
+    state.loginErrorMsg = error.key ? t(error.key) : t('login.feedback.failedWithCode', { code })
+  }).finally(() => {
+    state.isSending = false;
   });
 }
 
@@ -56,45 +75,83 @@ function onInput(name){
 }
 </script>
 <template>
-    <div class="bg-body-tertiary min-vh-100 d-flex flex-row align-items-center cim-login-body">
-      <div class="cim-login-banner">
-        <div class="cim-login-sologin">
-          <div class="title">我专属的即时通讯组件</div>
-          <div class="grap">
-            <p class="content cicon cicon-book">集成简单高效</p>
-            <p class="content cicon cicon-product">产品轻量易用</p>
+  <div class="cim-login-page">
+    <div class="cim-login-shell">
+      <header class="cim-login-header">
+        <LangSwitcher
+          class-name="cim-login-language-field"
+          wrapper-class="cim-login-language"
+        />
+      </header>
+
+      <div class="cim-login-main">
+        <section class="cim-login-showcase">
+          <h1 class="cim-login-showcase-title">{{ t('login.hero.title') }}</h1>
+
+          <div class="cim-login-feature-grid">
+            <article
+              v-for="(item, index) in featureCards"
+              :key="item.title"
+              class="cim-login-feature-card"
+              :class="`is-feature-${index + 1}`"
+            >
+              <div class="cim-login-feature-icon"></div>
+              <div class="cim-login-feature-watermark"></div>
+              <h2>{{ item.title }}</h2>
+            </article>
           </div>
-          <div class="grap">
-            <p class="content cicon cicon-safe">服务可靠稳定</p>
-            <p class="content cicon cicon-rokcet">功能灵活多变</p>
-          </div>
-        </div>
-      </div>
-      <div class="container">
-        <div class="row justify-content-center">
-          <div class="col-lg-6">
-            <div class="card-group d-block d-md-flex row">
-              <div class="card col-md-7 p-4 mb-0 cim-login-card">
-           
-                <div class="card-body">
-                  <h1 class="cim-login-title">登录 IM 后台</h1>
-                  <div class="login-input-group mb-3">
-                    <input class="form-control" type="text" v-model="state.account" placeholder="账号" @input="onInput('account')">
-                    <div class="invalid-feedback feedback" v-if="state.accountErrorMsg">{{ state.accountErrorMsg }}</div>
-                  </div>
-                  <div class="login-input-group mb-3">
-                    <input class="form-control" type="password" v-model="state.password" placeholder="密码"  @input="onInput('pwd')"  @keydown.enter="onLogin()">
-                    <div class="invalid-feedback feedback" v-if="state.pwdErrorMsg">{{ state.pwdErrorMsg }}</div>
-                  </div>
-                  <div class="login-input-group mb-3">
-                    <button class="btn btn-primary cim-login-button" type="button" @click="onLogin()">登录</button>
-                  </div>
-                  <div class="invalid-feedback feedback login-feedback" >{{ state.loginErrorMsg }}</div>
-                </div>
-              </div>
+        </section>
+
+        <section class="cim-login-panel">
+          <div class="cim-login-card">
+            <div class="cim-login-card-heading">
+              <h2>{{ t('login.title') }}</h2>
             </div>
+
+            <div class="login-input-group">
+              <label class="cim-login-field">
+                <span class="cim-login-field-icon is-account"></span>
+                <input
+                  class="form-control"
+                  type="text"
+                  v-model="state.account"
+                  :placeholder="t('login.field.account')"
+                  @input="onInput('account')"
+                >
+              </label>
+              <div class="invalid-feedback feedback" :class="{ 'is-visible': !!state.accountErrorMsg }">{{ state.accountErrorMsg || '\u00A0' }}</div>
+            </div>
+
+            <div class="login-input-group">
+              <label class="cim-login-field">
+                <span class="cim-login-field-icon is-password"></span>
+                <input
+                  class="form-control"
+                  type="password"
+                  v-model="state.password"
+                  :placeholder="t('login.field.password')"
+                  @input="onInput('pwd')"
+                  @keydown.enter="onLogin()"
+                >
+              </label>
+              <div class="invalid-feedback feedback" :class="{ 'is-visible': !!state.pwdErrorMsg }">{{ state.pwdErrorMsg || '\u00A0' }}</div>
+            </div>
+
+            <div class="login-input-group">
+              <button
+                class="btn btn-primary cim-login-button"
+                type="button"
+                :disabled="state.isSending"
+                @click="onLogin()"
+              >
+                {{ t('common.action.login') }}
+              </button>
+            </div>
+
+            <div class="invalid-feedback feedback login-feedback" :class="{ 'is-visible': !!state.loginErrorMsg }">{{ state.loginErrorMsg || '\u00A0' }}</div>
           </div>
-        </div>
+        </section>
       </div>
     </div>
+  </div>
 </template>
