@@ -17,7 +17,8 @@
   "userManagement": "用户管理",
   "user": {
     "users": "用户管理",
-    "groups": "群组管理"
+    "groups": "群组管理",
+    "bots": "机器人管理"
   },
   "sensitive": {
     "root": "敏感词库",

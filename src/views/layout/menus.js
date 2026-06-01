@@ -46,6 +46,7 @@ function MenuFactory() {
           children: [
             { title: 'menu.user.users', name: 'ArguUserList' },
             { title: 'menu.user.groups', name: 'ArguGroupList' },
+            { title: 'menu.user.bots', name: 'ArguBotList' },
           ],
         },
         {

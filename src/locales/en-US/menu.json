@@ -17,7 +17,8 @@
   "userManagement": "User Management",
   "user": {
     "users": "Users",
-    "groups": "Groups"
+    "groups": "Groups",
+    "bots": "Bots"
   },
   "sensitive": {
     "root": "Sensitive Words",

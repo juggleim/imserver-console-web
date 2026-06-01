@@ -1,0 +1,46 @@
+{
+  "field": {
+    "botId": "机器人 ID",
+    "nickname": "昵称",
+    "avatar": "头像 URL",
+    "webhookUrl": "Webhook URL",
+    "apiKey": "ApiKey",
+    "isStream": "流式响应",
+    "onlyMentioned": "仅 @ 时回复"
+  },
+  "section": {
+    "basic": "基础信息",
+    "callback": "回调配置",
+    "message": "消息配置"
+  },
+  "table": {
+    "nickname": "昵称",
+    "botId": "机器人 ID",
+    "createdTime": "创建时间",
+    "webhookUrl": "Webhook URL",
+    "onlyMentioned": "仅 @ 回复",
+    "operation": "操作"
+  },
+  "action": {
+    "create": "创建机器人",
+    "edit": "编辑"
+  },
+  "dialog": {
+    "createTitle": "创建机器人",
+    "editTitle": "编辑机器人",
+    "save": "保存"
+  },
+  "status": {
+    "yes": "是",
+    "no": "否"
+  },
+  "validation": {
+    "botIdRequired": "机器人 ID 不能为空",
+    "nicknameRequired": "昵称不能为空"
+  },
+  "feedback": {
+    "createSuccess": "机器人创建成功",
+    "updateSuccess": "机器人更新成功",
+    "requestFailed": "请求失败：{code} {msg}"
+  }
+}

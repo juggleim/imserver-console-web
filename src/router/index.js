@@ -124,6 +124,15 @@ let routes = [{
       }
     },
     {
+      path: '/argument_botlist/:app_key',
+      name: 'ArguBotList',
+      component:  () => import('@/views/argument/botlist.vue'),
+      meta: {
+        titles: ['应用管理', '机器人管理'],
+        showHeaderApps: true
+      }
+    },
+    {
       path: '/argument_conversationlist/:app_key',
       name: 'ArguConversationList',
       component:  () => import('@/views/argument/conversationlist.vue'),

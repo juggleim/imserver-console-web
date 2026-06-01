@@ -1,0 +1,46 @@
+{
+  "field": {
+    "botId": "Bot ID",
+    "nickname": "Nickname",
+    "avatar": "Avatar URL",
+    "webhookUrl": "Webhook URL",
+    "apiKey": "ApiKey",
+    "isStream": "Stream response",
+    "onlyMentioned": "Reply only when mentioned"
+  },
+  "section": {
+    "basic": "Basic Info",
+    "callback": "Callback Settings",
+    "message": "Message Settings"
+  },
+  "table": {
+    "nickname": "Nickname",
+    "botId": "Bot ID",
+    "createdTime": "Created Time",
+    "webhookUrl": "Webhook URL",
+    "onlyMentioned": "Mention Only",
+    "operation": "Operation"
+  },
+  "action": {
+    "create": "Create Bot",
+    "edit": "Edit"
+  },
+  "dialog": {
+    "createTitle": "Create Bot",
+    "editTitle": "Edit Bot",
+    "save": "Save"
+  },
+  "status": {
+    "yes": "Yes",
+    "no": "No"
+  },
+  "validation": {
+    "botIdRequired": "Bot ID is required",
+    "nicknameRequired": "Nickname is required"
+  },
+  "feedback": {
+    "createSuccess": "Bot created successfully",
+    "updateSuccess": "Bot updated successfully",
+    "requestFailed": "Request failed: {code} {msg}"
+  }
+}

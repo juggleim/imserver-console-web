@@ -83,6 +83,10 @@ let SERVER_PATH = {
 
   GROUP_MANAGER_LIST: 'apps/groups/list',
   GROUP_MANAGER_DISSOLVE: 'apps/groups/dissolve',
+
+  BOT_MANAGER_LIST: 'apps/bots/list',
+  BOT_MANAGER_ADD: 'apps/bots/add',
+  BOT_MANAGER_UPDATE: 'apps/bots/update',
   
   WORK_MANAGER_ADD: 'apps/applications/add',
   WORK_MANAGER_UPDATE: 'apps/applications/update',

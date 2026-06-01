@@ -4,6 +4,7 @@ import Log from './log';
 import UserManager from './user-manager';
 import MsgManager from './msg-manager';
 import GroupManager from './group-manager';
+import BotManager from './bot-manager';
 import WorkManager from './work-manager';
 import Inspect from './inspect';
 import Analysis from './analysis';
@@ -20,6 +21,7 @@ export {
   R3d,
   UserManager,
   GroupManager,
+  BotManager,
   WorkManager,
   MsgManager
 }

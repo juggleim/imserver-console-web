@@ -2362,6 +2362,74 @@ em.cim-num{
   height: 280px;
   min-height: 280px;
 }
+.cim-bot-dialog .modal-dialog{
+  max-width: 720px;
+}
+.cim-bot-dialog .modal-content{
+  width: 720px;
+  height: auto;
+  min-height: auto;
+}
+.cim-bot-dialog .modal-body{
+  align-items: flex-start;
+  justify-content: flex-start;
+  padding: 16px 24px 8px;
+  max-height: calc(100vh - 160px);
+  overflow-y: auto;
+}
+.cim-bot-dialog .modal-footer{
+  padding: 12px 24px 20px;
+  border-top: 1px solid #eef0f3;
+}
+.cim-bot-form{
+  width: 100%;
+}
+.cim-bot-section{
+  padding: 4px 0 8px;
+}
+.cim-bot-section-title{
+  margin-bottom: 12px;
+  color: #1f2329;
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 22px;
+}
+.cim-bot-section-body{
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px 16px;
+}
+.cim-bot-divider{
+  height: 1px;
+  margin: 8px 0 12px;
+  background: #eef0f3;
+}
+.cim-bot-dialog .cim-bot-section-body .form-floating{
+  width: calc(50% - 8px);
+  margin: 0;
+}
+.cim-bot-dialog .cim-bot-section-body .form-check{
+  width: 100%;
+  min-height: 36px;
+  margin: 0;
+  padding: 4px 0;
+  padding-left: 0;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.cim-bot-dialog .cim-bot-section-body .form-check .form-check-input{
+  float: none;
+  margin: 0;
+  flex-shrink: 0;
+}
+.cim-bot-dialog .cim-bot-section-body .form-check .form-check-label{
+  margin: 0;
+  line-height: 22px;
+}
+.cim-bot-dialog .cim-bot-field-full{
+  width: 100%;
+}
 .cim-dialog-pull-row .form-floating{
   width: 50%;
 }
@@ -3890,6 +3958,8 @@ em.cim-num{
   align-items: center;
   justify-content: center;
   min-width: 80px;
+  width: auto;
+  white-space: nowrap;
   height: 36px;
   padding: 0 18px;
   border-radius: 8px;

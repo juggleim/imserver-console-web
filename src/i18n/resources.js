@@ -17,6 +17,7 @@ import zhSensitive from '@/locales/zh-CN/sensitive.json';
 import zhTools from '@/locales/zh-CN/tools.json';
 import zhStorageConfig from '@/locales/zh-CN/storageConfig.json';
 import zhAppServices from '@/locales/zh-CN/appServices.json';
+import zhBotList from '@/locales/zh-CN/botList.json';
 import zhLegacyPages from '@/locales/zh-CN/legacyPages.json';
 import zhErrors from '@/locales/zh-CN/errors.json';
 import enCommon from '@/locales/en-US/common.json';
@@ -38,6 +39,7 @@ import enSensitive from '@/locales/en-US/sensitive.json';
 import enTools from '@/locales/en-US/tools.json';
 import enStorageConfig from '@/locales/en-US/storageConfig.json';
 import enAppServices from '@/locales/en-US/appServices.json';
+import enBotList from '@/locales/en-US/botList.json';
 import enLegacyPages from '@/locales/en-US/legacyPages.json';
 import enErrors from '@/locales/en-US/errors.json';
 
@@ -62,6 +64,7 @@ export const resources = {
     tools: zhTools,
     storageConfig: zhStorageConfig,
     appServices: zhAppServices,
+    botList: zhBotList,
     legacyPages: zhLegacyPages,
     errors: zhErrors,
   },
@@ -85,6 +88,7 @@ export const resources = {
     tools: enTools,
     storageConfig: enStorageConfig,
     appServices: enAppServices,
+    botList: enBotList,
     legacyPages: enLegacyPages,
     errors: enErrors,
   },
