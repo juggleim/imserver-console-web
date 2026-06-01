@@ -4,12 +4,19 @@
       "Huawei": "Huawei",
       "Xiaomi": "Xiaomi",
       "Oppo": "OPPO",
-      "Vivo": "vivo",
+      "Vivo": "VIVO",
       "ios": "iOS",
-      "fcm": "FCM"
+      "fcm": "FCM",
+      "Jpush": "JPush",
+      "Honor": "Honor",
+      "Getui": "Getui"
     },
     "field": {
       "package": "Package Name",
+      "appId": "AppId",
+      "appKey": "AppKey",
+      "appSecret": "AppSecret",
+      "masterSecret": "MasterSecret",
       "certFile": "Certificate File",
       "certPassword": "Certificate Password",
       "voipCertPassword": "VoIP Certificate Password",

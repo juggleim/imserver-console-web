@@ -109,7 +109,7 @@ import PageSection from '@/components/page-section.vue';
     },
     {
       type: 'Vivo',
-      name: 'vivo',
+      name: 'VIVO',
       nameKey: 'appServices.push.channel.Vivo',
       state: ref({
         package: '',
@@ -222,32 +222,110 @@ import PageSection from '@/components/page-section.vue';
         },
       ],
     },
-    // {
-    //   type: 'Jpush',
-    //   name: '极光',
-    //   state: ref({
-    //     package: '',
-    //     app_key: '',
-    //     master_secret: '',
-    //   }),
-    //   fields: [
-    //     {
-    //       name: 'package',
-    //       label: '包名',
-    //       type: 'input_text',
-    //     },
-    //     {
-    //       name: 'app_key',
-    //       label: 'App Key',
-    //       type: 'input_text',
-    //     },
-    //     {
-    //       name: 'master_secret',
-    //       label: 'Master Secret',
-    //       type: 'input_text',
-    //     },
-    //   ],
-    // },
+    {
+      type: 'Jpush',
+      name: 'Jpush',
+      nameKey: 'appServices.push.channel.Jpush',
+      state: ref({
+        package: '',
+        app_key: '',
+        master_secret: '',
+      }),
+      fields: [
+        {
+          name: 'package',
+          label: 'Package Name',
+          labelKey: 'appServices.push.field.package',
+          type: 'input_text',
+        },
+        {
+          name: 'app_key',
+          label: 'AppKey',
+          labelKey: 'appServices.push.field.appKey',
+          type: 'input_text',
+        },
+        {
+          name: 'master_secret',
+          label: 'MasterSecret',
+          labelKey: 'appServices.push.field.masterSecret',
+          type: 'input_text',
+        },
+      ],
+    },
+    {
+      type: 'Honor',
+      name: 'Honor',
+      nameKey: 'appServices.push.channel.Honor',
+      state: ref({
+        package: '',
+        app_id: '',
+        app_key: '',
+        app_secret: '',
+      }),
+      fields: [
+        {
+          name: 'package',
+          label: 'Package Name',
+          labelKey: 'appServices.push.field.package',
+          type: 'input_text',
+        },
+        {
+          name: 'app_id',
+          label: 'AppId',
+          labelKey: 'appServices.push.field.appId',
+          type: 'input_text',
+        },
+        {
+          name: 'app_key',
+          label: 'AppKey',
+          labelKey: 'appServices.push.field.appKey',
+          type: 'input_text',
+        },
+        {
+          name: 'app_secret',
+          label: 'AppSecret',
+          labelKey: 'appServices.push.field.appSecret',
+          type: 'input_text',
+        },
+      ],
+    },
+    {
+      type: 'Getui',
+      name: 'Getui',
+      nameKey: 'appServices.push.channel.Getui',
+      state: ref({
+        package: '',
+        app_id: '',
+        app_key: '',
+        master_secret: '',
+      }),
+      fields: [
+        {
+          name: 'package',
+          label: 'Package Name',
+          labelKey: 'appServices.push.field.package',
+          type: 'input_text',
+        },
+        {
+          name: 'app_id',
+          label: 'AppId',
+          labelKey: 'appServices.push.field.appId',
+          type: 'input_text',
+        },
+        {
+          name: 'app_key',
+          label: 'AppKey',
+          labelKey: 'appServices.push.field.appKey',
+          type: 'input_text',
+        },
+        {
+          name: 'master_secret',
+          label: 'MasterSecret',
+          labelKey: 'appServices.push.field.masterSecret',
+          type: 'input_text',
+        },
+      ],
+    },
   ];
 
   const channel = ref(settings[0].type);
