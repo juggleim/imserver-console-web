@@ -11,12 +11,4 @@ export default defineConfig({
       '@': fileURLToPath(new URL('./src', import.meta.url))
     }
   },
-  server: {
-    proxy: {
-      '/admingateway': {
-        target: 'http://127.0.0.1:8090',
-        changeOrigin: true,
-      },
-    },
-  },
 })
