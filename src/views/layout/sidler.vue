@@ -43,7 +43,11 @@ let onNavigate = (menu) => {
     return onFold(menu);
   }
   let currentApp = appTools.getCurrent();
-  router.push({ name: menu.name, params: { app_key: currentApp.app_key } });
+  let app_key = currentApp.app_key || router.currentRoute.value.params.app_key;
+  if(utils.isEmpty(app_key)){
+    return;
+  }
+  router.push({ name: menu.name, params: { app_key } }).catch(() => {});
 }
 
 watch(useRouterCurrent, (n) =>{
@@ -107,7 +111,7 @@ updateActive({ name });
               <div
                 class="nav-link cicon cim-sidebar-link cim-sidebar-link-child"
                 :class="{ 'active': child.isActive }"
-                @click="onNavigate(child)"
+                @click.stop="onNavigate(child)"
               >
                 <span class="cim-sidebar-child-label">{{ t(child.title) }}</span>
               </div>

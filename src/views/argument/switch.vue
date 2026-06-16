@@ -1,5 +1,5 @@
 <script setup>
-import { reactive, getCurrentInstance } from 'vue';
+import { reactive, getCurrentInstance, watch } from 'vue';
 import FInput from "../../components/func/input.vue";
 import FInputText from "../../components/func/inputText.vue";
 import FSwitch from "../../components/func/switch.vue";
@@ -8,11 +8,10 @@ import FSelect from "../../components/func/select.vue";
 import { FUNC_TYPE } from "../../common/enum";
 import utils from '../../common/utils';
 import { Application } from "../../services";
-import { useRouter } from "vue-router";
+import { useRoute } from "vue-router";
 import { t } from '@/i18n';
 
-let router = useRouter();
-let { currentRoute: { _rawValue: { params: { app_key } } } } = router;
+const route = useRoute();
 
 const context = getCurrentInstance();
 
@@ -106,6 +105,10 @@ function onTab(setting){
 }
 
 function onSave(item){
+  let app_key = route.params.app_key;
+  if(utils.isEmpty(app_key)){
+    return;
+  }
   Application.updateSetting({...item, app_key}).then(() => {
     context.proxy.$toast({ icon: 'success', text: t('switchConfig.feedback.saveSuccess') });
   });
@@ -118,11 +121,18 @@ function iterate(list, callback){
   });
 }
 function search(){
+  let app_key = route.params.app_key;
+  if(utils.isEmpty(app_key)){
+    return;
+  }
   let config_keys = [];
   iterate(settings, (item) => {
     config_keys.push(item.id);
   });
-  Application.getSetting({ app_key, config_keys }).then(({ data}) => {
+  Application.getSetting({ app_key, config_keys }).then(({ data }) => {
+    if(utils.isEmpty(data)){
+      return;
+    }
     let { configs } = data;
     iterate(state.settings, (item) => {
       utils.forEach(configs, (v, k) => {
@@ -137,7 +147,9 @@ function search(){
     });
   });
 }
-search();
+watch(() => route.params.app_key, () => {
+  search();
+}, { immediate: true });
 </script>
 <template>
   <div class="mb-4 app-base cim-switch-page">
@@ -152,9 +164,9 @@ search();
         :key="setting.type"
         @click="onTab(setting)"
       >
-        <a class="cim-switch-tab" :class="{ 'active': utils.isEqual(state.current, setting.type) }">
+        <span class="cim-switch-tab" :class="{ 'active': utils.isEqual(state.current, setting.type) }">
           {{ setting.labelKey ? t(setting.labelKey, {}, setting.name) : setting.name }}
-        </a>
+        </span>
       </li>
     </ul>
 

@@ -4,6 +4,7 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build",
+    "build:admin": "vite build --outDir ../imserver-console/routers/admin --emptyOutDir",
     "serve": "serve dist"
   },
   "dependencies": {
