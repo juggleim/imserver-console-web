@@ -5,7 +5,7 @@ import { reactive, watch } from 'vue';
 import utils from '../../common/utils';
 import { t } from '@/i18n';
 let state = reactive({
-  value: String(props.item.value)
+  value: String(props.item.value || props.item.defaultValue || '')
 });
 
 function onSave(){
@@ -14,7 +14,8 @@ function onSave(){
   emit('save', { id, value });
 }
 watch(() => props.item.value, (value) => {
-  utils.extend(state, { value: String(value) });
+  let val = String(utils.isEmpty(value) ? (props.item.defaultValue || '') : value);
+  utils.extend(state, { value: val });
 })
 </script>
 
@@ -22,7 +23,7 @@ watch(() => props.item.value, (value) => {
    <div class="cim-sw-form">
     <div class="cim-form-check form-switch">
       <label class="form-label">{{ props.item.labelKey ? t(props.item.labelKey, {}, props.item.name) : props.item.name }}</label>
-      <input class="form-control form-control1" type="text" v-model="state.value">
+      <input class="form-control form-control1" type="text" v-model="state.value" :placeholder="props.item.defaultValue || ''">
       <div class="cim-button" @click="onSave">{{ t('common.dialog.save') }}</div>
     </div>
   </div>

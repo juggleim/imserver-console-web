@@ -3,16 +3,35 @@
     "app": "App Settings",
     "message": "Message Settings",
     "group": "Group Settings",
-    "chatroom": "Chatroom Settings"
+    "conversation": "Conversation Settings",
+    "chatroom": "Chatroom Settings",
+    "public": "Public Account Settings",
+    "moment": "Moments Settings"
   },
   "item": {
     "token_effective_minute": "Token validity (hours)",
     "kick_mode": "Allow multi-end login on the same device",
     "security_domains": "Security domains",
     "is_hide_msg_before_join_group": "Fetch history sent before joining a group",
+    "msg_friend_check": "Validate friend relationship when sending messages",
     "not_check_grp_member": "Allow non-members to fetch group messages",
     "his_msg_save_day": "Message retention (days)",
     "max_grp_member_count": "Group member limit",
+    "record_global_convers": "Record global conversations",
+    "open_conver_tags": "Enable conversation tags",
+    "max_user_conver_tags": "Max conversation tags per user",
+    "is_open_push": "Enable push",
+    "push_language": "Default push language",
+    "record_msg_logs": "Enable message logs",
+    "open_remark": "Enable friend remarks",
+    "global_private_mute": "Mute all private chats",
+    "global_group_mute": "Mute all group chats",
+    "open_status_sub": "Enable status subscription",
+    "open_griend_status_sub": "Friends subscribe by default",
+    "record_connect_logs": "Enable connection logs",
+    "check_user_device": "Enable device binding check",
+    "open_public_channel": "Enable public accounts",
+    "moment_mode": "Moments mode",
     "chrm_msg_cache_max_count": "Chatroom message bucket size",
     "chrm_att_max_count": "Chatroom attribute limit",
     "chrm_event_ntf": "Enable chatroom event notifications",
@@ -20,7 +39,9 @@
   },
   "option": {
     "save7days": "7 days",
-    "save1year": "1 year"
+    "save1year": "1 year",
+    "momentFriend": "Friend mode",
+    "momentGlobal": "Global mode"
   },
   "feedback": {
     "saveSuccess": "Saved successfully"

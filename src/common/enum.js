@@ -58,6 +58,7 @@ export let FUNC_TYPE = {
   INPUT_TEXT: 'input_text',
   INPUT_MODAL: 'input_modal',
   SELECT: 'select',
+  RADIO: 'radio',
   SWITCH: 'switch',
   UPLOAD_FILE: 'upload_file',
 };

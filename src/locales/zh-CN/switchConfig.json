@@ -3,16 +3,35 @@
     "app": "应用相关",
     "message": "消息相关",
     "group": "群组相关",
-    "chatroom": "聊天室相关"
+    "conversation": "会话相关",
+    "chatroom": "聊天室相关",
+    "public": "公众号相关",
+    "moment": "朋友圈相关"
   },
   "item": {
     "token_effective_minute": "Token 有效时长（小时）",
     "kick_mode": "允许用户多移动端同时登录",
     "security_domains": "安全域名",
     "is_hide_msg_before_join_group": "入群后获取之前的历史消息",
+    "msg_friend_check": "发消息是否校验好友关系",
     "not_check_grp_member": "不在群组是否可以获取群消息",
     "his_msg_save_day": "历史消息存储时长 (天)",
     "max_grp_member_count": "群人数上限",
+    "record_global_convers": "是否记录全局会话",
+    "open_conver_tags": "是否开启会话Tag",
+    "max_user_conver_tags": "用户最大会话Tag数量",
+    "is_open_push": "开启推送",
+    "push_language": "推送默认语言",
+    "record_msg_logs": "开启消息日志",
+    "open_remark": "开启好友备注",
+    "global_private_mute": "是否屏蔽单聊",
+    "global_group_mute": "是否屏蔽群聊",
+    "open_status_sub": "开启状态订阅",
+    "open_griend_status_sub": "好友默认开启订阅",
+    "record_connect_logs": "开启链接日志",
+    "check_user_device": "开启设备绑定校验",
+    "open_public_channel": "开启公众号",
+    "moment_mode": "朋友圈模式",
     "chrm_msg_cache_max_count": "单个聊天室消息桶大小",
     "chrm_att_max_count": "单个聊天室属性数量",
     "chrm_event_ntf": "是否开启聊天室事件通知",
@@ -20,7 +39,9 @@
   },
   "option": {
     "save7days": "7 天",
-    "save1year": "1 年"
+    "save1year": "1 年",
+    "momentFriend": "好友模式",
+    "momentGlobal": "全局模式"
   },
   "feedback": {
     "saveSuccess": "保存成功"
