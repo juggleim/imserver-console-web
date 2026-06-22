@@ -227,6 +227,24 @@ export let ANA_REALTIME_RANGES = [
   { titleKey: 'analysis.messageRealtime.range3days', durationMs: 3 * 24 * 60 * 60 * 1000, isActive: false },
 ]
 
+export const MONITOR_MAX_RANGE_MS = 24 * 60 * 60 * 1000;
+export const MONITOR_DEFAULT_RANGE_MS = 60 * 60 * 1000;
+
+export let MONITOR_TIME_RANGES = [
+  { titleKey: 'monitor.range15min', durationMs: 15 * 60 * 1000 },
+  { titleKey: 'monitor.range1hour', durationMs: 60 * 60 * 1000 },
+  { titleKey: 'monitor.range6hours', durationMs: 6 * 60 * 60 * 1000 },
+  { titleKey: 'monitor.range12hours', durationMs: 12 * 60 * 60 * 1000 },
+  { titleKey: 'monitor.range24hours', durationMs: 24 * 60 * 60 * 1000 },
+];
+
+export let METRIC_MONITOR_CATEGORIES = [
+  'cpu',
+  'memory',
+  'disk',
+  'go_runtime',
+];
+
 export let PLATFORMAS = [
   { name: 'Android', labelKey: '', value: 'Android' },
   { name: 'iOS', labelKey: '', value: 'iOS' },
@@ -241,6 +259,7 @@ export let MENU_UID = {
   LOG: 4,
   DEV_TOOL: 5,
   USER_MANGER: 6,
+  MONITOR: 7,
   
 };
 
@@ -361,6 +380,6 @@ export let USER_ROLE_TYPE = {
   USER: 1,
 }
 export let ROLES = [
-  { name: '超级管理员', labelKey: 'userManager.role.admin', value: USER_ROLE_TYPE.ADMIN, menuIds: [ MENU_UID.APP, MENU_UID.SENTSIVE, MENU_UID.ANALYSE, MENU_UID.LOG, MENU_UID.DEV_TOOL, MENU_UID.USER_MANGER] },
+  { name: '超级管理员', labelKey: 'userManager.role.admin', value: USER_ROLE_TYPE.ADMIN, menuIds: [ MENU_UID.APP, MENU_UID.SENTSIVE, MENU_UID.ANALYSE, MENU_UID.LOG, MENU_UID.DEV_TOOL, MENU_UID.MONITOR, MENU_UID.USER_MANGER] },
   { name: '普通用户', labelKey: 'userManager.role.user', value: USER_ROLE_TYPE.USER, menuIds: [MENU_UID.ANALYSE] },
 ];

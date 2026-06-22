@@ -102,6 +102,15 @@ function MenuFactory() {
             { title: 'menu.dev.connectionInspect', name: 'ToolsConnection' },
           ]
         });
+        appMenus.push({
+          title: 'menu.monitor.root',
+          icon: 'cicon-analysis',
+          isHidden: isHidenMenu(MENU_UID.MONITOR),
+          isUnfold: isFold('Monitor', router),
+          children: [
+            { title: 'menu.monitor.machine', name: 'ToolsMachineMonitor' },
+          ]
+        });
       }
       return appMenus;
     },

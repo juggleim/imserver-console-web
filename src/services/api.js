@@ -79,6 +79,10 @@ let SERVER_PATH = {
   ANALIYSIS_DAU: 'apps/statistic/useractivity',
   ANALIYSIS_MAX_CONNECT: 'apps/statistic/maxconnectcount',
 
+  MONITOR_PERFORMANCE_NODES: 'apps/monitor/performance/nodes',
+  MONITOR_PERFORMANCE_CATALOG: 'apps/monitor/performance/catalog',
+  MONITOR_PERFORMANCE_METRICS: 'apps/monitor/performance/metrics',
+
   USER_MANAGER_LIST: 'apps/users/list',
   USER_MANAGER_BAN: 'apps/users/ban',
   USER_MANAGER_UNBAN: 'apps/users/unban',

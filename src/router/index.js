@@ -212,6 +212,14 @@ let routes = [{
       }
     },
     {
+      path: '/tools_machine_monitor/:app_key',
+      name: 'ToolsMachineMonitor',
+      component:  () => import('@/views/tools/machine-monitor.vue'),
+      meta: {
+        titles: []
+      }
+    },
+    {
       path: '/logs/:app_key',
       name: 'Logs',
       component:  () => import('@/views/logs/list.vue'),

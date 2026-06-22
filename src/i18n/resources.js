@@ -15,6 +15,7 @@ import zhLogs from '@/locales/zh-CN/logs.json';
 import zhAnalysis from '@/locales/zh-CN/analysis.json';
 import zhSensitive from '@/locales/zh-CN/sensitive.json';
 import zhTools from '@/locales/zh-CN/tools.json';
+import zhMonitor from '@/locales/zh-CN/monitor.json';
 import zhStorageConfig from '@/locales/zh-CN/storageConfig.json';
 import zhAppServices from '@/locales/zh-CN/appServices.json';
 import zhBotList from '@/locales/zh-CN/botList.json';
@@ -37,6 +38,7 @@ import enLogs from '@/locales/en-US/logs.json';
 import enAnalysis from '@/locales/en-US/analysis.json';
 import enSensitive from '@/locales/en-US/sensitive.json';
 import enTools from '@/locales/en-US/tools.json';
+import enMonitor from '@/locales/en-US/monitor.json';
 import enStorageConfig from '@/locales/en-US/storageConfig.json';
 import enAppServices from '@/locales/en-US/appServices.json';
 import enBotList from '@/locales/en-US/botList.json';
@@ -62,6 +64,7 @@ export const resources = {
     analysis: zhAnalysis,
     sensitive: zhSensitive,
     tools: zhTools,
+    monitor: zhMonitor,
     storageConfig: zhStorageConfig,
     appServices: zhAppServices,
     botList: zhBotList,
@@ -86,6 +89,7 @@ export const resources = {
     analysis: enAnalysis,
     sensitive: enSensitive,
     tools: enTools,
+    monitor: enMonitor,
     storageConfig: enStorageConfig,
     appServices: enAppServices,
     botList: enBotList,

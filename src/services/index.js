@@ -10,6 +10,7 @@ import Inspect from './inspect';
 import Analysis from './analysis';
 import Misc from './misc';
 import R3d from './r3d';
+import Monitor from './monitor';
 
 export {
   User,
@@ -19,6 +20,7 @@ export {
   Analysis,
   Misc,
   R3d,
+  Monitor,
   UserManager,
   GroupManager,
   BotManager,

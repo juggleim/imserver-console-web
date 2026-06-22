@@ -46,6 +46,10 @@
     "apiDebug": "API 调试",
     "connectionInspect": "连接排查"
   },
+  "monitor": {
+    "root": "性能监控",
+    "machine": "机器监控"
+  },
   "account": {
     "root": "账户信息",
     "settings": "账户设置",

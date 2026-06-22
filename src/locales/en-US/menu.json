@@ -46,6 +46,10 @@
     "apiDebug": "API Debug",
     "connectionInspect": "Connection Inspect"
   },
+  "monitor": {
+    "root": "Performance Monitor",
+    "machine": "Machine Monitor"
+  },
   "account": {
     "root": "Account",
     "settings": "Account Settings",

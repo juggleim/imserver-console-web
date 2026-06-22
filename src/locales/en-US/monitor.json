@@ -1,0 +1,60 @@
+{
+  "pageTitle": "Machine Monitor",
+  "nodeLabel": "Node",
+  "nodeEmpty": "No nodes available",
+  "range15min": "15 min",
+  "range1hour": "1 hour",
+  "range6hours": "6 hours",
+  "range12hours": "12 hours",
+  "range24hours": "24 hours",
+  "rangeTooLong": "Time range cannot exceed 24 hours",
+  "loadFailed": "Failed to load monitor data",
+  "chartEmpty": "No data",
+  "categories": {
+    "cpu": "CPU",
+    "memory": "Memory",
+    "disk": "Disk",
+    "go_runtime": "Go Runtime"
+  },
+  "metrics": {
+    "cpu": {
+      "usage_percent": "CPU Usage",
+      "load1": "Load 1m",
+      "load5": "Load 5m",
+      "load15": "Load 15m"
+    },
+    "memory": {
+      "total_bytes": "Total Memory",
+      "used_bytes": "Used Memory",
+      "free_bytes": "Free Memory",
+      "available_bytes": "Available Memory",
+      "usage_percent": "Memory Usage",
+      "swap_total_bytes": "Swap Total",
+      "swap_used_bytes": "Swap Used",
+      "swap_free_bytes": "Swap Free",
+      "swap_usage_percent": "Swap Usage"
+    },
+    "disk": {
+      "total_bytes": "Disk Total",
+      "used_bytes": "Disk Used",
+      "free_bytes": "Disk Free",
+      "usage_percent": "Disk Usage"
+    },
+    "go_runtime": {
+      "goroutine_count": "Goroutines",
+      "gomaxprocs": "GOMAXPROCS",
+      "cgo_call_count": "CGO Calls",
+      "alloc_bytes": "Alloc",
+      "total_alloc_bytes": "TotalAlloc",
+      "sys_bytes": "Sys",
+      "heap_alloc_bytes": "HeapAlloc",
+      "heap_sys_bytes": "HeapSys",
+      "heap_inuse_bytes": "HeapInuse",
+      "stack_inuse_bytes": "StackInuse",
+      "next_gc_bytes": "NextGC",
+      "last_gc_time_unix_nano": "Last GC Time",
+      "num_gc": "GC Count",
+      "pause_total_ns": "GC Pause Total"
+    }
+  }
+}

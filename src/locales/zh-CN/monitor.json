@@ -1,0 +1,60 @@
+{
+  "pageTitle": "机器监控",
+  "nodeLabel": "节点",
+  "nodeEmpty": "暂无可用节点",
+  "range15min": "15 分钟",
+  "range1hour": "1 小时",
+  "range6hours": "6 小时",
+  "range12hours": "12 小时",
+  "range24hours": "24 小时",
+  "rangeTooLong": "时间范围不能超过 24 小时",
+  "loadFailed": "加载监控数据失败",
+  "chartEmpty": "暂无数据",
+  "categories": {
+    "cpu": "CPU",
+    "memory": "内存",
+    "disk": "磁盘",
+    "go_runtime": "Go 运行时"
+  },
+  "metrics": {
+    "cpu": {
+      "usage_percent": "CPU 使用率",
+      "load1": "1 分钟负载",
+      "load5": "5 分钟负载",
+      "load15": "15 分钟负载"
+    },
+    "memory": {
+      "total_bytes": "内存总量",
+      "used_bytes": "已用内存",
+      "free_bytes": "空闲内存",
+      "available_bytes": "可用内存",
+      "usage_percent": "内存使用率",
+      "swap_total_bytes": "Swap 总量",
+      "swap_used_bytes": "Swap 已用",
+      "swap_free_bytes": "Swap 空闲",
+      "swap_usage_percent": "Swap 使用率"
+    },
+    "disk": {
+      "total_bytes": "磁盘总量",
+      "used_bytes": "磁盘已用",
+      "free_bytes": "磁盘空闲",
+      "usage_percent": "磁盘使用率"
+    },
+    "go_runtime": {
+      "goroutine_count": "Goroutine 数",
+      "gomaxprocs": "GOMAXPROCS",
+      "cgo_call_count": "CGO 调用数",
+      "alloc_bytes": "Alloc",
+      "total_alloc_bytes": "TotalAlloc",
+      "sys_bytes": "Sys",
+      "heap_alloc_bytes": "HeapAlloc",
+      "heap_sys_bytes": "HeapSys",
+      "heap_inuse_bytes": "HeapInuse",
+      "stack_inuse_bytes": "StackInuse",
+      "next_gc_bytes": "NextGC",
+      "last_gc_time_unix_nano": "上次 GC 时间",
+      "num_gc": "GC 次数",
+      "pause_total_ns": "GC 暂停总时长"
+    }
+  }
+}
