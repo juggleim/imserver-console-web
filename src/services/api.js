@@ -76,6 +76,7 @@ let SERVER_PATH = {
   
   ANALIYSIS_MESSAGE: 'apps/statistic/msg',
   ANALIYSIS_DAU: 'apps/statistic/useractivity',
+  ANALIYSIS_MAX_CONNECT: 'apps/statistic/maxconnectcount',
 
   USER_MANAGER_LIST: 'apps/users/list',
   USER_MANAGER_BAN: 'apps/users/ban',

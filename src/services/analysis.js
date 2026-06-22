@@ -7,6 +7,12 @@ let getUserChat = (params) => {
   let url = `${SERVER_PATH.ANALIYSIS_DAU}?${str}`;
   return request(url, { method: 'GET'});
 };
+let getMaxConnectChat = (params) => {
+  let query = new URLSearchParams(params);
+  let str = query.toString();
+  let url = `${SERVER_PATH.ANALIYSIS_MAX_CONNECT}?${str}`;
+  return request(url, { method: 'GET'});
+};
 let getMessageChat = (params) => {
   let query = new URLSearchParams(params);
   let str = query.toString();
@@ -28,6 +34,7 @@ let getChatroomChat = (params) => {
 
 export default {
   getUserChat,
+  getMaxConnectChat,
   getMessageChat,
   getGroupChat,
   getChatroomChat,

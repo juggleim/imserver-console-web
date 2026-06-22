@@ -31,6 +31,7 @@
   "analytics": {
     "root": "Analytics",
     "userDaily": "User Stats [DAU]",
+    "userConcurrent": "User Stats [Concurrent Online]",
     "messagePrivate": "Message Stats [Direct]",
     "messageGroup": "Message Stats [Group]",
     "messageChatroom": "Message Stats [Chatroom]"

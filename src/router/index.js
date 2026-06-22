@@ -228,6 +228,14 @@ let routes = [{
       }
     },
     {
+      path: '/analysis_user_concurrent/:app_key',
+      name: 'AnalysisUserConcurrent',
+      component:  () => import('@/views/analysis/user-concurrent.vue'),
+      meta: {
+        titles: []
+      }
+    },
+    {
       path: '/analysis_message/:app_key',
       name: 'AnalysisMessage',
       component:  () => import('@/views/analysis/message.vue'),

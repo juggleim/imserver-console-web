@@ -31,6 +31,7 @@
   "analytics": {
     "root": "数据统计",
     "userDaily": "用户统计【日活】",
+    "userConcurrent": "用户统计【同时在线】",
     "messagePrivate": "消息统计【单聊】",
     "messageGroup": "消息统计【群聊】",
     "messageChatroom": "消息统计【聊天室】"

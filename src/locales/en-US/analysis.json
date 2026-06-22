@@ -11,6 +11,10 @@
     "legendDau": "DAU",
     "fetchFailed": "Failed to load DAU data. Please refresh and try again"
   },
+  "userConcurrent": {
+    "legendMaxConnect": "Concurrent Online",
+    "fetchFailed": "Failed to load concurrent online data. Please refresh and try again"
+  },
   "message": {
     "legendUp": "Direct Upstream Messages",
     "legendDown": "Direct Downstream Messages",

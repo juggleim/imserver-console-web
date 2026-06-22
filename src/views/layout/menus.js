@@ -74,6 +74,7 @@ function MenuFactory() {
           isUnfold: isFold('Analysis', router),
           children: [
             { title: 'menu.analytics.userDaily', name: 'AnalysisUser' },
+            { title: 'menu.analytics.userConcurrent', name: 'AnalysisUserConcurrent' },
             { title: 'menu.analytics.messagePrivate', name: 'AnalysisMessage' },
             { title: 'menu.analytics.messageGroup', name: 'AnalysisGroup' },
             { title: 'menu.analytics.messageChatroom', name: 'AnalysisChatroom' },

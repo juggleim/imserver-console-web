@@ -11,6 +11,10 @@
     "legendDau": "日活",
     "fetchFailed": "日活统计失败，请刷新重试"
   },
+  "userConcurrent": {
+    "legendMaxConnect": "同时在线",
+    "fetchFailed": "同时在线统计失败，请刷新重试"
+  },
   "message": {
     "legendUp": "单聊上行消息量",
     "legendDown": "单聊下行消息量",
