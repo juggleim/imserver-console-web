@@ -55,6 +55,23 @@ function formatChatData(result){
   return { dates, upMsgs, downMsgs, disMsgs };
 }
 
+function formatRealtimeChatData(result){
+  let { upMsgs, downMsgs, disMsgs } = result;
+  let dates = utils.map(upMsgs, (item) => {
+    return utils.formatTime(item.time_mark, 'yyyy-MM-dd hh:mm');
+  }).reverse();
+  upMsgs = utils.map(upMsgs, (item) => {
+    return item.count;
+  }).reverse();
+  downMsgs = utils.map(downMsgs, (item) => {
+    return item.count;
+  }).reverse();
+  disMsgs = utils.map(disMsgs, (item) => {
+    return item.count;
+  }).reverse();
+  return { dates, upMsgs, downMsgs, disMsgs };
+}
+
 function formatDauChat(result){
   let { items } = result;
   let dates = utils.map(items, (item) => {
@@ -121,6 +138,7 @@ export default {
   calcYesterday,
   formatDauChat,
   formatChatData,
+  formatRealtimeChatData,
   getAvatarNum,
   uploadImage,
 }

@@ -260,6 +260,14 @@ let routes = [{
       }
     },
     {
+      path: '/analysis_message_realtime/:app_key',
+      name: 'AnalysisMessageRealtime',
+      component:  () => import('@/views/analysis/message-realtime.vue'),
+      meta: {
+        titles: []
+      }
+    },
+    {
       path: '/finance_dashboard',
       name: 'FinaDash',
       component:  () => import('@/views/finance/dashboard.vue'),

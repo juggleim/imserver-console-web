@@ -34,7 +34,8 @@
     "userConcurrent": "用户统计【同时在线】",
     "messagePrivate": "消息统计【单聊】",
     "messageGroup": "消息统计【群聊】",
-    "messageChatroom": "消息统计【聊天室】"
+    "messageChatroom": "消息统计【聊天室】",
+    "messageRealtime": "实时消息统计"
   },
   "logs": {
     "root": "日志管理",

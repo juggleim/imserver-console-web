@@ -1496,6 +1496,11 @@ input[type="number"] {
   position: relative;
   border-radius: 8px;
 }
+.cim-as-channel{
+  margin-left: 1rem;
+  display: flex;
+  align-items: center;
+}
 .cim-as-date::before{
   margin-right: 6px;
   font-size: 14px;

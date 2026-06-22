@@ -38,5 +38,23 @@
     "dayUp": "昨日聊天室上行消息量（条）",
     "dayDown": "昨日聊天室下行消息量（条）",
     "dayDispatch": "昨日聊天室分发消息量（条）"
+  },
+  "messageRealtime": {
+    "legendUp": "上行消息量",
+    "legendDown": "下行消息量",
+    "legendDispatch": "分发消息量",
+    "channelPrivate": "单聊",
+    "channelGroup": "群聊",
+    "channelChatroom": "聊天室",
+    "range15min": "最近15分钟",
+    "range1hour": "最近1小时",
+    "range6hours": "最近6小时",
+    "range12hours": "最近12小时",
+    "range1day": "最近1天",
+    "range3days": "最近3天",
+    "fetchFailed": "实时消息统计失败，请刷新重试",
+    "rangeTooLarge": "时间范围不能超过 3 天",
+    "switchLabel": "开启实时消息统计",
+    "switchSaveSuccess": "配置已保存"
   }
 }

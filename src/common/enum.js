@@ -218,6 +218,15 @@ export let ANA_DATE_RANGES = [
   { title: '30 天', titleKey: 'analysis.range.30days', name: 30, isActive: false },
 ]
 
+export let ANA_REALTIME_RANGES = [
+  { titleKey: 'analysis.messageRealtime.range15min', durationMs: 15 * 60 * 1000, isActive: false },
+  { titleKey: 'analysis.messageRealtime.range1hour', durationMs: 60 * 60 * 1000, isActive: true },
+  { titleKey: 'analysis.messageRealtime.range6hours', durationMs: 6 * 60 * 60 * 1000, isActive: false },
+  { titleKey: 'analysis.messageRealtime.range12hours', durationMs: 12 * 60 * 60 * 1000, isActive: false },
+  { titleKey: 'analysis.messageRealtime.range1day', durationMs: 24 * 60 * 60 * 1000, isActive: false },
+  { titleKey: 'analysis.messageRealtime.range3days', durationMs: 3 * 24 * 60 * 60 * 1000, isActive: false },
+]
+
 export let PLATFORMAS = [
   { name: 'Android', labelKey: '', value: 'Android' },
   { name: 'iOS', labelKey: '', value: 'iOS' },

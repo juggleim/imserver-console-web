@@ -54,6 +54,8 @@ watch(useRouterCurrent, (n) =>{
   let { currentRoute: { name } } = n;
   if(!menuTools.isSameGroup(state.menus, name)){
     menuTools.showMenus(router);
+  } else {
+    menuTools.syncMenuUnfold(router);
   }
   if(utils.isEqual(name, 'Dashboard')){
     state.menus = [];

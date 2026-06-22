@@ -75,6 +75,7 @@ let SERVER_PATH = {
   R3D_SMS_SET: 'apps/sms/set',
   
   ANALIYSIS_MESSAGE: 'apps/statistic/msg',
+  ANALIYSIS_MESSAGE_REALTIME: 'apps/statistic/msgrealtime',
   ANALIYSIS_DAU: 'apps/statistic/useractivity',
   ANALIYSIS_MAX_CONNECT: 'apps/statistic/maxconnectcount',
 

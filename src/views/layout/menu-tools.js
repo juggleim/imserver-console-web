@@ -59,6 +59,27 @@ let goLoginPage = () => {
   let { router } = menugConfig;
   router.push({ name: 'Login' });
 };
+let syncMenuUnfold = (router) => {
+  let { state } = menugConfig;
+  if (!state.menus || state.menus.length === 0) {
+    return;
+  }
+  let user = Storage.get(STORAGE.USER_TOKEN);
+  let menuFactory = MenuFactory(menugConfig)[user.env];
+  let { currentRoute: { _rawValue: { name } } } = router;
+  let freshMenus = [];
+  if (name.indexOf('User') == 0) {
+    freshMenus = menuFactory.getUsers(menugConfig);
+  } else {
+    freshMenus = menuFactory.getApps(menugConfig);
+  }
+  state.menus.forEach((menu) => {
+    let fresh = freshMenus.find((item) => utils.isEqual(item.title, menu.title));
+    if (fresh) {
+      menu.isUnfold = fresh.isUnfold;
+    }
+  });
+};
 let isSameGroup = (menus, name) => {
   let isSame = false;
   for(let i = 0; i < menus.length; i++){
@@ -79,6 +100,7 @@ let isSameGroup = (menus, name) => {
 export default {
   setMenuConfig,
   showMenus,
+  syncMenuUnfold,
   goHomePage,
   goBasePage,
   goLoginPage,

@@ -34,7 +34,8 @@
     "userConcurrent": "User Stats [Concurrent Online]",
     "messagePrivate": "Message Stats [Direct]",
     "messageGroup": "Message Stats [Group]",
-    "messageChatroom": "Message Stats [Chatroom]"
+    "messageChatroom": "Message Stats [Chatroom]",
+    "messageRealtime": "Realtime Message Stats"
   },
   "logs": {
     "root": "Logs",

@@ -38,5 +38,23 @@
     "dayUp": "Yesterday Chatroom Upstream Messages",
     "dayDown": "Yesterday Chatroom Downstream Messages",
     "dayDispatch": "Yesterday Chatroom Dispatch Messages"
+  },
+  "messageRealtime": {
+    "legendUp": "Upstream Messages",
+    "legendDown": "Downstream Messages",
+    "legendDispatch": "Dispatch Messages",
+    "channelPrivate": "Direct",
+    "channelGroup": "Group",
+    "channelChatroom": "Chatroom",
+    "range15min": "Last 15 min",
+    "range1hour": "Last 1 hour",
+    "range6hours": "Last 6 hours",
+    "range12hours": "Last 12 hours",
+    "range1day": "Last 1 day",
+    "range3days": "Last 3 days",
+    "fetchFailed": "Failed to load realtime message stats. Please refresh and try again",
+    "rangeTooLarge": "Time range cannot exceed 3 days",
+    "switchLabel": "Enable realtime message statistics",
+    "switchSaveSuccess": "Settings saved"
   }
 }

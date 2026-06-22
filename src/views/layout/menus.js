@@ -21,7 +21,7 @@ function MenuFactory() {
           title: 'menu.appManagement',
           icon: 'cicon-set',
           isHidden: isHidenMenu(MENU_UID.APP),
-          isUnfold: isFold('Argu', router),
+          isUnfold: isAppMgmtUnfold(router),
           children: [
             { title: 'menu.app.baseInfo', name: 'ArguBase' },
             { title: 'menu.app.featureConfig', name: 'ArguSwitch' },
@@ -42,7 +42,7 @@ function MenuFactory() {
           title: 'menu.userManagement',
           icon: 'cicon-user',
           isHidden: isHidenMenu(MENU_UID.APP),
-          isUnfold: isFold('Argu', router),
+          isUnfold: isUserMgmtUnfold(router),
           children: [
             { title: 'menu.user.users', name: 'ArguUserList' },
             { title: 'menu.user.groups', name: 'ArguGroupList' },
@@ -78,6 +78,7 @@ function MenuFactory() {
             { title: 'menu.analytics.messagePrivate', name: 'AnalysisMessage' },
             { title: 'menu.analytics.messageGroup', name: 'AnalysisGroup' },
             { title: 'menu.analytics.messageChatroom', name: 'AnalysisChatroom' },
+            { title: 'menu.analytics.messageRealtime', name: 'AnalysisMessageRealtime' },
           ],
         },
         {
@@ -118,6 +119,48 @@ function MenuFactory() {
       ];
     },
   };
+
+  const APP_MGMT_ROUTE_NAMES = [
+    'ArguBase',
+    'ArguSwitch',
+    'ArguCallback',
+    'ArguMessageIntercept',
+    'ArguPush',
+    'ArguStorage',
+    'ArguTranslte',
+    'ArguWorkList',
+    'ArguRTC',
+    'ArguEmail',
+    'ArguSms',
+  ];
+  const USER_MGMT_ROUTE_NAMES = ['ArguUserList', 'ArguGroupList', 'ArguBotList'];
+
+  function getRouteName(router) {
+    if (utils.isUndefined(router)) {
+      return '';
+    }
+    let {
+      currentRoute: {
+        _rawValue: { name },
+      },
+    } = router;
+    return name || '';
+  }
+
+  function isAppMgmtUnfold(router) {
+    let name = getRouteName(router);
+    if (APP_MGMT_ROUTE_NAMES.includes(name)) {
+      return true;
+    }
+    if (USER_MGMT_ROUTE_NAMES.includes(name)) {
+      return false;
+    }
+    return true;
+  }
+
+  function isUserMgmtUnfold(router) {
+    return USER_MGMT_ROUTE_NAMES.includes(getRouteName(router));
+  }
 
   function isFold(type, router) {
     if (utils.isUndefined(router)) {
