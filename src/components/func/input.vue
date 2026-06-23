@@ -5,7 +5,7 @@ import { reactive, watch } from 'vue';
 import utils from '../../common/utils';
 import { t } from '@/i18n';
 let state = reactive({
-  value: Number(props.item.value)
+  value: Number(props.item.value || props.item.defaultValue || 0),
 });
 
 function onSave(){
@@ -15,8 +15,12 @@ function onSave(){
 }
 watch(() => props.item.value, (value) => {
   let val = Number(value);
-  if(val > 0){
+  if (val > 0) {
     utils.extend(state, { value: val });
+    return;
+  }
+  if (!utils.isEmpty(props.item.defaultValue)) {
+    utils.extend(state, { value: Number(props.item.defaultValue) });
   }
 })
 </script>

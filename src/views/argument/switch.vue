@@ -52,7 +52,7 @@ let settings = [
       { id: 'is_hide_msg_before_join_group', type: 'switch', name: 'Fetch history sent before joining a group', labelKey: 'switchConfig.item.is_hide_msg_before_join_group', value: 0 },
       { id: 'not_check_grp_member', type: 'switch', name: 'Allow non-members to fetch group messages', labelKey: 'switchConfig.item.not_check_grp_member', value: 0 },
       { id: 'global_group_mute', type: 'switch', name: 'Mute all group chats', labelKey: 'switchConfig.item.global_group_mute', value: 0 },
-      { id: 'max_grp_member_count', type: 'input', name: 'Group member limit', labelKey: 'switchConfig.item.max_grp_member_count', value: 1000 },
+      { id: 'max_grp_member_count', type: 'input', name: 'Group member limit', labelKey: 'switchConfig.item.max_grp_member_count', value: 10000, defaultValue: 10000 },
     ] 
   },
   {
@@ -62,7 +62,7 @@ let settings = [
     list: [
       { id: 'record_global_convers', type: 'switch', name: 'Record global conversations', labelKey: 'switchConfig.item.record_global_convers', value: 0 },
       { id: 'open_conver_tags', type: 'switch', name: 'Enable conversation tags', labelKey: 'switchConfig.item.open_conver_tags', value: 0 },
-      { id: 'max_user_conver_tags', type: 'input', name: 'Max conversation tags per user', labelKey: 'switchConfig.item.max_user_conver_tags', value: 100 },
+      { id: 'max_user_conver_tags', type: 'input', name: 'Max conversation tags per user', labelKey: 'switchConfig.item.max_user_conver_tags', value: 100, defaultValue: 100 },
     ]
   },
   {
@@ -70,10 +70,10 @@ let settings = [
     name: 'Chatroom Settings',
     labelKey: 'switchConfig.section.chatroom',
     list: [ 
-      { id: 'chrm_msg_cache_max_count', type: 'input', name: 'Chatroom message bucket size', labelKey: 'switchConfig.item.chrm_msg_cache_max_count', value: 50 },
-      { id: 'chrm_att_max_count', type: 'input', name: 'Chatroom attribute limit', labelKey: 'switchConfig.item.chrm_att_max_count', value: 100 },
+      { id: 'chrm_msg_cache_max_count', type: 'input', name: 'Chatroom message bucket size', labelKey: 'switchConfig.item.chrm_msg_cache_max_count', value: 50, defaultValue: 50 },
+      { id: 'chrm_att_max_count', type: 'input', name: 'Chatroom attribute limit', labelKey: 'switchConfig.item.chrm_att_max_count', value: 100, defaultValue: 100 },
       { id: 'chrm_event_ntf', type: 'switch', name: 'Enable chatroom event notifications', labelKey: 'switchConfig.item.chrm_event_ntf', value: false },
-      { id: 'chrm_event_cache_max_count', type: 'input', name: 'Chatroom event bucket size', labelKey: 'switchConfig.item.chrm_event_cache_max_count', value: 50 },
+      { id: 'chrm_event_cache_max_count', type: 'input', name: 'Chatroom event bucket size', labelKey: 'switchConfig.item.chrm_event_cache_max_count', value: 50, defaultValue: 50 },
     ] 
   },
   {
@@ -120,6 +120,21 @@ function iterate(list, callback){
     });
   });
 }
+
+function resolveSwitchConfigValue(item, rawValue) {
+  if (item.id === 'token_effective_minute' && rawValue) {
+    return Number(rawValue) / 60;
+  }
+  const hasDefault = item.defaultValue !== undefined && item.defaultValue !== null && item.defaultValue !== '';
+  if (utils.isEmpty(rawValue) && hasDefault) {
+    return item.defaultValue;
+  }
+  if (item.type === FUNC_TYPE.INPUT && hasDefault && (utils.isEmpty(rawValue) || Number(rawValue) <= 0)) {
+    return item.defaultValue;
+  }
+  return rawValue;
+}
+
 function search(){
   let app_key = route.params.app_key;
   if(utils.isEmpty(app_key)){
@@ -137,11 +152,7 @@ function search(){
     iterate(state.settings, (item) => {
       utils.forEach(configs, (v, k) => {
         if(utils.isEqual(item.id, k)){
-          if(utils.isEmpty(v) && !utils.isEmpty(item.defaultValue)){
-            item.value = item.defaultValue;
-          } else {
-            item.value = v;
-          }
+          item.value = resolveSwitchConfigValue(item, v);
         }
       });
     });
