@@ -2,7 +2,8 @@
   "action": {
     "add": "添加",
     "import": "导入词库",
-    "delete": "删除"
+    "delete": "删除",
+    "reset": "重置"
   },
   "table": {
     "word": "词语",
@@ -25,6 +26,7 @@
   },
   "placeholder": {
     "word": "请输入敏感词",
+    "searchWord": "请输入敏感词关键字",
     "filterType": "请选择过滤类型"
   },
   "feedback": {
@@ -33,5 +35,8 @@
     "importSuccess": "导入成功",
     "formIncomplete": "请填写完整信息",
     "loading": "请稍候..."
+  },
+  "pagination": {
+    "total": "共 {total} 条，{totalPage} 页"
   }
 }

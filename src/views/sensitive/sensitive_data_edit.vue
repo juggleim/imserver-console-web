@@ -37,6 +37,8 @@
   }
 
   function openModal() {
+    formValue.value = newState({});
+    formBtnLoading.value = false;
     showModal.value = true;
   }
 
@@ -61,6 +63,8 @@
   function closeForm() {
     showModal.value = false;
     loading.value = false;
+    formValue.value = newState({});
+    formBtnLoading.value = false;
   }
 
   defineExpose({ openModal });

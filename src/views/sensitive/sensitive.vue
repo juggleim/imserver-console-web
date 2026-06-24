@@ -9,6 +9,8 @@
   import { t } from '@/i18n';
   import PageSection from '@/components/page-section.vue';
 
+  const PAGE_SIZE = 20;
+
   let router = useRouter();
   let {
     currentRoute: {
@@ -21,7 +23,6 @@
   let state = reactive({
     list: []
   });
-  const tab = ref(0);
   const loading = ref(false);
   const editRef = ref();
   const importRef = ref();
@@ -29,8 +30,16 @@
     word: '',
   });
 
+  const pagination = ref({
+    page: 1,
+    pageSize: PAGE_SIZE,
+    itemCount: 0,
+    pageCount: 1,
+    showSizePicker: false,
+  });
+
   function reloadTable() {
-    loadData({ page: 1, size: 10, app_key });
+    loadData(1);
   }
 
   function addTable() {
@@ -42,13 +51,12 @@
   }
 
   function handleSearch() {
-    loading.value = true;
-    loadData({ page: 1, size: 10, app_key });
+    loadData(1);
   }
 
   function handleReset() {
     queryForm.value.word = '';
-    loadData({ page: 1, size: 10, appKey: app_key });
+    loadData(1);
   }
 
   const columns = ref([
@@ -89,19 +97,29 @@
       },
     },
   ]);
-  const data = [];
-  const pagination = ref({});
+
   reloadTable();
-  
-  function loadData(params) {
+
+  function loadData(page = 1) {
     loading.value = true;
-    Application.getSensitiveList({ ...params, word: queryForm.value.word || '' })
+    Application.getSensitiveList({
+      page,
+      size: PAGE_SIZE,
+      app_key,
+      word: queryForm.value.word || '',
+    })
       .then((res) => {
-        state.list = res.data.items || [];
+        const data = res.data || {};
+        state.list = data.items || [];
+        const total = data.total || 0;
+        const totalPage = data.total_page || Math.max(1, Math.ceil(total / PAGE_SIZE));
         pagination.value = {
-          page: res.data.page,
-          itemCount: res.data.total,
-          pageSize: 10,
+          page: data.page || page,
+          pageSize: PAGE_SIZE,
+          itemCount: total,
+          pageCount: totalPage,
+          showSizePicker: false,
+          prefix: () => t('sensitive.pagination.total', { total, totalPage }),
         };
       })
       .finally(() => {
@@ -110,24 +128,7 @@
   }
 
   function handlePageChange(page) {
-    loading.value = true;
-    Application.getSensitiveList({
-      page: page,
-      size: 10,
-      appKey: app_key,
-      word: queryForm.value.word || '',
-    })
-      .then((res) => {
-        data.value = res.data.list;
-        pagination.value = {
-          page: res.data.page,
-          itemCount: res.data.total,
-          pageSize: 10,
-        };
-      })
-      .finally(() => {
-        loading.value = false;
-      });
+    loadData(page);
   }
 
   const dialog = useDialog();
@@ -148,23 +149,6 @@
       },
     });
   }
-
-  // const model = ref({
-  //   handler_type: 1,
-  //   replace_char: '*',
-  // });
-
-  // Application.getSensitiveConf(app_key).then((res) => {
-  //   console.log(res);
-  //   model.value = res.data;
-  // });
-
-  // function handleSave() {
-  //   Application.setSensitiveConf(app_key, model.value).then((res) => {
-  //     console.log(res);
-  //     window.$toast({ icon: 'success', text: '保存成功' });
-  //   });
-  // }
 </script>
 
 <template>
@@ -174,35 +158,42 @@
       <n-button type="default" size="small" @click="importWords">{{ t('sensitive.action.import') }}</n-button>
     </template>
     <n-card :bordered="false" class="proCard">
-      <!-- <n-form ref="formRef" inline :label-width="80" :model="queryForm">
-        <n-form-item label="Sensitive Word" path="model.logType" style="width: 200px">
-          <n-input v-model:value="queryForm.word" placeholder="Sensitive Word" />
+      <n-form inline :model="queryForm" class="sensitive-search-form">
+        <n-form-item :label="t('sensitive.field.word')">
+          <n-input
+            v-model:value="queryForm.word"
+            :placeholder="t('sensitive.placeholder.searchWord')"
+            clearable
+            style="width: 220px"
+            @keydown.enter="handleSearch"
+          />
         </n-form-item>
         <n-form-item>
-          <n-button
-            attr-type="button"
-            type="primary"
-            style="margin-right: 10px"
-            @click="handleSearch"
-          >
-            Search
-          </n-button>
-          <n-button attr-type="button" type="default" @click="handleReset"> Reset</n-button>
+          <n-space>
+            <n-button type="primary" size="small" @click="handleSearch">{{ t('common.action.search') }}</n-button>
+            <n-button size="small" @click="handleReset">{{ t('sensitive.action.reset') }}</n-button>
+          </n-space>
         </n-form-item>
-      </n-form> -->
+      </n-form>
       <n-data-table
         remote
         ref="table"
         :columns="columns"
         :data="state.list"
         :loading="loading"
+        :pagination="pagination"
         :row-key="(row) => row.id"
         @update:page="handlePageChange"
       />
     </n-card>
-    <!-- :pagination="pagination" -->
 
     <SensitiveDataEdit ref="editRef" @reloadTable="reloadTable" />
     <ImportWords ref="importRef" @reloadTable="reloadTable" />
   </PageSection>
 </template>
+
+<style scoped>
+.sensitive-search-form {
+  margin-bottom: 16px;
+}
+</style>
