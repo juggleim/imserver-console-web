@@ -252,7 +252,6 @@ nextTick(() => {
             <button
               class="cim-topbar-useritem is-setting"
               type="button"
-              v-if="state.isAdmin"
               @click="onNavigate('UserSetting'); close();"
             >
               {{ t('common.header.accountSettings') }}

@@ -42,12 +42,18 @@ let onNavigate = (menu) => {
   if(menu.children){
     return onFold(menu);
   }
-  let currentApp = appTools.getCurrent();
-  let app_key = currentApp.app_key || router.currentRoute.value.params.app_key;
-  if(utils.isEmpty(app_key)){
+  const resolved = router.resolve({ name: menu.name });
+  const needsAppKey = resolved.matched.some((record) => record.path.includes(':app_key'));
+  if (needsAppKey) {
+    let currentApp = appTools.getCurrent();
+    let app_key = currentApp.app_key || router.currentRoute.value.params.app_key;
+    if(utils.isEmpty(app_key)){
+      return;
+    }
+    router.push({ name: menu.name, params: { app_key } }).catch(() => {});
     return;
   }
-  router.push({ name: menu.name, params: { app_key } }).catch(() => {});
+  router.push({ name: menu.name }).catch(() => {});
 }
 
 watch(useRouterCurrent, (n) =>{

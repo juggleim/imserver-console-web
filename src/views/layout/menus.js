@@ -190,8 +190,8 @@ function MenuFactory() {
   }
   function isHidenMenu(menuId){
     let user = Storage.get(STORAGE.USER_TOKEN);
-    let roleId = user.role_id || 0;
-    let role = ROLES.find((_role) => { return utils.isEqual(roleId, _role.value);}) || { menuIds: [] }
+    let roleType = user?.role_type ?? USER_ROLE_TYPE.ADMIN;
+    let role = ROLES.find((_role) => { return utils.isEqual(roleType, _role.value);}) || { menuIds: [] }
     let index = utils.find(role.menuIds, (_menuId) => {
       return utils.isEqual(menuId, _menuId);
     })

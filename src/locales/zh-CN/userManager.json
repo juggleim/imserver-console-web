@@ -16,8 +16,8 @@
     "operation": "操作"
   },
   "role": {
-    "admin": "管理员",
-    "user": "普通用户"
+    "admin": "超级管理员",
+    "user": "普通管理员"
   },
   "dialog": {
     "title": "添加用户",

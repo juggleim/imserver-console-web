@@ -381,5 +381,5 @@ export let USER_ROLE_TYPE = {
 }
 export let ROLES = [
   { name: '超级管理员', labelKey: 'userManager.role.admin', value: USER_ROLE_TYPE.ADMIN, menuIds: [ MENU_UID.APP, MENU_UID.SENTSIVE, MENU_UID.ANALYSE, MENU_UID.LOG, MENU_UID.DEV_TOOL, MENU_UID.MONITOR, MENU_UID.USER_MANGER] },
-  { name: '普通用户', labelKey: 'userManager.role.user', value: USER_ROLE_TYPE.USER, menuIds: [MENU_UID.ANALYSE] },
+  { name: '普通管理员', labelKey: 'userManager.role.user', value: USER_ROLE_TYPE.USER, menuIds: [MENU_UID.ANALYSE] },
 ];

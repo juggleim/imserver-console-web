@@ -16,8 +16,8 @@
     "operation": "Actions"
   },
   "role": {
-    "admin": "Administrator",
-    "user": "Standard User"
+    "admin": "Super Admin",
+    "user": "Normal Admin"
   },
   "dialog": {
     "title": "Add User",

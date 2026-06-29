@@ -1,6 +1,6 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import { Layout } from '@/views/layout';
-import { STORAGE } from "../common/enum";
+import { STORAGE, USER_ROLE_TYPE } from "../common/enum";
 import Storage from "../common/storage";
 import utils from '../common/utils';
 
@@ -403,11 +403,15 @@ const router = createRouter({
 })
 router.beforeEach((to, from, next)=> {
   let user = Storage.get(STORAGE.USER_TOKEN);
-  if (!utils.isEmpty(user) || utils.isEqual(to.name, 'Login')) {
-    next();
-  }else{
-    next({ name: 'Login'})
+  if (utils.isEmpty(user) && !utils.isEqual(to.name, 'Login')) {
+    next({ name: 'Login'});
+    return;
   }
+  if (utils.isEqual(to.name, 'UserManader') && !utils.isEqual(user?.role_type, USER_ROLE_TYPE.ADMIN)) {
+    next({ name: 'UserSetting' });
+    return;
+  }
+  next();
 })
 export async function setupRouter(app) {
   app.use(router);

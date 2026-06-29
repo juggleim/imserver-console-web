@@ -2,22 +2,37 @@
 import { reactive, getCurrentInstance } from 'vue';
 import ModifyDialog from '../../components/dialog.vue';
 import BindAppDialog from '../../components/dialog-bind-app.vue';
-import { USER_STATE, ErrorType, ROLES, USER_ROLE_TYPE } from "../../common/enum";
+import { USER_STATE, ErrorType, ROLES, USER_ROLE_TYPE, STORAGE } from "../../common/enum";
 import utils from '../../common/utils';
+import Storage from '../../common/storage';
 import { User } from "../../services";
 import { t } from '@/i18n';
 import PageSection from '@/components/page-section.vue';
 
 let context = getCurrentInstance();
+let currentUser = Storage.get(STORAGE.USER_TOKEN);
 let defaltUser = {
   account: '',
   password: '',
   confirmPasswrod: '',
   state: USER_STATE.ENABLE,
-  role: USER_ROLE_TYPE.ADMIN
+  role: USER_ROLE_TYPE.USER
+}
+
+function getUserRoleType(user) {
+  return Number(user.role_type ?? user.role ?? USER_ROLE_TYPE.ADMIN);
+}
+
+function isSuperAdminUser(user) {
+  return getUserRoleType(user) === USER_ROLE_TYPE.ADMIN;
+}
+
+function isCurrentSuperAdmin() {
+  return utils.isEqual(currentUser?.role_type, USER_ROLE_TYPE.ADMIN);
 }
 let state = reactive({
   users: [],
+  canManageUsers: isCurrentSuperAdmin(),
   roles: utils.clone(ROLES),
   radios: [
     { name: 'type', value: USER_STATE.ENABLE, label: 'Enable', labelKey: 'userManager.action.enable' },
@@ -130,8 +145,13 @@ function onSave(){
   User.add({ account, password, state: user.state, role_type: role }).then(({ code }) => {
     let icon = 'success', text = t('userManager.feedback.saveSuccess');
     if(utils.isEqual(code, ErrorType.SUCCESS_0.code)){
-      user.time = utils.formatTime(Date.now());
-      state.users.push(user);
+      state.users.push({
+        account: user.account,
+        state: user.state,
+        role_type: role,
+        time: utils.formatTime(Date.now()),
+        created_time: Date.now(),
+      });
       onShowEdit(false);
     }else if(utils.isEqual(code, ErrorType.USER_EXISTS.code)){
       icon = 'error';
@@ -169,7 +189,7 @@ function onBindApp(){
 <template>
   <PageSection title-key="menu.account.users">
     <template #actions>
-      <div class="cicon cicon-add cim-button cim-button-bg" @click="onShowEdit(true)">{{ t('userManager.action.addUser') }}</div>
+      <div v-if="state.canManageUsers" class="cicon cicon-add cim-button cim-button-bg" @click="onShowEdit(true)">{{ t('userManager.action.addUser') }}</div>
     </template>
     <table class="table cim-table">
       <thead>
@@ -179,23 +199,23 @@ function onBindApp(){
           <th>{{ t('userManager.table.password') }}</th>
           <th>{{ t('userManager.table.status') }}</th>
           <th>{{ t('userManager.table.createdTime') }}</th>
-          <th class="cim-td-c">{{ t('userManager.table.operation') }}</th>
+          <th v-if="state.canManageUsers" class="cim-td-c">{{ t('userManager.table.operation') }}</th>
         </tr>
       </thead>
       <tbody>
         <tr v-for="(user, index) in state.users">
           <td>{{ user.account }}</td>
-          <td>{{ user.role_type == USER_ROLE_TYPE.ADMIN ? t('userManager.role.admin') : t('userManager.role.user') }}</td>
+          <td>{{ isSuperAdminUser(user) ? t('userManager.role.admin') : t('userManager.role.user') }}</td>
           <td>**** ****</td>
           <td class="cicon" :class="{ 'cicon-success': user.state == USER_STATE.ENABLE, 'cicon-error': user.state == USER_STATE.DISABLE }">
             {{ user.state == USER_STATE.ENABLE ? t('common.status.enabled') : t('common.status.disabled') }}
           </td>
           <td>{{ user.time }}</td>
-          <td class="cim-td-c cim-td-operate">
-            <a class="btn-link cim-btn-link" type="button" v-if="user.role_type == USER_ROLE_TYPE.USER"  @click="onShowBindApp(true, user)">{{ t('userManager.action.bindApp') }}</a>
+          <td v-if="state.canManageUsers" class="cim-td-c cim-td-operate">
+            <a class="btn-link cim-btn-link" type="button" @click="onShowBindApp(true, user)">{{ t('userManager.action.bindApp') }}</a>
             <!-- <a class="btn-link cim-btn-link" type="button" @click="onShowEdit(true, user)">修改</a> -->
-            <a class="btn-link cim-btn-link" type="button" v-if="user.role_type == USER_ROLE_TYPE.USER" @click="onOperate(user)">{{ user.state == USER_STATE.DISABLE ? t('userManager.action.enable') : t('userManager.action.disable')}}</a>
-            <a class="btn-link cim-btn-link" type="button" v-if="user.role_type == USER_ROLE_TYPE.USER" @click="onDelete(index)">{{ t('userManager.action.delete') }}</a>
+            <a class="btn-link cim-btn-link" type="button" @click="onOperate(user)">{{ user.state == USER_STATE.DISABLE ? t('userManager.action.enable') : t('userManager.action.disable')}}</a>
+            <a class="btn-link cim-btn-link" type="button" @click="onDelete(index)">{{ t('userManager.action.delete') }}</a>
           </td>
         </tr>
       </tbody>
