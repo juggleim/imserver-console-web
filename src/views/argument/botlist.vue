@@ -67,7 +67,7 @@ function onEdit(item) {
 }
 
 function onSave(data) {
-  let isEdit = !utils.isEmpty(data.bot_id);
+  let isEdit = !utils.isEmpty(state.currentBot.bot_id);
   let request = isEdit
     ? BotManager.update({ app_key, ...data })
     : BotManager.add({ app_key, ...data });
